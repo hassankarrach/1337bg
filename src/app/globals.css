@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'main_font';
+  src: url(../../public/fonts/main.otf);
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1{
+  font-family: "main_font";
+}
+
+:root {
+  --main_color: #50C878;
+  --light_green : #9dfd70;
+  --dark_green : #00bb40;
+  --light_grey : #f4f4f4;
+  --border_grey: #e7e7e7;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
