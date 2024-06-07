@@ -3,8 +3,12 @@ import { StyledMain } from "./styled.home";
 import _42logo from "../../public/logos/42.png"
 import _stars from "../../public/stars.png"
 import { useRouter } from "next/router";
+import { auth, signIn, signOut} from "../auth"
 
-const Main = () => {
+const Main = async() => {
+    const session = await auth();
+    console.log(session); //shouldnt be use_client ??
+
     return (
         <StyledMain>
             <div className="Left">
