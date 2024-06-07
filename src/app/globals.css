@@ -1,20 +1,30 @@
-@font-face {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+/* Define Local Fonts */
+
+/* @font-face {
   font-family: 'main_font';
-  src: url(../../public/fonts/main.otf);
+  src: url('../../public/fonts/main.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
-}
-
-h1{
-  font-family: "main_font";
-}
-
+} */
+/* Global Styles */
 :root {
   --main_color: #50C878;
-  --light_green : #9dfd70;
-  --dark_green : #00bb40;
-  --light_grey : #f4f4f4;
+  --light_green: #9dfd70;
+  --dark_green: #00bb40;
+  --light_grey: #f4f4f4;
   --border_grey: #e7e7e7;
+  /* Fonts */
+  --main_font : "Ubuntu", sans-serif;
+  --Sec_Font: "Poppins", sans-serif;
+}
+
+h1, h2, h3, h4{
+  font-family: var(--main_font);
+}
+p, span{
+  font-family: var(--Sec_Font);
 }
 
 * {
@@ -23,8 +33,11 @@ h1{
   margin: 0;
 }
 
-html,
-body {
+html, body {
   max-width: 100vw;
   overflow-x: hidden;
+}
+
+span {
+  font-weight: 100;
 }

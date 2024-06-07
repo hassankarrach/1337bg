@@ -14,6 +14,7 @@
     "@mui/material": "^5.15.19",
     "@mui/styles": "^5.15.19",
     "next": "14.2.3",
+    "next-auth": "^5.0.0-beta.19",
     "next-navigation": "^1.0.6",
     "react": "^18",
     "react-dom": "^18",

@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <StyledComponentsRegistry>
         <body className={inter.className}>
-          {/* <Navbar/> */}
+          <Navbar/>
           {children}
         </body>
       </StyledComponentsRegistry>

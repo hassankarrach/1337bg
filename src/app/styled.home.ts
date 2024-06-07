@@ -68,6 +68,9 @@ export const StyledMain = styled.div`
         position : relative;
         z-index : 1;
         .Title{
+            font-size : 3.4rem;
+            font-weight : 400;
+            font-family : var(--main_font);
             background-color : transparent;
         }
         .login_card {

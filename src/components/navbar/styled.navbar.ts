@@ -3,14 +3,15 @@ import styled from "styled-components";
 export const StyledNavbar = styled.div`
     width : 100%;
     height: 60px;
-    background: rgba( 255, 255, 255, 0.45 );
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    backdrop-filter: blur( 14px );
-    -webkit-backdrop-filter: blur( 14px );
+    background: rgba( 255, 255, 255, 0.65 );
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+    backdrop-filter: blur( 9px );
+    -webkit-backdrop-filter: blur( 9px );
     position : fixed;
     top : 0;
     z-index : 9999;
     padding : 0px 6%;
+    overflow : hidden;
 
     display : flex;
     justify-content : space-between;
@@ -36,6 +37,11 @@ export const StyledNavbar = styled.div`
             {
                 background-color : transparent;
                 cursor : pointer;
+                transition :0.1s ease-in-out;
+
+                &:hover{
+                    color : var(--main_color);
+                }
             }
         }
         .avatar{
@@ -57,6 +63,7 @@ export const StyledNavbar = styled.div`
                 &:hover
                 {
                     box-shadow: 0 8px 32px 0 rgba(0,187,64, 0.35 );
+                    border : 1px solid var(--main_color);
                 }
             }
             .Login_name{
