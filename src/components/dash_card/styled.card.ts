@@ -1,15 +1,10 @@
+import { HexToRgba } from '@/utils/HexToRgba';
 import styled from 'styled-components';
 
 interface StyledCardProps {
     gradientColor: string;
 }
 
-const hexToRGBA = (hex : string, alpha : number) => {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
 
 export const StyledCard = styled.div<StyledCardProps>`
     width : 400px;
@@ -24,8 +19,7 @@ export const StyledCard = styled.div<StyledCardProps>`
     border-bottom : 2px solid ${props => props.gradientColor};
     &:hover{
         border-bottom : 3px solid ${props => props.gradientColor};
-        /* Use hexToRGBA function to convert hex to rgba with opacity */
-        box-shadow: ${props => `${hexToRGBA(props.gradientColor, 0.3)} 0px 10px 15px -3px, ${hexToRGBA(props.gradientColor, 0.3)} 0px 4px 6px -2px`};
+        box-shadow: ${props => `${HexToRgba(props.gradientColor, 0.3)} 0px 10px 15px -3px, ${HexToRgba(props.gradientColor, 0.3)} 0px 4px 6px -2px`};
         .go_icon{
             color : ${props => props.gradientColor};
         }

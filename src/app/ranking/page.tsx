@@ -5,8 +5,15 @@ import { StaticImageData } from 'next/image';
 //Components
 import Card from './compoents/card';
 import CustomDropDown from '@/components/drop_down/dropdown';
+import Profile from './compoents/profile';
 
-// types.ts
+// Types
+export type Promo = {
+        id : number;
+        Name : string;
+        Prm_color : string;
+        sec_color : string
+}
 type Profile = {
     id: number;
     FullName: string;
@@ -14,29 +21,48 @@ type Profile = {
     img: string; //StaticImageData later.
     Rank: number;
     Level: number;
-    promo: string;
+    promo: Promo;
 };
 
-
-const Promos: string[] = [
-    "Black Promo",
-    "Red Promo",
-    "Green Promo",
-    "Blue Promo"
+// Data
+const Promos: Promo[] = [
+    {
+        id : 0,
+        Name : "Black Promo",
+        Prm_color : "#000000",
+        sec_color : "#343434"
+    },
+    {
+        id : 1,
+        Name : "Red Promo",
+        Prm_color : "#ff6024",
+        sec_color : "#ff7638"
+    },
+    {
+        id : 2,
+        Name : "Green Promo",
+        Prm_color : "#6ef024",
+        sec_color : "#a4ff6f"
+    },
+    {
+        id : 3,
+        Name : "Blue Promo",
+        Prm_color : "#245aff",
+        sec_color : "#4a76ff"
+    }
 ];
-
-const Campuses: string[] = [
-    "Ben guerir",
-    "Khouribga",
-    "Med"
-]
+const Campuses: { id: number; name: string }[] = [
+    { id: 0, name: "Ben guerir" },
+    { id: 1, name: "Khouribga" },
+    { id: 2, name: "Med" }
+];
 const Profiles: Profile[] = [
     {
         id: 1,
         FullName: "Hassan Karrach",
         UserName: "hkarrach",
         img: "https://cdn.intra.42.fr/users/a140a89b5a8e788f2f245f4c1b20e96b/hkarrach.jpeg",
-        promo: "black",
+        promo: Promos[0],
         Rank: 1,
         Level: 3.4
     },
@@ -45,7 +71,7 @@ const Profiles: Profile[] = [
         FullName: "Hassan Karrach",
         UserName: "hkarrach",
         img: "https://cdn.intra.42.fr/users/a140a89b5a8e788f2f245f4c1b20e96b/hkarrach.jpeg",
-        promo: "black",
+        promo: Promos[0],
         Rank: 2,
         Level: 3.4
     },
@@ -54,7 +80,7 @@ const Profiles: Profile[] = [
         FullName: "disregard",
         UserName: "hkarrach",
         img: "https://cdn.intra.42.fr/users/a140a89b5a8e788f2f245f4c1b20e96b/hkarrach.jpeg",
-        promo: "black",
+        promo: Promos[0],
         Rank: 3,
         Level: 3.4
     },
@@ -63,7 +89,7 @@ const Profiles: Profile[] = [
         FullName: "Hassan Karrach",
         UserName: "hkarrach",
         img: "https://cdn.intra.42.fr/users/a140a89b5a8e788f2f245f4c1b20e96b/hkarrach.jpeg",
-        promo: "black",
+        promo: Promos[0],
         Rank: 4,
         Level: 3.4
     },
@@ -72,56 +98,52 @@ const Profiles: Profile[] = [
         FullName: "Hassan Karrach",
         UserName: "hkarrach",
         img: "https://cdn.intra.42.fr/users/a140a89b5a8e788f2f245f4c1b20e96b/hkarrach.jpeg",
-        promo: "black",
+        promo: Promos[0],
         Rank: 5,
         Level: 3.4
     }
 ];
 
-//Banners
-const BlackBanner = "https://www.shutterstock.com/shutterstock/videos/1087391348/thumb/1.jpg?ip=x480";
-
 const Ranking = () => {
-    const [selectedPromo, setSelectedPromo] = useState<string | undefined>(Promos[0]);
-    const [SelectedCampus, setSelectedCampus] = useState<string | undefined>(Promos[0]);
+    const [selectedPromo, setSelectedPromo] = useState<number>(0);
+    const [SelectedCampus, setSelectedCampus] = useState<number>(0);
+
+    // const selectedPromoObject = Promos.find(promo => promo.Name === selectedPromo);
+    const handlePromoChange = (value: string) => {
+        const promoId = parseInt(value, 10);
+        setSelectedPromo(promoId);
+    };
+    
+    const handleCampusChange = (value: string) => {
+        const campusId = parseInt(value, 10);
+        setSelectedCampus(campusId);
+    };
 
     return (
         <StyledRanking>
             <div className='Container'>
-                <div className='Profile'>
-                    <div className='Profile_banner' style={{ backgroundImage: "url('https://www.shutterstock.com/shutterstock/videos/1087391348/thumb/1.jpg?ip=x480')" }}>
-                        <div className='Profile_avatar' style={{ backgroundImage: "url('https://cdn.intra.42.fr/users/a140a89b5a8e788f2f245f4c1b20e96b/hkarrach.jpeg')" }} />
-
-                        <div className='Profile_Infos'>
-                            <h1 className="Profile_Full_Name">Hassan Karrach</h1>
-                            <span className='Profile_UserName'>@hkarrach</span>
-                        </div>
-
-                        <div className='Profile_UserIcons'>
-                            <svg className="_42logo" version="1.1" id="Calque_1" x="0px" y="0px" viewBox="0 -200 960 960" enable-background="new 0 -200 960 960">
-                                <polygon id="polygon5" points="32,412.6 362.1,412.6 362.1,578 526.8,578 526.8,279.1 197.3,279.1 526.8,-51.1 362.1,-51.1   32,279.1 " />
-                                <polygon id="polygon7" points="597.9,114.2 762.7,-51.1 597.9,-51.1 " />
-                                <polygon id="polygon9" points="762.7,114.2 597.9,279.1 597.9,443.9 762.7,443.9 762.7,279.1 928,114.2 928,-51.1 762.7,-51.1 " />
-                                <polygon id="polygon11" points="928,279.1 762.7,443.9 928,443.9 " />
-                            </svg>
-                        </div>
-
-                        <div className='Profil_UserLevel'>
-
-                        </div>
-                    </div>
-                </div>
+                <Profile FullName='Hassan Karrach' UserName='@hkarrach' Promo={Promos[selectedPromo]}/>
                 <div className='Ranking'>
                     <div className='Options'>
                         <div className='Filters'>
                             <div className='Select_container'>
                                 <span>Promo :</span>
-                                <CustomDropDown data={Promos} onChange={setSelectedPromo} />
+                                <CustomDropDown 
+                                  data={Promos} 
+                                  getValue={(item) => item.id.toString()} 
+                                  renderItem={(item) => item.Name} 
+                                  onChange={handlePromoChange} 
+                                />
                             </div>
 
                             <div className='Select_container'>
                                 <span>Campus :</span>
-                                <CustomDropDown data={Campuses} onChange={setSelectedCampus} />
+                                <CustomDropDown 
+                                  data={Campuses} 
+                                  getValue={(item) => item.id.toString()} 
+                                  renderItem={(item) => item.name} 
+                                  onChange={handleCampusChange} 
+                                />
                             </div>
                         </div>
                     </div>

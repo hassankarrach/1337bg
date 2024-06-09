@@ -3,7 +3,10 @@ import "./globals.css";
 import StyledComponentsRegistry from "./registry";
 import Navbar from "@/components/navbar/navbar";
 
+
 const inter = Inter({ subsets: ["latin"] });
+//Next_Auth
+import { SessionProvider } from "next-auth/react";
 
 export const metadata = {
   title: "1337 Hub",
@@ -18,12 +21,14 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <StyledComponentsRegistry>
-        <body className={inter.className}>
-          <Navbar/>
-          {children}
-        </body>
-      </StyledComponentsRegistry>
+      <SessionProvider>
+        <StyledComponentsRegistry>
+          <body className={inter.className}>
+            <Navbar />
+            {children}
+          </body>
+        </StyledComponentsRegistry>
+      </SessionProvider>
     </html>
   );
 }

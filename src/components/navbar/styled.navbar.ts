@@ -38,6 +38,7 @@ export const StyledNavbar = styled.div`
                 background-color : transparent;
                 cursor : pointer;
                 transition :0.1s ease-in-out;
+                color : var(--Header_grey);
 
                 &:hover{
                     color : var(--main_color);

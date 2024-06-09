@@ -105,6 +105,7 @@ export const StyledMain = styled.div`
                 border-radius : 5px;
                 z-index : 999;
                 margin-left: auto;
+                cursor: pointer;
                 
                 background: rgba( 157,253,112, 0.6 );
                 backdrop-filter: blur( 2px );

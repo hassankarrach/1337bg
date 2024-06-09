@@ -3,13 +3,15 @@ import { Select as BaseSelect, SelectProps, SelectRootSlotProps } from '@mui/bas
 import { Option as BaseOption } from '@mui/base/Option';
 import { styled } from '@mui/system';
 
-interface CustomDropDownProps {
-  data: string[];
+interface CustomDropDownProps<T> {
+  data: T[];
+  getValue: (item: T) => string;
+  renderItem: (item: T) => React.ReactNode;
   onChange: (value: string) => void;
 }
 
-export default function CustomDropDown({ data, onChange }: CustomDropDownProps) {
-  const [selectedItem, setSelectedItem] = React.useState<string | null>(data[0]);
+export default function CustomDropDown<T>({ data, getValue, renderItem, onChange }: CustomDropDownProps<T>) {
+  const [selectedItem, setSelectedItem] = React.useState<string | null>(getValue(data[0]));
 
   const handleChange = (event: any, newValue: string | null) => {
     setSelectedItem(newValue);
@@ -20,15 +22,15 @@ export default function CustomDropDown({ data, onChange }: CustomDropDownProps) 
 
   return (
     <div>
-      <Select
-        value={selectedItem}
-        onChange={handleChange}
-      >
-        {data.map((item) => (
-          <Option key={item} value={item}>
-            {item}
-          </Option>
-        ))}
+      <Select value={selectedItem} onChange={handleChange}>
+        {data.map((item) => {
+          const value = getValue(item);
+          return (
+            <Option key={value} value={value}>
+              {renderItem(item)}
+            </Option>
+          );
+        })}
       </Select>
     </div>
   );

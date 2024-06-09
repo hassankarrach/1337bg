@@ -3,11 +3,15 @@ import { StyledMain } from "./styled.home";
 import _42logo from "../../public/logos/42.png"
 import _stars from "../../public/stars.png"
 import { useRouter } from "next/router";
-import { auth, signIn, signOut} from "../auth"
+import { useSession, signIn, signOut } from 'next-auth/react'
 
-const Main = async() => {
-    const session = await auth();
-    console.log(session); //shouldnt be use_client ??
+const Main = () => {
+    const { data: session } = useSession();
+
+    if (session)
+        console.log(session);
+    else
+        console.log("Nop\n");
 
     return (
         <StyledMain>
@@ -19,7 +23,7 @@ const Main = async() => {
                 <h1 className="Title">Navigate School Like <br/> a Boss!</h1>
                 <div className="login_card">
                     <img className="stars" src={_stars.src} />
-                    <button className="login_button">
+                    <button className="login_button" onClick={()=>{signIn("42-school")}}>
                         <span>Login</span>
                         <div className="_devider" />
                         <svg className="_42logo" version="1.1" id="Calque_1" x="0px" y="0px" viewBox="0 -200 960 960" enable-background="new 0 -200 960 960">

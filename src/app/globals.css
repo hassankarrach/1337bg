@@ -13,6 +13,8 @@
   --main_color: #50C878;
   --light_green: #9dfd70;
   --dark_green: #00bb40;
+  --Header_grey : #64758A;
+  --Par_grey : #94A2B9;
   --light_grey: #f4f4f4;
   --border_grey: #e7e7e7;
   /* Fonts */
@@ -22,9 +24,12 @@
 
 h1, h2, h3, h4{
   font-family: var(--main_font);
+  -webkit-font-smoothing: antialiased;
+  color : var(--Header_grey);
 }
 p, span{
   font-family: var(--Sec_Font);
+  color: var(--Par_grey);
 }
 
 * {
