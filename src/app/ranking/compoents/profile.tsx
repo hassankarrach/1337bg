@@ -4,11 +4,14 @@ import { Promo } from '../page';
 //Assets
 import BinaryBack from "../../../../public/BinaryBack.png"
 import { HexToRgba } from '@/utils/HexToRgba';
+//Components
+import Skeleton from '@mui/material/Skeleton';
 
 interface Profileprops {
     UserName: string,
     FullName: string,
     Promo: Promo
+    is_Loading : boolean
 }
 
 interface ProfileStylesProps {
@@ -68,6 +71,13 @@ const StyledProfile = styled.div<ProfileStylesProps>`
                     }
                 }
                 }
+                .Skeleton_avatar{
+                    position : absolute;
+                    bottom : -15px;
+                    left : 10px;
+                    border-radius : 20%;
+                    background-color : var(--light_grey);
+                }
                 .Profile_avatar{
                     width : 90px;
                     height: 90px;
@@ -100,13 +110,16 @@ const StyledProfile = styled.div<ProfileStylesProps>`
                     }
             }
 `
-const Profile: React.FC<Profileprops> = ({ FullName, Promo, UserName }) => {
+const Profile: React.FC<Profileprops> = ({ FullName, Promo, UserName, is_Loading }) => {
     return (
         <StyledProfile PrmColor={Promo.Prm_color} SecColor={Promo.sec_color}>
             <div className='Profile_banner'>
                 <img className='BinaryBack' src={BinaryBack.src}/>
 
-                <div className='Profile_avatar' style={{ backgroundImage: "url('https://cdn.intra.42.fr/users/a140a89b5a8e788f2f245f4c1b20e96b/hkarrach.jpeg')" }} />
+                {
+                    !is_Loading ? <div className='Profile_avatar' style={{ backgroundImage: "url('https://cdn.intra.42.fr/users/a140a89b5a8e788f2f245f4c1b20e96b/hkarrach.jpeg')" }} />
+                    : <Skeleton className='Skeleton_avatar' animation={"wave"} variant="circular" width = "90px" height={"90px"}/>
+                }
 
                 {/* <div className='Profile_Infos'>
                     <h1 className="Profile_Full_Name">Hassan Karrach</h1>

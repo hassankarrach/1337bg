@@ -4,6 +4,7 @@ import _42logo from "../../public/logos/42.png"
 import _stars from "../../public/stars.png"
 import { useRouter } from "next/router";
 import { useSession, signIn, signOut } from 'next-auth/react'
+import MainSvg from "@/components/Svgs/MainSvg";
 
 const Main = () => {
     const { data: session } = useSession();
@@ -17,8 +18,8 @@ const Main = () => {
         <StyledMain>
             <div className="Left">
                 <div className="blob _t_left" />
-                {/* <div className="blob _b_right" /> */}
-                <div className="_b_illustration" />
+
+                <MainSvg/>
 
                 <h1 className="Title">Navigate School Like <br/> a Boss!</h1>
                 <div className="login_card">

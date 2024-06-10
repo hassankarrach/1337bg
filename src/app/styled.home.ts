@@ -14,25 +14,13 @@ export const StyledMain = styled.div`
         width : 40%;
         height: 100%;
         background-color : #9DFD70;
-        /* background-image : url("https://media.tenor.com/vxFNoJHV3I4AAAAe/chiquichico.png"); */
+        background-image : url("/Header.jpg");
         background-position : center;
         background-size : cover;
         background-repeat : no-repeat;
         position : relative;
         z-index : 999;
-        &::after
-        {
-            content : "";
-            position : absolute;
-            left : 0;
-            top : 0;
-            width: 0; 
-            height: 0; 
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-top: 20px solid white;
-
-        }
+      
         &::before
         {
             content : "";
@@ -89,15 +77,13 @@ export const StyledMain = styled.div`
                 position : absolute;
                 left : -40px;
                 width : 90px;
-                background-color : transparent;
             }
 
             .login_button {
                 outline : none;
-                border: 1px solid rgba( 0,187,64, 0.25 );
+                border: 1px solid rgba(137,185,255, 0.8);
                 border-left : none;
                 display : flex;
-                /* justify-content : space-around; */
                 align-items : center;
                 padding : 2px 5px;
                 width : 200PX;
@@ -106,41 +92,49 @@ export const StyledMain = styled.div`
                 z-index : 999;
                 margin-left: auto;
                 cursor: pointer;
-                
-                background: rgba( 157,253,112, 0.6 );
-                backdrop-filter: blur( 2px );
-                -webkit-backdrop-filter: blur( 2px );
+                background: rgba(66,108,168, 0.8 );
+                backdrop-filter: blur( 4px );
+                -webkit-backdrop-filter: blur( 4px );
                 transition : 0.5s ease-in-out;
                 &:hover
                 {
-                    background: rgba( 157,253,112, 0.7 );
-                    box-shadow: 0 8px 32px 0 rgba(0,187,64, 0.15 );
+                    background: rgba(91,139,209, 0.6);
+                    box-shadow: 0 8px 32px 0 rgba(66,108,168, 0.2 );
+                    ._42logo{
+                        fill : rgba(66,108,168, 0.8 );
+                    }
+                    span{
+                        color : rgba(66,108,168, 0.8 );
+                    }
                 }
 
                 span{
-                    font-weight : 700;
-                    font-size : 1.2rem;
+                    /* font-family : var(--main_font); */
+                    font-weight : 500;
+                    font-size : 1.3rem;
                     text-transform : uppercase;
-                    color : rgba( 0,187,64, 0.6 );
+                    color : white;
                     background-color : transparent;
+                    transition : 0.2s ease-in-out;
                 }
                 ._42logo{
                     width : 30px;
                     background-color : transparent;
-                    fill : rgba(0,187,64, 1 );
+                    fill : white;
                     margin : 0px 10px;
+                    transition : 0.2s ease-in-out;
                 }
                 ._devider{
                     width : 1px;
                     height : 90%;
                     margin-left: auto;
-                    background: linear-gradient(0deg, rgba(0,187,64,0.02) 0%, rgba(0,187,64,0.3) 35%, rgba(0,187,64,0.02) 100%);
+                    background: linear-gradient(0deg, rgba(0,187,64,0.02) 0%, rgba(14,26,42,0.3) 35%, rgba(0,187,64,0.02) 100%);
                 }
             }
         }
 
         .blob{
-        width : 200px;
+        width : 300px;
         height: 200px;
         border-radius : 50%;
         position : absolute;
@@ -153,33 +147,15 @@ export const StyledMain = styled.div`
             width : 100%;
             height: 100%;
             border-radius : 50%;
-            background-color : #1DF366;
+            background-color : #89b9ff;
             position : absolute;
         }
 
         }
         ._t_left{
-            top : -40px;
-            left : -40px;
+            top : -50px;
+            left : -50px;
             transform : translateX(-30px);
-        }
-        ._b_right{
-            bottom : -15%;
-            right : 0px;
-        }
-
-        ._b_illustration
-        {
-            position : absolute;
-            bottom : 0;
-            left :0;
-            width : 100%;
-            height: 200px;
-            /* background-color : red; */
-            background-image : url(${svg_illustr});
-            background-position : center;
-            background-size : cover;
-            background-repeat : no-repeat;
         }
     }
 `

@@ -107,6 +107,7 @@ const Profiles: Profile[] = [
 const Ranking = () => {
     const [selectedPromo, setSelectedPromo] = useState<number>(0);
     const [SelectedCampus, setSelectedCampus] = useState<number>(0);
+    const [isLoading, SetisLoading] = useState<boolean>(true);
 
     // const selectedPromoObject = Promos.find(promo => promo.Name === selectedPromo);
     const handlePromoChange = (value: string) => {
@@ -119,10 +120,14 @@ const Ranking = () => {
         setSelectedCampus(campusId);
     };
 
+    const toggleLoading = () => {
+        SetisLoading((prev) => !prev);
+    };
+
     return (
         <StyledRanking>
             <div className='Container'>
-                <Profile FullName='Hassan Karrach' UserName='@hkarrach' Promo={Promos[selectedPromo]}/>
+                <Profile is_Loading={false} FullName='Hassan Karrach' UserName='@hkarrach' Promo={Promos[selectedPromo]}/>
                 <div className='Ranking'>
                     <div className='Options'>
                         <div className='Filters'>

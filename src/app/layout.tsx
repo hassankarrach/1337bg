@@ -24,7 +24,7 @@ export default function RootLayout({
       <SessionProvider>
         <StyledComponentsRegistry>
           <body className={inter.className}>
-            <Navbar />
+            {/* <Navbar /> */}
             {children}
           </body>
         </StyledComponentsRegistry>

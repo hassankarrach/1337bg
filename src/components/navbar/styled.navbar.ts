@@ -59,16 +59,17 @@ export const StyledNavbar = styled.div`
                 height: 60%;
                 background-color : transparent;
                 border-radius : 30%;
-                border : 1px solid lightgray;
+                border : 1px solid var(--Header_grey);
                 transition : 0.2s ease-in-out;
                 &:hover
                 {
-                    box-shadow: 0 8px 32px 0 rgba(0,187,64, 0.35 );
-                    border : 1px solid var(--main_color);
+                    box-shadow: 0 8px 32px 0 rgba(164,202,255, 0.35 );
+                    border : 1px solid var(--light_blue);
                 }
             }
             .Login_name{
                 background-color : transparent;
+                color : var(--Header_grey);
                 font-weight : 500;
             }
         }
