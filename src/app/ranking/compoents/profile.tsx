@@ -9,16 +9,16 @@ import Skeleton from '@mui/material/Skeleton';
 
 interface Profileprops {
     UserName: string,
-    FullName: string,
+    FullName: string | undefined,
     Promo: Promo,
-    Avatar : string,
-    is_Loading : boolean
+    Avatar: string,
+    is_Loading: boolean
 }
 
 interface ProfileStylesProps {
     PrmColor: string
     SecColor: string
-    Avatar  : string
+    Avatar: string
 }
 
 const StyledProfile = styled.div<ProfileStylesProps>`
@@ -93,24 +93,26 @@ const StyledProfile = styled.div<ProfileStylesProps>`
                     background-size : cover;
                     background-repeat : no-repeat;
                     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-                    }
                     .Profile_Infos{
                         display : flex;
-                        color : white;
                         flex-direction : column;
                         position  :absolute;
-                        margin-left: 110px;
-                        bottom : 10px;
+                        bottom : 20px;
+                        left :110%;
+                        width : auto;
                         .Profile_Full_Name{
                             /* text-transform : uppercase; */
                             font-size : 1.4rem;
                             font-weight : 500;
-                            text-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                            color : white;
+                            white-space: nowrap;
                         }
                         .Profile_UserName{
                             font-weight : 400;
+                            color : white;
                         }
                     }
+                }
             }
 `
 const Profile: React.FC<Profileprops> = ({ FullName, Promo, UserName, is_Loading, Avatar }) => {
@@ -118,17 +120,20 @@ const Profile: React.FC<Profileprops> = ({ FullName, Promo, UserName, is_Loading
     return (
         <StyledProfile PrmColor={Promo.Prm_color} SecColor={Promo.sec_color} Avatar={Avatar}>
             <div className='Profile_banner'>
-                <img className='BinaryBack' src={BinaryBack.src}/>
+                <img className='BinaryBack' src={BinaryBack.src} />
 
                 {
-                    !is_Loading ? <div className='Profile_avatar'/>
-                    : <Skeleton className='Skeleton_avatar' animation={"wave"} variant="circular" width = "90px" height={"90px"}/>
+                    !is_Loading ?
+                        <div className='Profile_avatar'>
+                            <div className='Profile_Infos'>
+                                <h1 className="Profile_Full_Name">{FullName}</h1>
+                                <span className='Profile_UserName'>@{UserName}</span>
+                            </div>
+                        </div>
+                        : <Skeleton className='Skeleton_avatar' animation={"wave"} variant="circular" width="90px" height={"90px"} />
                 }
 
-                {/* <div className='Profile_Infos'>
-                    <h1 className="Profile_Full_Name">Hassan Karrach</h1>
-                    <span className='Profile_UserName'>@hkarrach</span>
-                </div> */}
+
 
                 <div className='Profile_UserIcons'>
                     <svg className="_42logo" version="1.1" id="Calque_1" x="0px" y="0px" viewBox="0 -200 960 960" enable-background="new 0 -200 960 960">

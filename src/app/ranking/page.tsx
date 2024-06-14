@@ -102,7 +102,12 @@ const Ranking = () => {
         if (session && session.accessToken) {
             setIsLoading(true);
             const campusId = SelectedCampus; // Assuming SelectedCampus contains the campus ID you want to fetch students from
-            fetch(`https://api.intra.42.fr/v2/campus/${campusId}/users`, {
+            
+            const baseUrl = 'https://api.intra.42.fr/v2/cursus_users';
+            const url = `${baseUrl}?filter[campus_id]=${campusId}&filter[cursus_id]=21&page[size]=100`;
+          
+            
+            fetch(url, {
                 headers: {
                     Authorization: `Bearer ${session.accessToken}`,
                 },
@@ -110,6 +115,7 @@ const Ranking = () => {
                 .then(response => response.json())
                 .then(data => {
                     setFilteredProfiles(data);
+                    console.log(data);
                     setSelectedProfile(data[0]);
                     setIsLoading(false);
                 })
@@ -123,13 +129,13 @@ const Ranking = () => {
     return (
         <StyledRanking>
             <div className='Container'>
-                <Profile
+                {/* <Profile
                     Avatar={SelectedProfile?.image.versions.small}
                     is_Loading={IsLoading}
-                    FullName='Hassan Karrach'
-                    UserName='@hkarrach'
+                    FullName={SelectedProfile?.first_name + " " + SelectedProfile?.last_name}
+                    UserName={SelectedProfile?.Login}
                     Promo={Promos[selectedPromo]}
-                />
+                /> */}
                 <div className='Ranking'>
                     <div className='Options'>
                         <div className='Filters'>
@@ -156,16 +162,17 @@ const Ranking = () => {
                     </div>
                     <div className='Profiles_container'>
                         {
-                            FilteredProfiles ? FilteredProfiles.slice(0, 16).map((profile, key) => {
+                            FilteredProfiles ? FilteredProfiles.map((profile, key) => {
                                 return (
                                     <Card
-                                        id={key + 1}
-                                        FullName={profile.first_name + " " + profile.last_name}
-                                        Level={profile.Level}
+                                        id={key}
+                                        FullName={profile.user.first_name + " " + profile.user.last_name}
+                                        Level={profile.user.Level}
                                         Rank={key + 1}
-                                        UserName={profile.Login}
-                                        img={profile.image.versions.small}
+                                        UserName={profile.user.Login}
+                                        img={profile.user.image.versions.small}
                                         key={key}
+                                        onSelect={setSelectedProfile}
                                     />
                                 )
                             })

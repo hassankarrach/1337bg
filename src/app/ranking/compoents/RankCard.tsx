@@ -94,7 +94,6 @@ const StyledCard = styled.div<StyledProps>`
     }
 `
 
-
 interface Profile{
     id : number;
     FullName : string;
@@ -102,9 +101,14 @@ interface Profile{
     Rank : number;
     Level : number;
     img : string;
+    onSelect: (profile: Profile) => void;
 }
 
-const RankCard:FC<Profile> = ({id, FullName, UserName, Rank, Level, img}) => {
+const RankCard:FC<Profile> = ({id, FullName, UserName, Rank, Level, img, onSelect}) => {
+    const handleClick = () => {
+        onSelect({ id, FullName, UserName, Rank, Level, img });
+    };
+    
     return <StyledCard Rank = {Rank} Avatar={img}>
         <div className='Card_Rank'>
             {(Rank >= 1 && Rank <= 3) ? 
