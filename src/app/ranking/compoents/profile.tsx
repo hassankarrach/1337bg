@@ -10,18 +10,20 @@ import Skeleton from '@mui/material/Skeleton';
 interface Profileprops {
     UserName: string,
     FullName: string,
-    Promo: Promo
+    Promo: Promo,
+    Avatar : string,
     is_Loading : boolean
 }
 
 interface ProfileStylesProps {
-    PrmColor: string;
+    PrmColor: string
     SecColor: string
+    Avatar  : string
 }
 
 const StyledProfile = styled.div<ProfileStylesProps>`
             width : 35%;
-            height : 800px;
+            height : 100%;
             background-color : #fafafa;
             border-radius : 5px;
             position  :sticky;
@@ -86,6 +88,7 @@ const StyledProfile = styled.div<ProfileStylesProps>`
                     position : absolute;
                     bottom : -15px;
                     left : 10px;
+                    background-image :  ${props => `${props.Avatar}`};
                     background-position : center;
                     background-size : cover;
                     background-repeat : no-repeat;
@@ -110,14 +113,15 @@ const StyledProfile = styled.div<ProfileStylesProps>`
                     }
             }
 `
-const Profile: React.FC<Profileprops> = ({ FullName, Promo, UserName, is_Loading }) => {
+const Profile: React.FC<Profileprops> = ({ FullName, Promo, UserName, is_Loading, Avatar }) => {
+    // console.log(Avatar);
     return (
-        <StyledProfile PrmColor={Promo.Prm_color} SecColor={Promo.sec_color}>
+        <StyledProfile PrmColor={Promo.Prm_color} SecColor={Promo.sec_color} Avatar={Avatar}>
             <div className='Profile_banner'>
                 <img className='BinaryBack' src={BinaryBack.src}/>
 
                 {
-                    !is_Loading ? <div className='Profile_avatar' style={{ backgroundImage: "url('https://cdn.intra.42.fr/users/a140a89b5a8e788f2f245f4c1b20e96b/hkarrach.jpeg')" }} />
+                    !is_Loading ? <div className='Profile_avatar'/>
                     : <Skeleton className='Skeleton_avatar' animation={"wave"} variant="circular" width = "90px" height={"90px"}/>
                 }
 

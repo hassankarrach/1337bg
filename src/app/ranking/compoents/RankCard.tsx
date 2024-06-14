@@ -7,11 +7,12 @@ import Third_icon from "../../../../public/assets/icons/3.png"
 
 interface StyledProps{
     Rank : number;
+    Avatar : string;
 }
 
 const StyledCard = styled.div<StyledProps>`
     width : 100%;
-    height: 65px;
+    min-height: 65px;
     background-color : white;
     border-left : 4px solid ${props => (props.Rank == 1 || props.Rank == 2 || props.Rank == 3) ? "#FFD700"
     : "var(--border_grey)"};
@@ -38,7 +39,9 @@ const StyledCard = styled.div<StyledProps>`
         position : relative;
         background-color : gray;
         /* transform: skewX(-15deg); */
-        background-image : url("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png");
+        background-image: ${props =>
+        props.Avatar ? `url(${props.Avatar})` 
+            : `url("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")`};
         background-position : center;
         background-size : cover;
         overflow : hidden;
@@ -98,12 +101,12 @@ interface Profile{
     UserName : string;
     Rank : number;
     Level : number;
+    img : string;
 }
 
-const card:FC<Profile> = ({id, FullName, UserName, Rank, Level}) => {
-    return <StyledCard Rank = {Rank}>
+const RankCard:FC<Profile> = ({id, FullName, UserName, Rank, Level, img}) => {
+    return <StyledCard Rank = {Rank} Avatar={img}>
         <div className='Card_Rank'>
-            {/* <div className="arrow-right"></div> */}
             {(Rank >= 1 && Rank <= 3) ? 
                 <img className='Rank_icon' src={`/assets/icons/${Rank}.png`}/>
                 : <span>{Rank}</span>
@@ -123,4 +126,4 @@ const card:FC<Profile> = ({id, FullName, UserName, Rank, Level}) => {
     </StyledCard>;
 }
 
-export default card;
+export default RankCard;

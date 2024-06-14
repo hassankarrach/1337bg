@@ -13,7 +13,7 @@ export const StyledMain = styled.div`
     {
         width : 40%;
         height: 100%;
-        background-color : #9DFD70;
+        background-color : var(--main_color);
         background-image : url("/Header.jpg");
         background-position : center;
         background-size : cover;

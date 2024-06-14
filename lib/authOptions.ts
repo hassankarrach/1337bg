@@ -12,22 +12,34 @@ export const {auth, handlers: {GET, POST}, signIn, signOut} = NextAuth({
         })
     ],
 
+    session : {
+        strategy : "jwt",
+        maxAge : 30 * 24 * 60, //30days
+    },
+    jwt : {
+
+    },
+
     //CallBacks
     callbacks : {
-        async signIn({profile, user})
+        async signIn({profile, user}:any)
         {
             if (!profile || !user) return false;
             //Limit Access later to ONLY (BG - KH - MED) campuses;
             return user;
         },
-        async jwt({token, account, profile})
+        async jwt({token, account, profile}:any)
         {
             if (profile)
             {
-                token.accessToken = account?.access_token;
+                token.accessToken = account.access_token;
                 token.id = profile.id;
             }
             return (token);
+        },
+        async session({ session, token }: any) {
+            session.accessToken = token.accessToken;
+            return session;
         }
     }
 })

@@ -45,7 +45,8 @@ export const StyledNavbar = styled.div`
                 }
             }
         }
-        .avatar{
+        .avatar
+        {
             height : 100%;
             display : flex;
             justify-content : center;
@@ -72,6 +73,10 @@ export const StyledNavbar = styled.div`
                 color : var(--Header_grey);
                 font-weight : 500;
             }
+        }
+        .Profile_Menu{
+            padding :20px;
+            background-color : red;
         }
     }
 `

@@ -7,7 +7,7 @@ interface StyledCardProps {
 
 export const StyledRanking = styled.div`
     width : 100vw;
-    height : auto;
+    height : 100vh;
     display : flex;
     justify-content : center;
     align-items : center;
@@ -33,7 +33,7 @@ export const StyledRanking = styled.div`
     .Container
     {
         width : 100%;
-        height : auto;
+        height : 600px;
         background-color : white;
         border-radius : 5px;
         display : flex;
@@ -41,16 +41,46 @@ export const StyledRanking = styled.div`
         align-items : center;
         margin-top : 5px;
         border : 1px solid var(--border_grey);
-        overflow : hidden;
         position : relative;
         
         .Ranking{
             width : 65%;
-            height: 800px;
+            height: 600px;
             padding : 5px 10px;
             display : flex;
             flex-direction : column;
+            .Profiles_container{
+                overflow-y : scroll;
+                display : flex;
+                flex-direction : column;
+                padding-right :5px;
+                gap : 5px;
+                /* Scrollbar styles */
+                &::-webkit-scrollbar {
+                  width: 8px; /* Width of the scroll bar */
+                }
+                &::-webkit-scrollbar-track {
+                  background: var(--light_grey); 
+                  border-radius: 2px;
+                }
+                &::-webkit-scrollbar-thumb {
+                  background: var(--border_grey); 
+                  border-radius: 10px;
+                  transition : 2s ease-in-out;
+                }
+                &::-webkit-scrollbar-thumb:hover {
+                  background: var(--Header_grey); 
+}
+            }
+            .Skeletons{
+            display : flex;
+            flex-direction : column;
+            padding-right :5px;
             gap : 5px;
+            .Skeleton{
+                border-radius : 3px;
+            }
+            }
         }
     }
 `

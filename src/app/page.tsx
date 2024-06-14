@@ -9,11 +9,6 @@ import MainSvg from "@/components/Svgs/MainSvg";
 const Main = () => {
     const { data: session } = useSession();
 
-    if (session)
-        console.log(session);
-    else
-        console.log("Nop\n");
-
     return (
         <StyledMain>
             <div className="Left">

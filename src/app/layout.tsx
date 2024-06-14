@@ -21,10 +21,10 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <SessionProvider>
+      <SessionProvider refetchInterval={5 * 60}>
         <StyledComponentsRegistry>
           <body className={inter.className}>
-            {/* <Navbar /> */}
+            <Navbar />
             {children}
           </body>
         </StyledComponentsRegistry>
