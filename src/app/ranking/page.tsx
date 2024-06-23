@@ -1,141 +1,110 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { StyledRanking } from './Styled.ranking';
 import { StaticImageData } from 'next/image';
-//Components
+// Components
 import Card from './compoents/RankCard';
 import CustomDropDown from '@/components/drop_down/dropdown';
 import Profile from './compoents/profile';
 import { useSession } from 'next-auth/react';
-import { getToken } from 'next-auth/jwt';
 import { Skeleton } from '@mui/material';
-
 // Types
-export type Promo = {
-    id: number;
-    Name: string;
-    Prm_color: string;
-    sec_color: string
-}
-type Profile = {
-    id: number;
-    first_name: string;
-    last_name: string;
-    Login: string;
-    email: string;
-    img_small: string; //StaticImageData later.
-    img_large: string;
-    location: string;
-    correction_points: number;
-    wallet: number;
-    Rank: number;
-    Level: number;
-    pool_month: string;
-    pool_year: string;
-    promo: Promo;
-};
-type Cursuse = {
-    CursusId: number,
-    CursusName: string
-}
+import { Promo, Cursuse } from '@/types/FortyTwo/types';
 // Data
-const Promos: Promo[] = [
-    {
-        id: 0,
-        Name: "Black Promo",
-        Prm_color: "#000000",
-        sec_color: "#343434"
-    },
-    {
-        id: 1,
-        Name: "Red Promo",
-        Prm_color: "#ff6024",
-        sec_color: "#ff7638"
-    },
-    {
-        id: 2,
-        Name: "Green Promo",
-        Prm_color: "#6ef024",
-        sec_color: "#a4ff6f"
-    },
-    {
-        id: 3,
-        Name: "Blue Promo",
-        Prm_color: "#245aff",
-        sec_color: "#4a76ff"
-    }
-];
-const Campuses: { id: number; name: string }[] = [
-    { id: 21, name: "Ben guerir" },
-    { id: 16, name: "Khouribga" },
-    { id: 55, name: "Med" }
-];
-const Cursuses: Cursuse[] = [
-    { CursusId: 21, CursusName: "Cursuse" },
-    { CursusId: 9, CursusName: "Pool" }
-];
+import { Campuses } from '@/data/campuses';
+import { Cursuses } from '@/data/Cursuses';
+import { Promos } from '@/data/promos';
+// Utils
+import { fetchUsers } from '@/utils/fetch_users';
 
-const Ranking = () => {
+const Ranking: React.FC = () => {
     const { data: session } = useSession();
-    const [FilteredProfiles, setFilteredProfiles] = useState<Profile[]>();
-    const [SelectedProfile, setSelectedProfile] = useState<Profile | null>(null);
+    const [FilteredProfiles, setFilteredProfiles] = useState<any[]>([]);
+    const [SelectedProfile, setSelectedProfile] = useState<number>(0);
     const [selectedPromo, setSelectedPromo] = useState<number>(0);
     const [SelectedCampus, setSelectedCampus] = useState<number>(Campuses[0].id);
-    const [IsLoading, setIsLoading] = useState<boolean>(true);
+    const [IsInitialLoading, setIsInitialLoading] = useState<boolean>(true);
+    const [IsLoadingMore, setIsLoadingMore] = useState<boolean>(false);
+    const [CurrentPage, setCurrentPage] = useState<number>(1);
+    const [HasMore, setHasMore] = useState<boolean>(true);
 
+    const observer = useRef<IntersectionObserver | null>(null);
 
-    // const selectedPromoObject = Promos.find(promo => promo.Name === selectedPromo);
+    const lastProfileRef = useCallback((node: HTMLSpanElement) => {
+        if (IsInitialLoading || IsLoadingMore) return;
+        if (observer.current) observer.current.disconnect();
+
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && HasMore) {
+                fetchMoreUsers();
+            }
+        });
+
+        if (node) observer.current.observe(node);
+    }, [IsInitialLoading, IsLoadingMore, HasMore]);
+
     const handlePromoChange = (value: string) => {
         const promoId = parseInt(value, 10);
         setSelectedPromo(promoId);
-    };
-    const handleCampusChange = (value: string) => {
-        const campusId = parseInt(value, 10);
-        setSelectedCampus(campusId);
-    };
-    const toggleLoading = () => {
-        setIsLoading((prev) => !prev);
+        setCurrentPage(1); // Reset current page
+        setHasMore(true);  // Reset has more
     };
 
+    const fetchMoreUsers = useCallback(async () => {
+        if (session && session.accessToken && HasMore) {
+            setIsLoadingMore(true);
+            const PoolUrl = `https://api.intra.42.fr/v2/cursus_users?&filter[campus_id]=21&filter[begin_at]=${Promos[selectedPromo].start_date}&page[size]=100&page[number]=${CurrentPage}&sort=-level`;
+
+            try {
+                const data = await fetchUsers(PoolUrl, session.accessToken);
+                if (data.length > 0) {
+                    console.log("got here");
+                    setFilteredProfiles(prevProfiles => [...prevProfiles, ...data]);
+                    setSelectedProfile(data[0]?.id ?? 0); // Set to 0 if data is empty
+                    setCurrentPage(prevPage => prevPage + 1);
+                } else {
+                    setHasMore(false);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+                setIsLoadingMore(false);
+            }
+        }
+    }, [session, selectedPromo, CurrentPage, HasMore]);
+
+    const initialFetchUsers = useCallback(async () => {
+        if (session && session.accessToken) {
+            setIsInitialLoading(true);
+            const PoolUrl = `https://api.intra.42.fr/v2/cursus_users?&filter[campus_id]=21&filter[begin_at]=${Promos[selectedPromo].start_date}&page[size]=100&page[number]=1&sort=-level`;
+
+            try {
+                const data = await fetchUsers(PoolUrl, session.accessToken);
+                if (data.length > 0) {
+                    console.log("Initial fetch");
+                    setFilteredProfiles(data);
+                    setSelectedProfile(data[0]?.id ?? 0); // Set to 0 if data is empty
+                    setCurrentPage(2); // Start next fetch from page 2
+                } else {
+                    setHasMore(false);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+                setIsInitialLoading(false);
+            }
+        }
+    }, [session, selectedPromo]);
 
     useEffect(() => {
-        if (session && session.accessToken) {
-            setIsLoading(true);
-            const campusId = SelectedCampus; // Assuming SelectedCampus contains the campus ID you want to fetch students from
-            
-            const baseUrl = 'https://api.intra.42.fr/v2/cursus_users';
-            const url = `${baseUrl}?filter[campus_id]=${campusId}&filter[cursus_id]=21&page[size]=100`;
-          
-            
-            fetch(url, {
-                headers: {
-                    Authorization: `Bearer ${session.accessToken}`,
-                },
-            })
-                .then(response => response.json())
-                .then(data => {
-                    setFilteredProfiles(data);
-                    console.log(data);
-                    setSelectedProfile(data[0]);
-                    setIsLoading(false);
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
-        }
-    }, [session, SelectedCampus]);
-
+        setFilteredProfiles([]); //clear profiles onChange
+        initialFetchUsers();
+    }, [session, selectedPromo]);
 
     return (
         <StyledRanking>
             <div className='Container'>
-                {/* <Profile
-                    Avatar={SelectedProfile?.image.versions.small}
-                    is_Loading={IsLoading}
-                    FullName={SelectedProfile?.first_name + " " + SelectedProfile?.last_name}
-                    UserName={SelectedProfile?.Login}
-                    Promo={Promos[selectedPromo]}
-                /> */}
+                {/* <Profile Promo={Promos[selectedPromo]} user_id={SelectedProfile} /> */}
                 <div className='Ranking'>
                     <div className='Options'>
                         <div className='Filters'>
@@ -148,51 +117,47 @@ const Ranking = () => {
                                     onChange={handlePromoChange}
                                 />
                             </div>
-
-                            <div className='Select_container'>
-                                <span>Campus :</span>
-                                <CustomDropDown
-                                    data={Campuses}
-                                    getValue={(item) => item.id.toString()}
-                                    renderItem={(item) => item.name}
-                                    onChange={handleCampusChange}
-                                />
-                            </div>
+                            <button className='ToMeButton'>{CurrentPage}</button>
                         </div>
                     </div>
                     <div className='Profiles_container'>
-                        {
-                            FilteredProfiles ? FilteredProfiles.map((profile, key) => {
-                                return (
+                        {!IsInitialLoading ? (
+                            <>
+                                {FilteredProfiles.map((profile: any, key: number) => (
                                     <Card
-                                        id={key}
-                                        FullName={profile.user.first_name + " " + profile.user.last_name}
-                                        Level={profile.user.Level}
+                                        id={profile.id}
+                                        FullName={profile.user.usual_full_name}
+                                        Level={profile.level}
                                         Rank={key + 1}
-                                        UserName={profile.user.Login}
+                                        UserName={profile.user.login}
                                         img={profile.user.image.versions.small}
                                         key={key}
-                                        onSelect={setSelectedProfile}
+                                        setSelectedId={setSelectedProfile}
                                     />
-                                )
-                            })
-                                : <div className='Skeletons'>
-                                    {Array.from({ length: 8 }).map((item, key) => (
-                                        <Skeleton
-                                            key={key} // generate a unique key for each Skeleton
-                                            className='Skeleton'
-                                            animation="wave"
-                                            variant="rectangular"
-                                            width="100%"
-                                            height="65px"
-                                        />
-                                    ))}
-                                </div>
-                        }
+                                ))}
+                                <span ref={lastProfileRef}>
+                                    {IsLoadingMore ? 'Loading more...' : HasMore ? 'Loading more...' : 'No more users'}
+                                </span>
+                            </>
+                        ) : (
+                            <div className='Skeletons'>
+                                {Array.from({ length: 8 }).map((_, key) => (
+                                    <Skeleton
+                                        animation={`${key % 2 ? "pulse" : "wave"}`}
+                                        variant="rectangular"
+                                        width="100%"
+                                        height="65px"
+                                        className='CardSkl'
+                                        key={key}
+                                    />
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
-        </StyledRanking>)
-}
+        </StyledRanking>
+    );
+};
 
 export default Ranking;

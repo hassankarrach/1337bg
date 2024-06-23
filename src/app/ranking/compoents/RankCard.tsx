@@ -101,15 +101,15 @@ interface Profile{
     Rank : number;
     Level : number;
     img : string;
-    onSelect: (profile: Profile) => void;
+    setSelectedId: (id: number) => void;
 }
 
-const RankCard:FC<Profile> = ({id, FullName, UserName, Rank, Level, img, onSelect}) => {
+const RankCard:FC<Profile> = ({id, FullName, UserName, Rank, Level, img , setSelectedId}) => {
     const handleClick = () => {
-        onSelect({ id, FullName, UserName, Rank, Level, img });
+        setSelectedId(id);
     };
-    
-    return <StyledCard Rank = {Rank} Avatar={img}>
+
+    return <StyledCard Rank = {Rank} Avatar={img} onClick={handleClick}>
         <div className='Card_Rank'>
             {(Rank >= 1 && Rank <= 3) ? 
                 <img className='Rank_icon' src={`/assets/icons/${Rank}.png`}/>

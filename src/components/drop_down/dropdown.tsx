@@ -85,10 +85,10 @@ const Listbox = styled('ul')`
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   box-sizing: border-box;
-  padding: 6px;
+  padding: 3px;
   margin: 12px 0;
-  min-width: 320px;
-  border-radius: 12px;
+  min-width: 220px;
+  border-radius: 8px;
   overflow: auto;
   outline: 0px;
   background: #fff;

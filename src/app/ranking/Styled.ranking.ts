@@ -18,18 +18,34 @@ export const StyledRanking = styled.div`
     
     .Options{
         width : 100%;
-        height : auto;
-        padding-bottom : 10px;
         border-radius : 5px;
         display : flex;
         position : relative;
         
         .Filters{
+            width : 100%;
             display : flex;
+            align-items : flex-end;
+            justify-content : space-between;
             gap : 15px;
+            padding : 10px 0px;
+            .ToMeButton{
+            width : 70px;
+            height : 38px;
+            border-radius : 7px;
+            cursor : pointer;
+            border: 1px solid var(--border_grey);
+            background-color : var(--light_blue);
+            color : white;
+            font-size : 0.9rem;
+            justify-self : right;
+            margin-left: auto;
         }
-    }
+        }
 
+
+    }
+    //Test : feeling weird:because of what. t
     .Container
     {
         width : 100%;
@@ -77,8 +93,13 @@ export const StyledRanking = styled.div`
             flex-direction : column;
             padding-right :5px;
             gap : 5px;
+            position  :relative;
             .Skeleton{
                 border-radius : 3px;
+            }
+            .profileSkl{
+                top : 0;
+                position  :absolute;
             }
             }
         }
