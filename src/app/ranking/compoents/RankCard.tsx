@@ -125,7 +125,7 @@ const RankCard:FC<Profile> = ({id, FullName, UserName, Rank, Level, img , setSel
         </div>
 
         <div className='Card_level'>
-            <span>{Level}</span>
+            <span>{Level.toFixed(2)}</span>
         </div>
     </StyledCard>;
 }

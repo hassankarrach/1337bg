@@ -1,6 +1,4 @@
-import { achievement } from "../FortyTwo/achievement";
-import { project } from "../FortyTwo/project";
-
+import { achievement, project } from "../FortyTwo/types";
 
 export interface User {
     id                  : number;
@@ -9,6 +7,8 @@ export interface User {
     email               : string;  
     login               : string;
     level               : string;
+    intra_link          : string;
+    is_pooler           : boolean;
     img                 : string | undefined;
     location            : string;
     wallet              : number;

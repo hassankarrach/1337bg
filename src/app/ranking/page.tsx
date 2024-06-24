@@ -11,11 +11,16 @@ import { Skeleton } from '@mui/material';
 // Types
 import { Promo, Cursuse } from '@/types/FortyTwo/types';
 // Data
-import { Campuses } from '@/data/campuses';
+import { Campuses } from '@/data/Campuses';
 import { Cursuses } from '@/data/Cursuses';
-import { Promos } from '@/data/promos';
+import { Promos } from '@/data/Promos';
 // Utils
 import { fetchUsers } from '@/utils/fetch_users';
+//Cashing
+const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes in milliseconds
+const getCacheKey = (promoId : number, page : number) => `rankingData_${promoId}_page_${page}`;
+const getCacheTimeKey = (promoId : number) => `rankingDataTimestamp_${promoId}`;
+
 
 const Ranking: React.FC = () => {
     const { data: session } = useSession();
@@ -56,14 +61,27 @@ const Ranking: React.FC = () => {
             const PoolUrl = `https://api.intra.42.fr/v2/cursus_users?&filter[campus_id]=21&filter[begin_at]=${Promos[selectedPromo].start_date}&page[size]=100&page[number]=${CurrentPage}&sort=-level`;
 
             try {
-                const data = await fetchUsers(PoolUrl, session.accessToken);
-                if (data.length > 0) {
-                    console.log("got here");
+                const cacheKey = getCacheKey(selectedPromo, CurrentPage);
+                const cacheTimeKey = getCacheTimeKey(selectedPromo);
+                const cachedData = localStorage.getItem(cacheKey);
+                const cachedTimestamp = localStorage.getItem(cacheTimeKey);
+
+                if (cachedData && cachedTimestamp && Date.now() - parseInt(cachedTimestamp) < CACHE_DURATION) {
+                    const data = JSON.parse(cachedData);
                     setFilteredProfiles(prevProfiles => [...prevProfiles, ...data]);
-                    setSelectedProfile(data[0]?.id ?? 0); // Set to 0 if data is empty
                     setCurrentPage(prevPage => prevPage + 1);
+                    setHasMore(data.length === 100);
                 } else {
-                    setHasMore(false);
+                    const data = await fetchUsers(PoolUrl, session.accessToken);
+                    if (data.length > 0) {
+                        setFilteredProfiles(prevProfiles => [...prevProfiles, ...data]);
+                        setCurrentPage(prevPage => prevPage + 1);
+                        localStorage.setItem(cacheKey, JSON.stringify(data));
+                        localStorage.setItem(cacheTimeKey, Date.now().toString());
+                        setHasMore(data.length === 100);
+                    } else {
+                        setHasMore(false);
+                    }
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -81,9 +99,8 @@ const Ranking: React.FC = () => {
             try {
                 const data = await fetchUsers(PoolUrl, session.accessToken);
                 if (data.length > 0) {
-                    console.log("Initial fetch");
                     setFilteredProfiles(data);
-                    setSelectedProfile(data[0]?.id ?? 0); // Set to 0 if data is empty
+                    setSelectedProfile(data[0]?.user.id); // Set to 0 if data is empty
                     setCurrentPage(2); // Start next fetch from page 2
                 } else {
                     setHasMore(false);
@@ -117,7 +134,7 @@ const Ranking: React.FC = () => {
                                     onChange={handlePromoChange}
                                 />
                             </div>
-                            <button className='ToMeButton'>{CurrentPage}</button>
+                            <button disabled={true} className='ToMeButton'>Me</button>
                         </div>
                     </div>
                     <div className='Profiles_container'>
@@ -125,7 +142,7 @@ const Ranking: React.FC = () => {
                             <>
                                 {FilteredProfiles.map((profile: any, key: number) => (
                                     <Card
-                                        id={profile.id}
+                                        id={profile.user.id}
                                         FullName={profile.user.usual_full_name}
                                         Level={profile.level}
                                         Rank={key + 1}

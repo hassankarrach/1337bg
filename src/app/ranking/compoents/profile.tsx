@@ -1,11 +1,12 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Modal from '@mui/material/Modal';
 import { Promo } from '../page';
 //Assets
 import BinaryBack from "../../../../public/BinaryBack.png"
 import _1337Logo from "../../../../public/logos/1337.svg"
 //Icons
-import { FaCheck, FaTimes, FaHourglassHalf, FaTv, FaWallet, FaFolder } from "react-icons/fa";
+import { FaCheck, FaTimes, FaHourglassHalf, FaTv, FaWallet, FaFolder, FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 //Utils
 import { HexToRgba } from '@/utils/HexToRgba';
 //Components
@@ -14,6 +15,7 @@ import { useSession } from 'next-auth/react';
 //types
 import { User } from "../../../types/user/user"
 import { StaticImageData } from 'next/image';
+import CustomModal from '@/components/modal/modal';
 
 
 interface ComponentProps {
@@ -23,6 +25,7 @@ interface ComponentProps {
 interface StyleProps {
     PrmColor: string
     SecColor: string
+    level: string
 }
 
 const UpdateUser = (data: any, setUserData: Dispatch<SetStateAction<User | null>>) => {
@@ -31,11 +34,13 @@ const UpdateUser = (data: any, setUserData: Dispatch<SetStateAction<User | null>
         full_name: `${data.first_name} ${data.last_name}`,
         email: data.email,
         login: data.login,
-        level: data.cursus_users[0]?.level?.toString() || 'N/A',
+        level: data.cursus_users.length == 2 ? data.cursus_users[1].level.toFixed(2) : data.cursus_users[0].level.toFixed(2),
         img: data.image?.versions.small,
         location: data.location,
         wallet: data.wallet,
+        intra_link: data.url,
         corrections_points: data.correction_point,
+        is_pooler: data.cursus_users.length === 1 ? true : false,
         projects: data.projects_users.map((project: any) => ({
             cursus_id: project.cursus_ids[0],
             final_make: project.final_mark,
@@ -172,7 +177,7 @@ const StyledProfile = styled.div<StyleProps>`
                 border-top: 1px solid;
                 border-image: linear-gradient(90deg, rgba(231,231,231,0) 0%, rgba(231,231,231,1) 50%, rgba(231,231,231,0) 100%) 1; 
                 padding : 2px;
-                position : absolute;
+                /* position : absolute; */
                 bottom :0;
                 display : flex;
                 flex-direction : column;
@@ -227,6 +232,7 @@ const StyledProfile = styled.div<StyleProps>`
                     justify-content : center;
                     align-items : center;
                     gap : 5px;
+                    flex: 1 1 auto;
                     .State_item_icon{
                         color : var(--Header_grey);
                     }
@@ -238,10 +244,95 @@ const StyledProfile = styled.div<StyleProps>`
                     }
                 }
             }
+            .RNCP_progress{
+                display : flex;
+                justify-content  : center;
+                flex-direction : column;
+                padding : 5px 0px;
+                gap : 2px;
+                .Progress_item{
+                    padding : 3px 5px;
+                    border-radius : 4px;
+                    border : 1px solid var(--border_grey);
+                    position : relative;
+                    cursor: pointer;
+                    /* flex: 1 1 auto; */
+                    display : flex;
+                    justify-content :center;
+                    align-items : center;
+                    &:after{
+                        content :"";
+                        left : 0;
+                        bottom : 0;
+                        position : absolute;
+                        width : ${props => (props.level / 21) * 100}%;
+                        height : 10%;
+                        background-color : #a8e6cf;
+                        z-index : -1;
+                    }
+                }
+            }
+            .Feedback_feature{
+                height : 45px;
+                width : 100%;
+                position : absolute;
+                bottom :0;
+                display  :flex;
+                justify-content : space-between;
+                padding : 5px 0px;
+                padding-right : 10px;
+                .reaction_buttons{
+                    width : 100px;
+                    border-radius : 5px;
+                    display  :flex;
+                    border : 1px solid var(--border_grey);
+                    .Thumb{
+                        display : flex;
+                        justify-content :center;
+                        align-items : center;
+                        cursor: pointer;
+                        color : var(--Header_grey);
+                        transition : 0.2s ease-in-out;
+                    }
+                    .Thum_up{
+                        flex: 1 1 auto;
+                        &:hover{
+                            background-color : #a8e6cf;
+                            color : #56ab2f; 
+                        }
+                        border-width: 0 0 0 0;
+                border-right: 1px solid;
+                border-image: linear-gradient(180deg, rgba(231,231,231,0) 0%, rgba(231,231,231,1) 50%, rgba(231,231,231,0) 100%) 1; 
+                    }
+                    .Thum_down{
+                        flex: 1 1 auto;
+                        &:hover{
+                            background-color  : #ff8a80;
+                            color : #e53935;
+                        }
+                    }
+                }
+                .feedback_btn{
+                    background-color : transparent;
+                    border : 1px solid var(--border_grey);
+                    border-radius : 5px;
+                    padding : 0px 15px;
+                    cursor: pointer;
+                    background-color : #5B8BD1;
+                    color : white;
+                    font-weight : 400;
+                }
+            }
 `
 const Profile: React.FC<ComponentProps> = ({ Promo, user_id }) => {
+    //Stats
     const [userData, setUserData] = useState<User | null>(null);
     const [IsLoading, setIsLoading] = useState<boolean>(true);
+    const [IsModalOpen, setIsModalOpen] = useState<boolean>(false);
+    //Modal
+    const handleOpenModal = () => setIsModalOpen(true);
+    const handleCloseModal = () => setIsModalOpen(false);
+    //Auth
     const { data: session } = useSession();
 
     useEffect(() => {
@@ -256,6 +347,7 @@ const Profile: React.FC<ComponentProps> = ({ Promo, user_id }) => {
                 .then(response => response.json())
                 .then(data => {
                     UpdateUser(data, setUserData);
+                    console.log(data);
                     setIsLoading(false);
                 })
                 .catch(error => {
@@ -265,7 +357,9 @@ const Profile: React.FC<ComponentProps> = ({ Promo, user_id }) => {
     }, [user_id])
 
     return (
-        <StyledProfile PrmColor={Promo.Prm_color} SecColor={Promo.sec_color}>
+        <StyledProfile PrmColor={Promo.Prm_color} SecColor={Promo.sec_color} level={userData ? userData.level : "0"}>
+            <CustomModal open={IsModalOpen} onClose={handleCloseModal} />
+            
             <div className='User_Banner'>
                 <img className='BinaryBack' src={BinaryBack.src} />
                 {
@@ -289,12 +383,14 @@ const Profile: React.FC<ComponentProps> = ({ Promo, user_id }) => {
                         : <Skeleton className='Skeleton_avatar' animation={"wave"} variant="circular" width="90px" height={"90px"} />
                 }
                 <div className='Profile_UserIcons'>
-                    <svg className="_42logo" version="1.1" id="Calque_1" x="0px" y="0px" viewBox="0 -200 960 960" enable-background="new 0 -200 960 960">
-                        <polygon id="polygon5" points="32,412.6 362.1,412.6 362.1,578 526.8,578 526.8,279.1 197.3,279.1 526.8,-51.1 362.1,-51.1   32,279.1 " />
-                        <polygon id="polygon7" points="597.9,114.2 762.7,-51.1 597.9,-51.1 " />
-                        <polygon id="polygon9" points="762.7,114.2 597.9,279.1 597.9,443.9 762.7,443.9 762.7,279.1 928,114.2 928,-51.1 762.7,-51.1 " />
-                        <polygon id="polygon11" points="928,279.1 762.7,443.9 928,443.9 " />
-                    </svg>
+                    <a href={`https://profile.intra.42.fr/users/${userData?.login}`} target='_blank'>
+                        <svg className="_42logo" version="1.1" id="Calque_1" x="0px" y="0px" viewBox="0 -200 960 960" enable-background="new 0 -200 960 960">
+                            <polygon id="polygon5" points="32,412.6 362.1,412.6 362.1,578 526.8,578 526.8,279.1 197.3,279.1 526.8,-51.1 362.1,-51.1   32,279.1 " />
+                            <polygon id="polygon7" points="597.9,114.2 762.7,-51.1 597.9,-51.1 " />
+                            <polygon id="polygon9" points="762.7,114.2 597.9,279.1 597.9,443.9 762.7,443.9 762.7,279.1 928,114.2 928,-51.1 762.7,-51.1 " />
+                            <polygon id="polygon11" points="928,279.1 762.7,443.9 928,443.9 " />
+                        </svg>
+                    </a>
                 </div>
 
                 <div className='Profil_UserLevel'>
@@ -304,47 +400,86 @@ const Profile: React.FC<ComponentProps> = ({ Promo, user_id }) => {
 
             <div className='User_Stats'>
                 <div className='State_item'>
-                    <FaWallet className='State_item_icon'/>
-                    <span>{userData? userData.corrections_points : "-"} ₳</span>
+                    <FaWallet className='State_item_icon' />
+                    <span>{userData ? userData.wallet : "-"} ₳</span>
                 </div>
 
                 <div className='State_item'>
-                    <FaFolder className='State_item_icon'/>
+                    <FaFolder className='State_item_icon' />
                     <span>{userData?.corrections_points} Correction point</span>
                 </div>
 
                 <div className='State_item'>
-                    <FaTv className={`State_item_icon ${userData?.location? "State_item_active" : "State_item_inactive"}`}/>
-                    <span className={`State_item_icon ${userData?.location? "State_item_active" : "State_item_inactive"}`}>
-                        {userData && userData.location? userData.location : "Offline"}
+                    <FaTv className={`State_item_icon ${userData?.location ? "State_item_active" : "State_item_inactive"}`} />
+                    <span className={`State_item_icon ${userData?.location ? "State_item_active" : "State_item_inactive"}`}>
+                        {userData && userData.location ? userData.location : "Offline"}
                     </span>
                 </div>
             </div>
 
+            {
+                !userData?.is_pooler &&
+                <>
+                    <span>RNCP 7 Progress :</span>
+                    <div className='RNCP_progress'>
+                        <div className='Progress_item'>
+                            <span>{userData?.level} / 21 Level</span>
+                        </div>
+                        <div className='Progress_item'>
+                            <span>0 / 4 Events</span>
+                        </div>
+                        <div className='Progress_item'>
+                            <span>0 / 2 Experiances</span>
+                        </div>
+                    </div>
+                </>
+            }
+
             <div className='User_Exams'>
                 <span>Exams :</span>
                 {
-                    userData ? userData.projects
-                        .filter(project => project.project_name
-                            .toUpperCase()
-                            .includes("EXAM"))
-                        .map((Item, index) => {
-                            console.log(Item);
-                            return (
-                                <div className='Exam_container' key={index}>
-                                    {
-                                        Item.is_validated ? <FaCheck className='Status_icon status_icon_validated' />
-                                            : !Item.is_validated ? <FaTimes className='Status_icon status_icon_failed' />
-                                                : ""
-                                    }
-                                    <span className='Exam_Title'>{Item.project_name}</span>
-                                    <div className='Exam_status'>
-                                        <span>{Item.final_make}</span>
+                    userData ? (
+                        userData.is_pooler ?
+                            // User is a pooler, list projects with "piscine" and "exam" in title
+                            userData.projects
+                                .filter(project =>
+                                    project.project_name.toUpperCase().includes("PISCINE") &&
+                                    project.project_name.toUpperCase().includes("EXAM")
+                                )
+                                .map((Item, index) => (
+                                    <div className='Exam_container' key={index}>
+                                        {
+                                            Item.is_validated ? <FaCheck className='Status_icon status_icon_validated' />
+                                                : !Item.is_validated ? <FaTimes className='Status_icon status_icon_failed' />
+                                                    : ""
+                                        }
+                                        <span className='Exam_Title'>{Item.project_name}</span>
+                                        <div className='Exam_status'>
+                                            <span>{Item.final_make}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            )
-                        })
-                        :
+                                ))
+                            :
+                            // User is not a pooler, list projects with "exam" but not "piscine" in title
+                            userData.projects
+                                .filter(project =>
+                                    project.project_name.toUpperCase().includes("EXAM") &&
+                                    !project.project_name.toUpperCase().includes("PISCINE")
+                                )
+                                .map((Item, index) => (
+                                    <div className='Exam_container' key={index}>
+                                        {
+                                            Item.is_validated ? <FaCheck className='Status_icon status_icon_validated' />
+                                                : !Item.is_validated ? <FaTimes className='Status_icon status_icon_failed' />
+                                                    : ""
+                                        }
+                                        <span className='Exam_Title'>{Item.project_name}</span>
+                                        <div className='Exam_status'>
+                                            <span>{Item.final_make}</span>
+                                        </div>
+                                    </div>
+                                ))
+                    ) :
                         <Skeleton
                             className='Skeleton'
                             animation="wave"
@@ -353,9 +488,21 @@ const Profile: React.FC<ComponentProps> = ({ Promo, user_id }) => {
                             height="65px"
                         />
                 }
+
             </div>
 
-
+            <div className='Feedback_feature'>
+                <button onClick={handleOpenModal} className='feedback_btn'>Leave Anonymous Comment</button>
+                
+                <div className='reaction_buttons' onClick={handleOpenModal}>
+                    <div className='Thumb Thum_up'>
+                        <FaThumbsUp/>
+                    </div>
+                    <div className='Thumb Thum_down'>
+                        <FaThumbsDown/>
+                    </div>
+                </div>
+            </div>
         </StyledProfile>
     );
 }

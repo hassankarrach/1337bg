@@ -11,15 +11,15 @@ export const Promos: Promo[] = [
     {
         id: 1,
         Name: "Red Promo",
-        Prm_color: "#ff6024",
+        Prm_color: "#E52B1D",
         sec_color: "#ff7638",
         start_date: "2022-10-05T06:00:00.000Z"
     },
     {
         id: 2,
         Name: "Green Promo",
-        Prm_color: "#6ef024",
-        sec_color: "#a4ff6f",
+        Prm_color: "#024325",
+        sec_color: "#2ACF79",
         start_date: "2021-08-02T08:37:00.000Z"
     },
     {
@@ -32,8 +32,8 @@ export const Promos: Promo[] = [
     {
         id: 4,
         Name: "White Promo",
-        Prm_color: "#d7d7d7",
-        sec_color: "#eeeeee",
+        Prm_color: "#DBDBD5",
+        sec_color: "#E8E9E2",
         start_date: "2024-06-24T08:37:00.000Z"
     }
 ];

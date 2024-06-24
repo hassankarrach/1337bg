@@ -3,10 +3,10 @@ import styled from "styled-components";
 export const StyledNavbar = styled.div`
     width : 100%;
     height: 60px;
-    background: rgba( 255, 255, 255, 0.65 );
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
-    backdrop-filter: blur( 9px );
-    -webkit-backdrop-filter: blur( 9px );
+    /* background: rgba( 255, 255, 255, 0.65 ); */
+    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px; */
+    /* backdrop-filter: blur( 9px ); */
+    /* -webkit-backdrop-filter: blur( 9px ); */
     position : fixed;
     top : 0;
     z-index : 9999;

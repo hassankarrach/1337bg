@@ -21,7 +21,7 @@
   --Sec_Font: "Poppins", sans-serif;
 }
 
-h1, h2, h3, h4{
+h1, h2, h3, h4, button{
   font-family: var(--main_font);
   -webkit-font-smoothing: antialiased;
   color : var(--Header_grey);

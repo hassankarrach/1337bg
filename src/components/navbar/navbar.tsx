@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
 
     const Handle_logout = () => {
         setAnchorEl(null);
-        signOut();
+        signOut({ callbackUrl: '/' });
     }
 
     return (
