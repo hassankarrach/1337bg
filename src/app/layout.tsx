@@ -2,11 +2,12 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import StyledComponentsRegistry from "./registry";
 import Navbar from "@/components/navbar/navbar";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
-
+//React-query
 const inter = Inter({ subsets: ["latin"] });
 //Next_Auth
-import { SessionProvider } from "next-auth/react";
+import Providers from "./Providers";
 
 export const metadata = {
   title: "1337 Hub",
@@ -21,14 +22,14 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <SessionProvider refetchInterval={5 * 60}>
-        <StyledComponentsRegistry>
-          <body className={inter.className}>
+      <StyledComponentsRegistry>
+        <body className={inter.className}>
+          <Providers>
             <Navbar />
             {children}
-          </body>
-        </StyledComponentsRegistry>
-      </SessionProvider>
+          </Providers>
+        </body>
+      </StyledComponentsRegistry>
     </html>
   );
 }

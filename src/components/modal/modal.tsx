@@ -8,6 +8,7 @@ import Backdrop from '@mui/material/Backdrop';
 import { PiX } from 'react-icons/pi';
 //Tmp
 import TomGym from "../../../public/assets/under_dev.gif"
+import zIndex from '@mui/material/styles/zIndex';
 
 interface FadeProps {
   children?: React.ReactElement;
@@ -86,7 +87,7 @@ const style = {
   border: 'none',
   borderRadius: '6px',
   boxShadow: 24,
-  overflow: 'hidden'
+  overflow: 'hidden',
 };
 
 interface Props {

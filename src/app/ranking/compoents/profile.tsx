@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Modal from '@mui/material/Modal';
-import { Promo } from '../page';
+import { Promo } from '../../../types/FortyTwo/types';
 //Assets
 import BinaryBack from "../../../../public/BinaryBack.png"
 import _1337Logo from "../../../../public/logos/1337.svg"
@@ -16,11 +16,15 @@ import { useSession } from 'next-auth/react';
 import { User } from "../../../types/user/user"
 import { StaticImageData } from 'next/image';
 import CustomModal from '@/components/modal/modal';
+import { useQuery } from '@tanstack/react-query';
+import { fetchUsers } from '@/utils/fetch_users';
+import Exams from './Exams';
 
 
 interface ComponentProps {
     Promo: Promo,
-    user_id: number
+    user_id: number,
+    list_is_loading : boolean
 }
 interface StyleProps {
     PrmColor: string
@@ -69,6 +73,9 @@ const StyledProfile = styled.div<StyleProps>`
             left : 0;
             overflow : hidden;
             padding : 5px;
+            display : flex;
+            flex-direction : column;
+            justify-content  :space-between;
             /* border: 1px solid pink; */
             
             .User_Banner{
@@ -88,6 +95,11 @@ const StyledProfile = styled.div<StyleProps>`
                   ${props => `${HexToRgba(props.SecColor, 1)} 0%`}, 
                   ${props => `${HexToRgba(props.PrmColor, 1)} 100%`}
                 );
+
+                .Userkind{
+                    position : absolute;
+                    color : #c8c8c3;
+                }
 
                 .BinaryBack{
                     width : 100%;
@@ -170,55 +182,78 @@ const StyledProfile = styled.div<StyleProps>`
                     }
                 }
             }
-            .User_Exams{
+      
+      
+            .Feedback_feature{
+                height : 45px;
                 width : 100%;
-                height : auto;
-                border-width: 0 0 0 0;
-                border-top: 1px solid;
-                border-image: linear-gradient(90deg, rgba(231,231,231,0) 0%, rgba(231,231,231,1) 50%, rgba(231,231,231,0) 100%) 1; 
-                padding : 2px;
-                /* position : absolute; */
-                bottom :0;
-                display : flex;
-                flex-direction : column;
-
-                .Exam_container{
-                    width : 100%;
+                display  :flex;
+                justify-content : space-between;
+                align-items : center;
+                .reaction_buttons{
                     height : 100%;
-                    border-radius : 4px;
-                    display : flex;
-                    justify-content : space-between;
+                    width : 100%;
+                    border-radius : 5px;
+                    display  :flex;
+                    justify-content  :center;
                     align-items : center;
-                    padding : 5px;
-                    .Status_icon{
-                        size : 10px;
-                        margin-right : 3px;
-                    }
-                    .status_icon_validated{
-                        color : #56ab2f;
-                        background-color : #a8e6cf;
-                    }
-                    .status_icon_failed{
-                        color : #e53935;
-                        background-color  : #ff8a80;
-                    }
-                    .status_icon_ongoing{
-                        color : #9e9e9e;
-                        background-color : #b71c1c;
-                    }
-                    .Exam_status{
-                        width : 80px;
-                        height : 100%;
+                    /* padding : 0px 5px; */
+                    /* padding : 0px 10px; */
+                    overflow : hidden;
+                    border : 1px solid var(--border_grey);
+                    .Feedback{
+                        flex-grow: 1;
                         display : flex;
                         justify-content : center;
+                        align-items :center;
+                    }
+                    .reaction_devider{
+                        width : 1px;
+                        height : 100%;
+                        background : linear-gradient(0deg, rgba(231,231,231,0) 0%, rgba(231,231,231,1) 50%, rgba(231,231,231,0) 100%);
+                    }
+                    .Thumb{
+                        padding : 0px 15px;
+                        height : 100%;
+                        display : flex;
+                        justify-content :center;
                         align-items : center;
-                        background-color  : var(--light_grey);
-                        padding : 0px 3px;
-                        margin-left: auto;
+                        cursor: pointer;
+                        color : var(--Header_grey);
+                        transition : 0.2s ease-in-out;
+                    }
+                    .Thum_up{
+                        /* flex: 1 1 auto; */
+                        &:hover{
+                            background-color : #a8e6cf;
+                            color : #56ab2f; 
+                        }
+                    }
+                    .Thum_down{
+                        /* flex: 1 1 auto; */
+                        &:hover{
+                            background-color  : #ff8a80;
+                            color : #e53935;
+                        }
                     }
                 }
+                .feedback_btn{
+                    background-color : transparent;
+                    border : 1px solid var(--border_grey);
+                    border-radius : 5px;
+                    padding : 0px 15px;
+                    cursor: pointer;
+                    text-transform : uppercase;
+                    background-color : #bfd9ff;
+                    /* border :1px solid #5B8BD1; */
+                    color : #5B8BD1;
+                    font-weight : 400;
+                }
             }
-            .User_Stats{
+
+            .ContainerProfile{
+                flex-grow: 1;
+                .User_Stats{
                 width  : 100%;
                 margin-top : 20px;
                 display  :flex;
@@ -243,8 +278,9 @@ const StyledProfile = styled.div<StyleProps>`
                         color : #e53935;
                     }
                 }
-            }
-            .RNCP_progress{
+                }
+
+                .RNCP_progress{
                 display : flex;
                 justify-content  : center;
                 flex-direction : column;
@@ -271,63 +307,12 @@ const StyledProfile = styled.div<StyleProps>`
                         z-index : -1;
                     }
                 }
-            }
-            .Feedback_feature{
-                height : 45px;
-                width : 100%;
-                position : absolute;
-                bottom :0;
-                display  :flex;
-                justify-content : space-between;
-                padding : 5px 0px;
-                padding-right : 10px;
-                .reaction_buttons{
-                    width : 100px;
-                    border-radius : 5px;
-                    display  :flex;
-                    border : 1px solid var(--border_grey);
-                    .Thumb{
-                        display : flex;
-                        justify-content :center;
-                        align-items : center;
-                        cursor: pointer;
-                        color : var(--Header_grey);
-                        transition : 0.2s ease-in-out;
-                    }
-                    .Thum_up{
-                        flex: 1 1 auto;
-                        &:hover{
-                            background-color : #a8e6cf;
-                            color : #56ab2f; 
-                        }
-                        border-width: 0 0 0 0;
-                border-right: 1px solid;
-                border-image: linear-gradient(180deg, rgba(231,231,231,0) 0%, rgba(231,231,231,1) 50%, rgba(231,231,231,0) 100%) 1; 
-                    }
-                    .Thum_down{
-                        flex: 1 1 auto;
-                        &:hover{
-                            background-color  : #ff8a80;
-                            color : #e53935;
-                        }
-                    }
-                }
-                .feedback_btn{
-                    background-color : transparent;
-                    border : 1px solid var(--border_grey);
-                    border-radius : 5px;
-                    padding : 0px 15px;
-                    cursor: pointer;
-                    background-color : #5B8BD1;
-                    color : white;
-                    font-weight : 400;
                 }
             }
 `
-const Profile: React.FC<ComponentProps> = ({ Promo, user_id }) => {
+const Profile: React.FC<ComponentProps> = ({ Promo, user_id, list_is_loading}) => {
     //Stats
     const [userData, setUserData] = useState<User | null>(null);
-    const [IsLoading, setIsLoading] = useState<boolean>(true);
     const [IsModalOpen, setIsModalOpen] = useState<boolean>(false);
     //Modal
     const handleOpenModal = () => setIsModalOpen(true);
@@ -335,35 +320,34 @@ const Profile: React.FC<ComponentProps> = ({ Promo, user_id }) => {
     //Auth
     const { data: session } = useSession();
 
+    const BaseUrl = `https://api.intra.42.fr/v2/users/${user_id}`;
+    const { data, isLoading, isError, error } = useQuery({
+        queryKey: ['user', user_id],
+        queryFn: () => fetchUsers(BaseUrl, session?.accessToken),
+        enabled: !!user_id,
+        retry: 2,
+        refetchOnWindowFocus: false,
+        staleTime : 5 * 24 * 60 * 60 * 1000,
+    });
+
     useEffect(() => {
-        if (session && session.accessToken) {
-            setIsLoading(true);
-            const baseUrl = `https://api.intra.42.fr/v2/users/${user_id}`;
-            fetch(`${baseUrl}`, {
-                headers: {
-                    Authorization: `Bearer ${session.accessToken}`,
-                },
-            })
-                .then(response => response.json())
-                .then(data => {
-                    UpdateUser(data, setUserData);
-                    console.log(data);
-                    setIsLoading(false);
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
+        console.log(user_id);
+        if (data) {
+            UpdateUser(data, setUserData);
         }
-    }, [user_id])
+    }, [data, user_id])
 
     return (
         <StyledProfile PrmColor={Promo.Prm_color} SecColor={Promo.sec_color} level={userData ? userData.level : "0"}>
             <CustomModal open={IsModalOpen} onClose={handleCloseModal} />
-            
+
             <div className='User_Banner'>
+                {
+                    userData?.is_pooler && <h1 className='Userkind'>POOLER</h1>
+                }
                 <img className='BinaryBack' src={BinaryBack.src} />
                 {
-                    !IsLoading ?
+                    (!isLoading && !list_is_loading) ?
                         <div className='Profile_avatar' style={{ backgroundImage: `url(${userData?.img})` }}>
                             {
                                 !userData?.img &&
@@ -398,108 +382,57 @@ const Profile: React.FC<ComponentProps> = ({ Promo, user_id }) => {
                 </div>
             </div>
 
-            <div className='User_Stats'>
-                <div className='State_item'>
-                    <FaWallet className='State_item_icon' />
-                    <span>{userData ? userData.wallet : "-"} ₳</span>
-                </div>
-
-                <div className='State_item'>
-                    <FaFolder className='State_item_icon' />
-                    <span>{userData?.corrections_points} Correction point</span>
-                </div>
-
-                <div className='State_item'>
-                    <FaTv className={`State_item_icon ${userData?.location ? "State_item_active" : "State_item_inactive"}`} />
-                    <span className={`State_item_icon ${userData?.location ? "State_item_active" : "State_item_inactive"}`}>
-                        {userData && userData.location ? userData.location : "Offline"}
-                    </span>
-                </div>
-            </div>
-
-            {
-                !userData?.is_pooler &&
-                <>
-                    <span>RNCP 7 Progress :</span>
-                    <div className='RNCP_progress'>
-                        <div className='Progress_item'>
-                            <span>{userData?.level} / 21 Level</span>
-                        </div>
-                        <div className='Progress_item'>
-                            <span>0 / 4 Events</span>
-                        </div>
-                        <div className='Progress_item'>
-                            <span>0 / 2 Experiances</span>
-                        </div>
+            <div className='ContainerProfile'>
+                <div className='User_Stats'>
+                    <div className='State_item'>
+                        <FaWallet className='State_item_icon' />
+                        <span>{userData ? userData.wallet : "-"} ₳</span>
                     </div>
-                </>
-            }
 
-            <div className='User_Exams'>
-                <span>Exams :</span>
+                    <div className='State_item'>
+                        <FaFolder className='State_item_icon' />
+                        <span>{userData?.corrections_points} Correction point</span>
+                    </div>
+
+                    <div className='State_item'>
+                        <FaTv className={`State_item_icon ${userData?.location ? "State_item_active" : "State_item_inactive"}`} />
+                        <span className={`State_item_icon ${userData?.location ? "State_item_active" : "State_item_inactive"}`}>
+                            {userData && userData.location ? userData.location : "Offline"}
+                        </span>
+                    </div>
+                </div>
                 {
-                    userData ? (
-                        userData.is_pooler ?
-                            // User is a pooler, list projects with "piscine" and "exam" in title
-                            userData.projects
-                                .filter(project =>
-                                    project.project_name.toUpperCase().includes("PISCINE") &&
-                                    project.project_name.toUpperCase().includes("EXAM")
-                                )
-                                .map((Item, index) => (
-                                    <div className='Exam_container' key={index}>
-                                        {
-                                            Item.is_validated ? <FaCheck className='Status_icon status_icon_validated' />
-                                                : !Item.is_validated ? <FaTimes className='Status_icon status_icon_failed' />
-                                                    : ""
-                                        }
-                                        <span className='Exam_Title'>{Item.project_name}</span>
-                                        <div className='Exam_status'>
-                                            <span>{Item.final_make}</span>
-                                        </div>
-                                    </div>
-                                ))
-                            :
-                            // User is not a pooler, list projects with "exam" but not "piscine" in title
-                            userData.projects
-                                .filter(project =>
-                                    project.project_name.toUpperCase().includes("EXAM") &&
-                                    !project.project_name.toUpperCase().includes("PISCINE")
-                                )
-                                .map((Item, index) => (
-                                    <div className='Exam_container' key={index}>
-                                        {
-                                            Item.is_validated ? <FaCheck className='Status_icon status_icon_validated' />
-                                                : !Item.is_validated ? <FaTimes className='Status_icon status_icon_failed' />
-                                                    : ""
-                                        }
-                                        <span className='Exam_Title'>{Item.project_name}</span>
-                                        <div className='Exam_status'>
-                                            <span>{Item.final_make}</span>
-                                        </div>
-                                    </div>
-                                ))
-                    ) :
-                        <Skeleton
-                            className='Skeleton'
-                            animation="wave"
-                            variant="rectangular"
-                            width="100%"
-                            height="65px"
-                        />
+                    !userData?.is_pooler &&
+                    <>
+                        <span>RNCP 7 Progress :</span>
+                        <div className='RNCP_progress'>
+                            <div className='Progress_item'>
+                                <span>{userData?.level} / 21 Level</span>
+                            </div>
+                            <div className='Progress_item'>
+                                <span>0 / 4 Events</span>
+                            </div>
+                            <div className='Progress_item'>
+                                <span>0 / 2 Experiances</span>
+                            </div>
+                        </div>
+                    </>
                 }
-
+                <Exams UserData={userData} />
             </div>
 
             <div className='Feedback_feature'>
-                <button onClick={handleOpenModal} className='feedback_btn'>Leave Anonymous Comment</button>
-                
                 <div className='reaction_buttons' onClick={handleOpenModal}>
-                    <div className='Thumb Thum_up'>
-                        <FaThumbsUp/>
+                    <div className='Feedback'>
+                        <span>Leave Anonymous Feedback</span>
                     </div>
+                    <div className='reaction_devider' />
+                    <div className='Thumb Thum_up'>
+                        <FaThumbsUp />
+                    </div>
+                    <div className='reaction_devider' />
                     <div className='Thumb Thum_down'>
-                        <FaThumbsDown/>
+                        <FaThumbsDown />
                     </div>
                 </div>
             </div>

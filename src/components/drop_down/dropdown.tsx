@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Select as BaseSelect, SelectProps, SelectRootSlotProps } from '@mui/base/Select';
 import { Option as BaseOption } from '@mui/base/Option';
 import { styled } from '@mui/system';
+import { FaBookmark } from "react-icons/fa";
+
 
 interface CustomDropDownProps<T> {
   data: T[];
@@ -11,7 +13,7 @@ interface CustomDropDownProps<T> {
 }
 
 export default function CustomDropDown<T>({ data, getValue, renderItem, onChange }: CustomDropDownProps<T>) {
-  const [selectedItem, setSelectedItem] = React.useState<string | null>(getValue(data[0]));
+  const [selectedItem, setSelectedItem] = useState<string | null>(getValue(data[0]));
 
   const handleChange = (event: any, newValue: string | null) => {
     setSelectedItem(newValue);
@@ -19,6 +21,7 @@ export default function CustomDropDown<T>({ data, getValue, renderItem, onChange
       onChange(newValue);
     }
   };
+  
 
   return (
     <div>
@@ -27,6 +30,7 @@ export default function CustomDropDown<T>({ data, getValue, renderItem, onChange
           const value = getValue(item);
           return (
             <Option key={value} value={value}>
+              <FaBookmark color={item.sec_color} className='IconOption'/>
               {renderItem(item)}
             </Option>
           );
@@ -74,6 +78,8 @@ const StyledButton = styled('button')`
   position: relative;
   box-shadow: 0px 2px 2px #f3f6f9;
   transition: all 120ms cubic-bezier(0.4, 0, 0.2, 1);
+  width : 100%;
+
 
   &:hover {
     background: #f3f6f9;
@@ -98,10 +104,17 @@ const Listbox = styled('ul')`
 `;
 
 const Option = styled(BaseOption)`
+  width : 100%;
   list-style: none;
   padding: 8px;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: default;
+  display : flex;
+  align-items : center;
+  
+  .IconOption {
+    margin-right : 5px;
+  }
 
   &:last-of-type {
     border-bottom: none;

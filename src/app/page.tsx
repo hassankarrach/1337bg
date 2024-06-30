@@ -5,17 +5,11 @@ import _stars from "../../public/stars.png"
 import router, { useRouter } from "next/router";
 import { useSession, signIn, signOut, getSession } from 'next-auth/react'
 import MainSvg from "@/components/Svgs/MainSvg";
+import { useEffect } from "react";
 
 const Main = () => {
     const { data: session } = useSession();
     // const router = useRouter();
-
-    const handleLogin = async () => {
-        // Perform sign in using NextAuth.js signIn method
-        await signIn("42-school"); // Replace "42-school" with your provider name
-        // After successful login, redirect to /ranking
-        // router.push('/ranking');
-    }
 
     return (
         <StyledMain>

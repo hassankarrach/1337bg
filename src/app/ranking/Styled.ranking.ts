@@ -27,10 +27,28 @@ export const StyledRanking = styled.div`
             display : flex;
             align-items : flex-end;
             justify-content : space-between;
-            gap : 15px;
+            gap : 8px;
             padding : 10px 0px;
+            .Select_container{
+                flex-grow : 1;
+            }
+            .SearchUser{
+                flex-grow : 1;
+                height : 100%;
+                display : flex;
+                align-items : flex-end;
+                input { 
+                    height : 38px;
+                    width: 100%;
+                    border : 1px solid var(--border_grey);
+                    border-radius : 7px;
+                    padding : 10px;
+                    color : var(--main_color);
+                    outline : none;
+                }
+            }
             .ToMeButton{
-            width : 70px;
+            flex-grow : 1;
             height : 38px;
             border-radius : 7px;
             cursor : pointer;
@@ -40,7 +58,63 @@ export const StyledRanking = styled.div`
             font-size : 0.9rem;
             justify-self : right;
             margin-left: auto;
-        }
+            }
+            .GenderFilter{
+                flex-grow : 1;
+                height : 38px;
+                border-radius : 5px;
+                border : 1px solid var(--border_grey);
+                display : flex;
+                overflow  :hidden;
+                .Male {
+                    color : #c3e8ff;
+                }
+
+                .Female{
+                    color : #ffb6c1;
+                }
+                .All{
+                    /* background-color : red; */
+                }
+                .All.selected{
+                    background-color : var(--light_blue);
+                    color : white;
+                    .gender_type{
+                        color : white;
+                    }
+                }
+                .Male.selected{
+                    background-color : var(--light_blue);
+                    color : white;
+                    .gender_type{
+                        color : white;
+                    }
+                }
+                .Female.selected{
+                    background-color : var(--light_blue);
+                    color : white;
+                    .gender_type{
+                        color : white;
+                    }
+                }
+
+                .Male, .Female, .All{
+                    flex-grow: 1;
+                    display : flex;
+                    justify-content :center;
+                    align-items : center;
+                    padding : 0px 5px; 
+                    cursor: pointer;
+                    .GenderIcon{
+                        size : 50px;
+                    }
+                }
+                .devider{
+                        width : 1px;
+                        height : 100%;
+                        background : linear-gradient(0deg, rgba(231,231,231,0) 0%, rgba(231,231,231,1) 50%, rgba(231,231,231,0) 100%);
+                }
+            }
         }
 
 
@@ -71,6 +145,16 @@ export const StyledRanking = styled.div`
                 flex-direction : column;
                 padding-right :5px;
                 gap : 5px;
+                .FetchMore{
+                    width : 100%;
+                    display : flex;
+                    justify-content : center;
+                    align-items : center;
+                    padding : 10px;
+                }
+                .Animated{
+                    animation: fadeInOut 1s infinite;
+                }
                 /* Scrollbar styles */
                 &::-webkit-scrollbar {
                   width: 8px; /* Width of the scroll bar */
@@ -94,8 +178,8 @@ export const StyledRanking = styled.div`
             padding-right :5px;
             gap : 5px;
             position  :relative;
-            .Skeleton{
-                border-radius : 3px;
+            .CardSkl{
+                border-radius : 5px;
             }
             .profileSkl{
                 top : 0;
