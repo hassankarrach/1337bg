@@ -6,22 +6,48 @@ import router, { useRouter } from "next/router";
 import { useSession, signIn, signOut, getSession } from 'next-auth/react'
 import MainSvg from "@/components/Svgs/MainSvg";
 import { useEffect } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Main = () => {
-    const { data: session } = useSession();
-    // const router = useRouter();
+    const { data: session, status } = useSession();
+
+    const handleSignIn = async() => {
+        const callbackUrl = "/ranking";
+        signIn("42-school", {callbackUrl});
+    };
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const message = params.get('error');
+        if (message) {
+          toast.error("You must be logged in to access the ranking page.");
+        }
+      }, []);
 
     return (
         <StyledMain>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className="Left">
                 <div className="blob _t_left" />
 
-                <MainSvg/>
+                <MainSvg />
 
-                <h1 className="Title">Navigate School Like <br/> a Boss!</h1>
+                <h1 className="Title">Navigate School Like <br /> a Boss!</h1>
                 <div className="login_card">
                     <img className="stars" src={_stars.src} />
-                    <button className="login_button" onClick={()=>{signIn("42-school")}}>
+                    <button className="login_button" onClick={handleSignIn}>
                         <span>Login</span>
                         <div className="_devider" />
                         <svg className="_42logo" version="1.1" id="Calque_1" x="0px" y="0px" viewBox="0 -200 960 960" enable-background="new 0 -200 960 960">
@@ -39,14 +65,14 @@ const Main = () => {
                     className="_r_item"
                     xmlns="http://www.w3.org/2000/svg"
                     width="20px" height="464px">
-                    <path fill-rule="evenodd" fill="rgb(255, 255, 255)"
+                    <path fill-rule="evenodd" fill="var(--main_background)"
                         d="M-0.000,464.000 L-0.000,-0.000 L59.000,59.001 L59.000,404.000 " />
                 </svg>
                 <svg
                     className="_l_item"
                     xmlns="http://www.w3.org/2000/svg"
                     width="30px" height="464px">
-                    <path fill-rule="evenodd" fill="rgb(255, 255, 255)"
+                    <path fill-rule="evenodd" fill="var(--main_background)"
                         d="M-0.000,464.000 L-0.000,-0.000 L59.000,59.001 L59.000,404.000 " />
                 </svg>
             </div>

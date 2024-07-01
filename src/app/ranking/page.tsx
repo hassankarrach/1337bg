@@ -21,7 +21,9 @@ import { Promos } from '@/data/Promos';
 import { getGender } from '@/utils/get_gender';
 // RQ
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-
+// Toast
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Ranking: React.FC = () => {
@@ -81,7 +83,7 @@ const Ranking: React.FC = () => {
         getNextPageParam: (lastPage, allPages) => lastPage.nextPage,
         initialPageParam: 1,
         retry: 2,
-        refetchOnWindowFocus: false,
+        refetchOnWindowFocus: false, 
         enabled: session !== undefined && SelectedPromo !== undefined && SelectedPromo !== null,
     });
 
@@ -93,6 +95,10 @@ const Ranking: React.FC = () => {
         // Scroll to the logged-in user's card if the ref exists
         if (loggedInUserCardRef.current) {
             loggedInUserCardRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+        else
+        {
+            toast.info("You are not on the list. ensure that you have loaded all students or selected your promo.");
         }
     };
 
@@ -129,8 +135,21 @@ const Ranking: React.FC = () => {
 
     return (
         <StyledRanking>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                // transition:Bounce,
+            />
             <div className='Container'>
-                <Profile Promo={Promos[SelectedPromo]} user_id={SelectedUser} list_is_loading={!Users[0]}/>
+                {/* <Profile Promo={Promos[SelectedPromo]} user_id={SelectedUser} list_is_loading={!Users[0]}/> */}
                 <div className='Ranking'>
                     <div className='Options'>
                         <div className='Filters'>

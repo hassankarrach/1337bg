@@ -19,6 +19,7 @@ import CustomModal from '@/components/modal/modal';
 import { useQuery } from '@tanstack/react-query';
 import { fetchUsers } from '@/utils/fetch_users';
 import Exams from './Exams';
+import RncpItem from './RncpItem';
 
 
 interface ComponentProps {
@@ -279,34 +280,12 @@ const StyledProfile = styled.div<StyleProps>`
                     }
                 }
                 }
-
                 .RNCP_progress{
                 display : flex;
                 justify-content  : center;
                 flex-direction : column;
                 padding : 5px 0px;
                 gap : 2px;
-                .Progress_item{
-                    padding : 3px 5px;
-                    border-radius : 4px;
-                    border : 1px solid var(--border_grey);
-                    position : relative;
-                    cursor: pointer;
-                    /* flex: 1 1 auto; */
-                    display : flex;
-                    justify-content :center;
-                    align-items : center;
-                    &:after{
-                        content :"";
-                        left : 0;
-                        bottom : 0;
-                        position : absolute;
-                        width : ${props => (props.level / 21) * 100}%;
-                        height : 10%;
-                        background-color : #a8e6cf;
-                        z-index : -1;
-                    }
-                }
                 }
             }
 `
@@ -406,15 +385,9 @@ const Profile: React.FC<ComponentProps> = ({ Promo, user_id, list_is_loading}) =
                     <>
                         <span>RNCP 7 Progress :</span>
                         <div className='RNCP_progress'>
-                            <div className='Progress_item'>
-                                <span>{userData?.level} / 21 Level</span>
-                            </div>
-                            <div className='Progress_item'>
-                                <span>0 / 4 Events</span>
-                            </div>
-                            <div className='Progress_item'>
-                                <span>0 / 2 Experiances</span>
-                            </div>
+                            <RncpItem value={userData?.level} by='21' title='Level'/>
+                            <RncpItem value={'0'} by='2' title='Events'/>
+                            <RncpItem value={'0'} by='4' title='Experiances'/>
                         </div>
                     </>
                 }

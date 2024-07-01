@@ -158,4 +158,7 @@ const RankCard: FC<Profile & { forwardedRef: Ref<HTMLDivElement> }> = ({ id, Ful
 
 const ForwardedRankCard = forwardRef((props: Profile, ref: Ref<HTMLDivElement>) => <RankCard {...props} forwardedRef={ref} />);
 
+ForwardedRankCard.displayName = 'ForwardedRankCard';
+
 export default ForwardedRankCard;
+

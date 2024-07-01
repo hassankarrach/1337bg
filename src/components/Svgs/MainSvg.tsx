@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 
 const StyledMainSvg = styled.div`
-    height : 300px;
+    height : 100px;
     width : 100%;
     position : absolute;
     bottom : 0;
@@ -181,627 +181,627 @@ const MainSvg = () => {
                 <defs>
                     <radialGradient id="g1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-313.171,0,0,-313.171,1934.449,1082.007)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,2372.784,1022.291)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g3" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,1496.113,1141.724)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g4" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-306.273,0,0,-306.273,1388.405,1123.278)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g5" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,1818.197,1073.516)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g6" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,958.61,1173.038)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g7" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-741.599,0,0,-741.599,1484.335,868.725)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g8" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,438.161,936.966)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g9" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.311,0,0,-5.311,2529.335,852.197)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g10" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-758.232,0,0,-758.232,1363.903,1003.197)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g11" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.311,0,0,-5.311,301.549,1136.571)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g12" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.311,0,0,-5.311,2426.259,935.399)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g13" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-938.903,0,0,-938.903,924.882,1105.496)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g14" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,2244.828,965.43)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g15" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,-395.064,1245.56)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g16" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-327.974,0,0,-327.974,632.947,1297.765)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g17" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.311,0,0,-5.311,1085.292,1203.203)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g18" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,179.429,1391.996)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g19" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-448.288,0,0,-448.288,1749.629,699.535)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g20" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,2379.918,763.529)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g21" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,1119.341,635.539)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g22" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-143.764,0,0,-143.764,1507.023,1211.775)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g23" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.311,0,0,-5.311,1703.743,1167.708)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g24" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,1309.135,1255.513)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g25" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-143.976,0,0,-143.976,1206.569,1335.13)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g26" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,1003.231,1335.132)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g27" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,1409.91,1335.132)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g28" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-999.085,0,0,-999.085,481.874,817.284)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g29" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,1889.822,703.811)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g30" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.311,0,0,-5.311,-924.898,931.085)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g31" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-293.119,0,0,-293.119,1014.507,541.882)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g32" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.311,0,0,-5.311,1421.853,609.256)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g33" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,605.992,474.838)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g34" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-196.297,0,0,-196.297,1337.059,1280.042)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g35" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,1601.067,1205.019)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g36" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.311,0,0,-5.311,1602.393,1355.395)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g37" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-400.177,0,0,-400.177,448.703,1267.955)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g38" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,1012.873,1228.51)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g39" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,-115.464,1307.398)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g40" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-104.132,0,0,-104.132,774.414,1326.487)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g41" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,918.457,1298.905)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g42" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.311,0,0,-5.311,631.542,1354.401)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g43" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-194.983,0,0,-194.983,660.924,1199.114)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g44" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.311,0,0,-5.311,921.042,1113.231)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g45" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.311,0,0,-5.311,400.809,1284.998)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g46" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-517.417,0,0,-517.417,-31.631,935.659)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g47" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.311,0,0,-5.311,691.837,837.35)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g48" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,-756.273,1033.638)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g49" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-236.724,0,0,-236.724,-53.382,1125.035)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g50" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,278.313,1083.466)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g51" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,-385.077,1166.605)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g52" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-99.503,0,0,-99.503,234.676,1174.436)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g53" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,375.118,1174.435)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g54" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,94.237,1174.435)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g55" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-376.305,0,0,-376.305,662.561,986.242)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g56" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,1193.412,978.964)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g57" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.312,0,0,-5.312,132.883,1018.4)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g58" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-214.686,0,0,-214.686,-272.885,970.772)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g59" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,29.898,954.084)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g60" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,-575.669,987.457)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g61" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-452.194,0,0,-452.194,401.98,646.632)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g62" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.311,0,0,-5.311,1035.728,719.365)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g63" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,-232.937,574.232)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g64" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-377.603,0,0,-377.603,-192.882,728.595)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g65" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,337.763,672.894)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g66" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,-723.528,784.296)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g67" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-95.973,0,0,-95.973,1016.029,859.536)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g68" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,1151.479,859.535)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g69" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,880.582,859.535)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g70" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-760.921,0,0,-760.921,243.165,512.208)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g71" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,1316.558,550.214)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g72" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.311,0,0,-5.311,-829.057,583.279)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g73" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-346.823,0,0,-346.823,-704.592,661.15)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g74" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,-216.393,703.811)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g75" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,-1192.789,703.811)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g76" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-134.805,0,0,-134.805,716.804,738.006)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g77" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.313,0,0,-5.313,906.781,748.599)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g78" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-5.311,0,0,-5.311,527.998,727.08)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g79" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-193.854,0,0,-193.854,2503.781,1019.713)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g80" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,2775.112,982.748)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g81" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,2232.45,1056.677)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g82" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-189.584,0,0,-189.584,2165.779,1045.259)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g83" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,2431.821,1014.457)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g84" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,1899.734,1076.061)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g85" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-459.052,0,0,-459.052,2225.159,887.69)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g86" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,1577.575,929.932)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g87" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,2872.018,877.459)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g88" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-469.347,0,0,-469.347,2150.612,970.929)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g89" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,1493.012,1053.488)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g90" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,2808.213,928.962)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g91" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-581.184,0,0,-581.184,1878.857,1034.252)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g92" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,2695.907,947.551)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g93" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,1061.806,1120.952)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g94" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-203.017,0,0,-203.017,1698.148,1153.267)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g95" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,1978.151,1094.733)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g96" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,1417.419,1211.597)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g97" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-277.491,0,0,-277.491,2389.377,782.961)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g98" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,2779.528,822.574)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g99" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,1999.227,743.348)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g100" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-88.99,0,0,-88.99,2239.204,1100.039)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g101" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,2360.973,1072.762)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g102" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,2116.71,1127.114)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g103" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-89.122,0,0,-89.122,2053.222,1176.397)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g104" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,1927.355,1176.398)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g105" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,2179.091,1176.398)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g106" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-618.436,0,0,-618.436,1604.633,855.848)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g107" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,2476.157,785.608)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g108" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,733.838,926.291)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g109" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-181.441,0,0,-181.441,1934.335,685.374)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g110" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,2186.483,727.078)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g111" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,1681.463,643.874)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g112" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-121.508,0,0,-121.508,2133.995,1142.297)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g113" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,2297.417,1095.857)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g114" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,2298.238,1188.941)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g115" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-247.711,0,0,-247.711,1584.1,1134.815)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g116" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,1933.323,1110.398)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g117" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,1234.879,1159.23)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g118" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-64.458,0,0,-64.458,1785.716,1171.046)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g119" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,1874.879,1153.973)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g120" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,1697.278,1188.325)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g121" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-120.695,0,0,-120.695,1715.466,1092.202)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g122" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,1876.48,1039.041)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g123" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,1554.454,1145.364)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g124" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-320.283,0,0,-320.283,1286.772,929.123)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g125" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,1734.601,868.269)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g126" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,838.217,989.772)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g127" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-146.533,0,0,-146.533,1273.308,1046.347)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g128" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,1478.629,1020.616)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g129" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,1067.988,1072.078)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g130" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-61.593,0,0,-61.593,1451.618,1076.926)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g131" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,1538.551,1076.926)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g132" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,1364.685,1076.926)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g133" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-232.934,0,0,-232.934,1716.479,960.434)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g134" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,2045.077,955.929)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g135" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,1388.607,980.34)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g136" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-132.891,0,0,-132.891,1137.435,950.858)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g137" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,1324.859,940.528)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g138" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,950.011,961.186)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g139" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-279.91,0,0,-279.91,1555.178,750.215)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g140" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,1947.47,795.236)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g141" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,1162.163,705.398)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g142" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-233.737,0,0,-233.737,1186.957,800.949)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g143" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,1515.428,766.47)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g144" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,858.486,835.429)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g145" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-59.407,0,0,-59.407,1935.277,882.002)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g146" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,2019.12,882.002)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g147" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,1851.434,882.002)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g148" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-471.012,0,0,-471.012,1456.872,667.005)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g149" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,2121.305,690.531)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g150" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,793.163,710.998)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g151" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-214.684,0,0,-214.684,870.207,759.201)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g152" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,1172.404,785.608)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g153" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,568.012,785.608)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g154" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-83.445,0,0,-83.445,1750.056,806.775)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g155" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.289,0,0,-3.289,1867.652,813.332)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                     <radialGradient id="g156" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.288,0,0,-3.288,1633.185,800.012)">
                         <stop offset="0" stop-color="var(--light_blue)" />
-                        <stop offset="1" stop-color="#a4caff" />
+                        <stop offset="1" stop-color="#111431" />
                     </radialGradient>
                 </defs>
                 <g id="Layer 1">

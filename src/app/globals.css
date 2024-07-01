@@ -10,9 +10,13 @@
 } */
 /* Global Styles */
 :root {
-  --main_color: #0E1A2A;
+  /* MAIN COLORS */
+  --main_background : #0A0B14;
+  --main_color: #5B8CD1;
   --light_blue: #5B8BD1;
   --Header_grey : #64758A;
+
+  /* GREYs */
   --Par_grey : #94A2B9;
   --light_grey: #f4f4f4;
   --border_grey: #e7e7e7;

@@ -13,7 +13,7 @@ export const StyledRanking = styled.div`
     align-items : center;
     flex-direction  :column;
     padding : 15% 6%;
-    background-color : var(--light_grey);
+    background-color : var(--main_background);
     /* background-color :#FAFBF4; */
     
     .Options{
@@ -124,7 +124,7 @@ export const StyledRanking = styled.div`
     {
         width : 100%;
         height : 600px;
-        background-color : white;
+        background-color : #0E0F19;
         border-radius : 5px;
         display : flex;
         justify-content : center;

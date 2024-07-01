@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import svg_illustr from "../../public/assets/main.svg"
+import { HexToRgba } from "@/utils/HexToRgba"
 
 export const StyledMain = styled.div`
     width : 100vw;
@@ -8,10 +9,11 @@ export const StyledMain = styled.div`
     justify-content : center;
     align-items : center;
     overflow : hidden;
+    background-color : var(--main_background);
     
     .Right
     {
-        width : 40%;
+        width : 50%;
         height: 100%;
         background-color : var(--main_color);
         background-image : url("/Header.jpg");
@@ -27,7 +29,7 @@ export const StyledMain = styled.div`
             position : absolute;
             width : 120px;
             height: 120px;
-            background-color : white;
+            background-color : var(--main_background);;
             transform : rotate(45deg);
             bottom : -8%;
             right : -16%;
@@ -60,6 +62,7 @@ export const StyledMain = styled.div`
             font-weight : 400;
             font-family : var(--main_font);
             background-color : transparent;
+            color : white;
         }
         .login_card {
             height: 50px;
@@ -70,18 +73,16 @@ export const StyledMain = styled.div`
             align-items: center;
             position: relative;
             background-color : transparent;
-            
-            
             .stars{
                 z-index : -999;
                 position : absolute;
                 left : -40px;
                 width : 90px;
             }
-
             .login_button {
                 outline : none;
-                border: 1px solid rgba(137,185,255, 0.8);
+                background: ${HexToRgba("#5B8CD1", 0.7)};
+                border: 1px solid rgba(137,185,255, 0.5);
                 border-left : none;
                 display : flex;
                 align-items : center;
@@ -92,7 +93,6 @@ export const StyledMain = styled.div`
                 z-index : 999;
                 margin-left: auto;
                 cursor: pointer;
-                background: rgba(66,108,168, 0.8 );
                 backdrop-filter: blur( 4px );
                 -webkit-backdrop-filter: blur( 4px );
                 transition : 0.5s ease-in-out;
@@ -132,14 +132,13 @@ export const StyledMain = styled.div`
                 }
             }
         }
-
         .blob{
-        width : 300px;
-        height: 200px;
+        /* width : 300px;
+        height: 200px; */
         border-radius : 50%;
         position : absolute;
-        background-color : #9DFD70;
-        filter: blur(90px);
+        background-color : #C2B4FF;
+        filter: blur(190px);
         z-index : 1;
 
         &:after{
@@ -147,7 +146,7 @@ export const StyledMain = styled.div`
             width : 100%;
             height: 100%;
             border-radius : 50%;
-            background-color : #89b9ff;
+            background-color : #C2B4FF;
             position : absolute;
         }
 
