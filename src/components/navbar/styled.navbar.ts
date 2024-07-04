@@ -1,82 +1,108 @@
 import styled from "styled-components";
 
 export const StyledNavbar = styled.div`
-    width : 100%;
-    height: 60px;
-    /* background: rgba( 255, 255, 255, 0.65 ); */
-    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px; */
-    /* backdrop-filter: blur( 9px ); */
-    /* -webkit-backdrop-filter: blur( 9px ); */
-    position : fixed;
-    top : 0;
-    z-index : 9999;
-    padding : 0px 6%;
-    overflow : hidden;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  right: 10px;
+  top: 10px;
+  display : flex;
+  gap : 5px;
 
+  .Profile {
+    width: 200px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 2px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+
+    background: rgba(195, 185, 252, 0.15);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+
+    .UserInfo {
+      height: 100%;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 10px 5px;
+      /* justify-content : flex-end; */
+
+      .User_name {
+        /* color: var(--main_color); */
+        font-weight: 400;
+        /* text-transform: uppercase; */
+      }
+      .online {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .online_dot {
+          width: 8px;
+          height: 8px;
+          background-color: red;
+          border-radius: 50%;
+          margin-right: 5px;
+        }
+      }
+    }
+
+    .Avatar {
+      width: 35px;
+      height: 100%;
+      background-color: white;
+      border-radius: 3px;
+      background-position: center;
+      background-size: cover;
+      transition: 0.2s ease-in-out;
+      position: relative;
+      overflow: hidden;
+
+      &:hover {
+        /* border : 1px solid var(--main_color); */
+        &:after {
+          content: "";
+          position: absolute;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background-color: var(--main_color);
+          opacity: 0.1;
+        }
+      }
+    }
+  }
+
+  .Nav_item{
+    width : 40px;
+    height : 40px;
+    background: rgba(195, 185, 252, 0.15);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 5px;
+    cursor: pointer;
     display : flex;
-    justify-content : space-between;
+    justify-content : center;
     align-items : center;
-
-    ._13hub_logo{
-        height : 70%;
-        background-color : transparent;
-        cursor : pointer;
-    }
-
-    .Navbar_Right{
-        height : 100%;
-        display : flex;
-        background-color : transparent;
-        .Notifications
-        {
-            background-color : transparent;
-            display : flex;
-            justify-content : center;
-            align-items :center;
-            .Bell_icon
-            {
-                background-color : transparent;
-                cursor : pointer;
-                transition :0.1s ease-in-out;
-                color : var(--Header_grey);
-
-                &:hover{
-                    color : var(--main_color);
-                }
-            }
-        }
-        .avatar
-        {
-            height : 100%;
-            display : flex;
-            justify-content : center;
-            align-items : center;
-            background-color : transparent;
-            margin-left : 25px;
-            cursor : pointer;
-            .Avatar_icon
-            {
-                margin-left : 5px;
-                height: 60%;
-                background-color : transparent;
-                border-radius : 30%;
-                border : 1px solid var(--Header_grey);
-                transition : 0.2s ease-in-out;
-                &:hover
-                {
-                    box-shadow: 0 8px 32px 0 rgba(164,202,255, 0.35 );
-                    border : 1px solid var(--light_blue);
-                }
-            }
-            .Login_name{
-                background-color : transparent;
-                color : var(--Header_grey);
-                font-weight : 500;
-            }
-        }
-        .Profile_Menu{
-            padding :20px;
-            background-color : red;
+    
+    
+    &:hover{
+        .Nav_item_icon{
+            opacity : 1;
         }
     }
-`
+
+    .Nav_item_icon{
+        color : var(--main_color);
+        opacity : 0.7;
+        transition : 0.2s ease-in-out;
+    }
+  }
+`;

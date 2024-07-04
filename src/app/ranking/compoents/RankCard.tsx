@@ -1,6 +1,7 @@
 import { useSession } from 'next-auth/react';
 import React, { FC, forwardRef, Ref } from 'react';
 import styled from 'styled-components';
+import LinePatternSvg from '@/components/Svgs/LinePatternSvg';
 
 interface StyledProps {
     Rank: number;
@@ -11,22 +12,30 @@ interface StyledProps {
 const StyledCard = styled.div<StyledProps>`
     width: 100%;
     min-height: 65px;
-    background-color: ${props => props.isUser ? "var(--light_blue)" : "white"};
-    border: 1px solid var(--border_grey);
+    background-color: ${props => props.isUser ? "var(--main_color)" 
+    // :  (props.Rank === 1 || props.Rank === 2 || props.Rank === 3) ? "rgba(253,230,119,0.3)"
+    : "rgba(178, 162, 249, 0.2)"};
+    border-top: 1px solid rgba(178, 162, 249, 0.2);
     border-left: 5px solid ${props =>
         (props.Rank === 1 || props.Rank === 2 || props.Rank === 3) ? "#FFD700"
-            : props.isUser ? "var(--main_color)" : "var(--border_grey)"};
+            : props.isUser ? "var(--main_color)" : "rgba(178, 162, 249, 0.6)"};
     border-radius: 5px;
     display: flex;
     cursor: pointer;
     position: relative;
     transition: 0.3s ease-in-out;
+    overflow : hidden;
 
     &:hover {
         box-shadow: ${props =>
-            (props.Rank === 1 || props.Rank === 2 || props.Rank === 3) ? "rgb(255, 215, 0, 0.1)" : "rgba(0, 0, 0, 0.1)"} 0px 1px 3px 0px,
+            (props.Rank === 1 || props.Rank === 2 || props.Rank === 3) ? "rgb(255, 215, 0, 0.1)" : "rgba(0, 0, 0, 0.1)"} 3px 12px 34px 0px,
             ${props =>
             (props.Rank === 1 || props.Rank === 2 || props.Rank === 3) ? "rgb(255, 215, 0, 0.4)" : "rgba(0, 0, 0, 0.1)"} 0px 1px 2px 0px;
+        /* .Card_Avatar{
+            z-index : 999;
+            width : 75px;
+            margin-bottom :0;
+        } */
     }
 
     .Card_Avatar {
@@ -44,6 +53,8 @@ const StyledCard = styled.div<StyledProps>`
         justify-content: center;
         align-items: center;
         padding: 5px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        transition: 0.1s ease-in-out;
     }
 
     .Card_Rank {
@@ -62,7 +73,7 @@ const StyledCard = styled.div<StyledProps>`
             font-family: "Poppins", sans-serif;
             font-weight: 500;
             font-size: 1.2rem;
-            color: ${props => props.isUser && "white"};
+            color: rgba(178, 162, 249, 0.8);
         }
     }
 
@@ -79,13 +90,13 @@ const StyledCard = styled.div<StyledProps>`
             font-size: 1.1rem;
             font-weight: 400;
             font-style: normal;
-            color: ${props => props.isUser && "white"};
+            color: ${props => props.isUser ? "white" : "rgba(178, 162, 249, 1)"};
         }
 
         .Card_UserName {
             font-size: 0.8rem;
             font-weight: 300;
-            color: ${props => props.isUser && "white"};
+            color: ${props => props.isUser ? "white" : "rgba(178, 162, 249, 0.6)"};
         }
     }
 
@@ -120,12 +131,13 @@ const RankCard: FC<Profile & { forwardedRef: Ref<HTMLDivElement> }> = ({ id, Ful
     const { data: session } = useSession();
 
     const handleClick = () => {
-        console.log(id);
         setSelectedId(id);
     };
 
     return (
         <StyledCard Rank={Rank} Avatar={img} onClick={handleClick} isUser={IsUser} ref={forwardedRef}>
+            <LinePatternSvg color={"rgba(178, 162, 249, 0.15)"}/>
+
             <div className='Card_Rank'>
                 {(Rank >= 1 && Rank <= 3) ?
                     <img className='Rank_icon' src={`/assets/icons/${Rank}.png`} alt={`Rank ${Rank}`} />

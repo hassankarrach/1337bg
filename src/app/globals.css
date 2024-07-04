@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
-/* Define Local Fonts */
+
+@import url('https://fonts.cdnfonts.com/css/neuropolitical');
+/* * Define Local Fonts */
 
 /* @font-face {
   font-family: 'main_font';
@@ -12,7 +14,11 @@
 :root {
   /* MAIN COLORS */
   --main_background : #0A0B14;
-  --main_color: #5B8CD1;
+  --sec_background : #13131a;
+  --main_color: #B7FB2B;
+  --main_color_dark : #5c830a;
+  --main_color_light : #ccff61;
+  
   --light_blue: #5B8BD1;
   --Header_grey : #64758A;
 
@@ -23,6 +29,8 @@
   /* Fonts */
   --main_font : "Ubuntu", sans-serif;
   --Sec_Font: "Poppins", sans-serif;
+
+  --playable_font : 'Neuropolitical', sans-serif;
 }
 
 h1, h2, h3, h4, button{
@@ -30,7 +38,7 @@ h1, h2, h3, h4, button{
   -webkit-font-smoothing: antialiased;
   color : var(--Header_grey);
 }
-p, span{
+p, span, input{
   font-family: var(--Sec_Font);
   color: var(--Par_grey);
 }

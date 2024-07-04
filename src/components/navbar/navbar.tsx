@@ -1,7 +1,6 @@
 "use client";
 import { StyledNavbar } from "./styled.navbar";
 import _13hub_logo from "../../../public/logos/13hub.png";
-import { FaBell } from "react-icons/fa";
 import Image from 'next/image';
 import React from "react";
 import Link from 'next/link';
@@ -10,7 +9,7 @@ import { useSession, signOut } from 'next-auth/react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 //Icons
-import { FaRegEdit, FaSignOutAlt } from "react-icons/fa";
+import { FaRegEdit, FaSignOutAlt, FaBell, FaCommentAlt } from "react-icons/fa";
 
 const get_username_from_email = (email: string) => {
     const username = email.split('@')[0];
@@ -37,7 +36,7 @@ const Navbar: React.FC = () => {
 
     return (
         <StyledNavbar>
-            <Link href='/'>
+            {/* <Link href='/'>
                 <Image className="_13hub_logo" src={_13hub_logo.src} width={100} height={100} alt="13Hub" />
             </Link>
 
@@ -80,7 +79,28 @@ const Navbar: React.FC = () => {
                     </Menu>
 
                 </div>
-            )}
+            )} */}
+
+            <div className="Nav_item Messages">
+                <FaCommentAlt size={20} className="Nav_item_icon"/>
+            </div>
+
+            <div className="Nav_item Notifications">
+                <FaBell size={20} className="Nav_item_icon"/>
+            </div>
+
+            <div className="Profile">
+                <div className="UserInfo">
+                    <h4 className="User_name">{session?.user?.name}</h4>
+                    <div className="online">
+                        <div className="online_dot" style={{backgroundColor : `${session ? "#56ab2f" : "#e53935"}`}}/>
+                        <span>{session ? "online" : "ofline"}</span>
+                    </div>
+                </div>
+
+                <div className="Avatar" style={{backgroundImage : `url(${session?.user?.image})`}}>
+                </div>
+            </div>
         </StyledNavbar>
     );
 };

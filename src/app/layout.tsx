@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 const inter = Inter({ subsets: ["latin"] });
 //Next_Auth
 import Providers from "./Providers";
+import SideBar from "@/components/sidebar/SideBar";
 
 export const metadata = {
   title: "1337 Hub",
@@ -25,6 +26,7 @@ export default function RootLayout({
       <StyledComponentsRegistry>
         <body className={inter.className}>
           <Providers>
+            <SideBar/>
             <Navbar />
             {children}
           </Providers>

@@ -11,7 +11,6 @@ export const {auth, handlers: {GET, POST}, signIn, signOut} = NextAuth({
             clientSecret: process.env.AUTH_42_SCHOOL_SECRET,
         })
     ],
-
     session : {
         strategy : "jwt",
         maxAge : 30 * 24 * 60, //30days

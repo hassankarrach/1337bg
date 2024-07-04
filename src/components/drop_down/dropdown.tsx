@@ -69,21 +69,23 @@ const StyledButton = styled('button')`
   box-sizing: border-box;
   min-width: 200px;
   padding: 8px 12px;
-  border-radius: 8px;
+  border-radius: 5px;
   text-align: left;
   line-height: 1.5;
   background: #fff;
-  border: 1px solid #e5eaf2;
   color: #1c2025;
   position: relative;
-  box-shadow: 0px 2px 2px #f3f6f9;
+  /* box-shadow: 0px 2px 2px #f3f6f9; */
   transition: all 120ms cubic-bezier(0.4, 0, 0.2, 1);
   width : 100%;
-
+  background-color : transparent;
+  border: 1px solid rgba(178, 162, 249, 0.2);
+  color  : var(--main_color);
+  cursor: pointer;
 
   &:hover {
-    background: #f3f6f9;
-    border-color: #dae2ed;
+    background: rgba(178, 162, 249, 0.1);
+    /* border-color: #dae2ed; */
   }
 `;
 
@@ -97,10 +99,13 @@ const Listbox = styled('ul')`
   border-radius: 8px;
   overflow: auto;
   outline: 0px;
-  background: #fff;
-  border: 1px solid #e5eaf2;
-  color: #1c2025;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
+  background: rgba(10,11,20, 0.8);
+  border: 1px solid rgba(178, 162, 249, 0.2);
+  color: white;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  font-family : var(--main_font);
+  /* box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05); */
 `;
 
 const Option = styled(BaseOption)`
@@ -111,6 +116,7 @@ const Option = styled(BaseOption)`
   cursor: default;
   display : flex;
   align-items : center;
+  cursor: pointer;
   
   .IconOption {
     margin-right : 5px;
@@ -144,11 +150,11 @@ const Option = styled(BaseOption)`
   }
 
   &:hover:not(.Mui-disabled) {
-    background-color: #f3f6f9;
-    color: #1c2025;
+    background-color: rgba(178, 162, 249, 0.3);
+    color: white;
   }
 `;
 
 const Popup = styled('div')`
-  z-index: 1;
+  z-index : 999;
 `;

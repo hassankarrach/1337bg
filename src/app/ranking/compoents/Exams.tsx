@@ -7,7 +7,6 @@ const StyledExams = styled.div`
   width: 100%;
   height: auto;
   border-width: 0 0 0 0;
-  border-top: 1px solid;
   border-image: linear-gradient(90deg, rgba(231,231,231,0) 0%, rgba(231,231,231,1) 50%, rgba(231,231,231,0) 100%) 1;
   padding: 2px;
   display: flex;
@@ -25,11 +24,13 @@ const StyledExams = styled.div`
     .Status_icon {
       size: 10px;
       margin-right: 3px;
+      background-color: rgba(178, 162, 249, 0.2);
+      padding: 1px;
+      border-radius : 1px;
     }
 
     .status_icon_validated {
       color: #56ab2f;
-      background-color: #a8e6cf;
     }
 
     .status_icon_failed {
@@ -38,8 +39,7 @@ const StyledExams = styled.div`
     }
 
     .status_icon_waiting {
-      color: #9e9e9e;
-      background-color: var(--border_grey);
+      color: rgba(178, 162, 249, 0.2);
     }
 
     .Exam_status {
@@ -48,8 +48,9 @@ const StyledExams = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: var(--light_grey);
+      background-color: rgba(178, 162, 249, 0.13);
       padding: 0px 3px;
+      border-radius : 3px;
       margin-left: auto;
     }
   }
