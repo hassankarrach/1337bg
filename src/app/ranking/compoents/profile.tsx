@@ -36,9 +36,9 @@ interface ComponentProps {
   list_is_loading: boolean;
 }
 interface StyleProps {
-  PrmColor: string;
-  SecColor: string;
-  level: string;
+  $primary_color: string;
+  $second_color: string;
+  $level: string;
 }
 
 const UpdateUser = (
@@ -104,8 +104,8 @@ const StyledProfile = styled.div<StyleProps>`
     align-items: center;
     background: radial-gradient(
       circle,
-      ${(props) => `${HexToRgba(props.SecColor, 1)} 0%`},
-      ${(props) => `${HexToRgba(props.PrmColor, 1)} 100%`}
+      ${(props) => `${HexToRgba(props.$second_color, 1)} 0%`},
+      ${(props) => `${HexToRgba(props.$primary_color, 1)} 100%`}
     );
     .Userkind {
       position: absolute;
@@ -347,9 +347,9 @@ const Profile: React.FC<ComponentProps> = ({
 
   return (
     <StyledProfile
-      PrmColor={Promo.Prm_color}
-      SecColor={Promo.sec_color}
-      level={userData ? userData.level : "0"}
+      $primary_color={Promo.Prm_color}
+      $second_color={Promo.sec_color}
+      $level={userData ? userData.level : "0"}
     >
       <CustomModal open={IsModalOpen} onClose={handleCloseModal} />
 
@@ -412,7 +412,6 @@ const Profile: React.FC<ComponentProps> = ({
               x="0px"
               y="0px"
               viewBox="0 -200 960 960"
-              enable-background="new 0 -200 960 960"
             >
               <polygon
                 id="polygon5"

@@ -79,7 +79,6 @@ const Main = () => {
               x="0px"
               y="0px"
               viewBox="0 -200 960 960"
-              enable-background="new 0 -200 960 960"
             >
               <polygon
                 id="polygon5"

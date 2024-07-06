@@ -64,6 +64,7 @@ export const StyledRanking = styled.div`
           flex-direction: column;
           padding-right: 5px;
           gap: 5px;
+      
           .FetchMore {
             width: 100%;
             display: flex;

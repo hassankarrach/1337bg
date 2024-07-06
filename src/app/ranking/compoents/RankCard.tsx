@@ -4,27 +4,27 @@ import styled from "styled-components";
 import LinePatternSvg from "@/components/Svgs/LinePatternSvg";
 
 interface StyledProps {
-  Rank: number;
-  Avatar: string;
-  isUser: boolean;
-  isEven: boolean;
+  $rank: number;
+  $avatar: string;
+  $is_user: boolean;
+  $is_even: boolean;
 }
 
 const StyledCard = styled.div<StyledProps>`
   width: 100%;
   min-height: 65px;
-  background-color: ${props => props.isEven? "#212125" : "#2c2c30"};
+  background-color: ${props => props.$is_even? "#212125" : "#2c2c30"};
   /* background: ${(props) =>
-    props.isUser
+    props.$is_user
       ? "linear-gradient(337deg, rgba(183,251,43,1) 30%, rgba(110,157,13,1) 100%);"
-      : props.Rank === 1 || props.Rank === 2 || props.Rank === 3
+      : props.$rank === 1 || props.$rank === 2 || props.$rank === 3
       ? "linear-gradient(291deg, rgba(245,206,0,1) 0%, rgba(224,189,0,1) 100%);"
       : "#212125"}; */
     border: 1px solid rgba(255, 255, 255, 0.05);
   /* border-left: 5px solid ${(props) =>
-    props.Rank === 1 || props.Rank === 2 || props.Rank === 3
+    props.$rank === 1 || props.$rank === 2 || props.$rank === 3
       ? "#FFD700"
-      : props.isUser
+      : props.$is_user
       ? "var(--main_color_dark)"
       : "rgba(178, 162, 249, 0.6)"}; */
   border-radius: 5px;
@@ -42,7 +42,7 @@ const StyledCard = styled.div<StyledProps>`
     position: absolute;
     left: 0;
     background-color: ${(props) =>
-      props.Rank >= 1 && props.Rank <= 3 ? "#ffd700" : "var(--main_color)"};
+      props.$rank >= 1 && props.$rank <= 3 ? "#ffd700" : "var(--main_color)"};
     top: 50%;
     transform: translateY(-50%);
   }
@@ -52,9 +52,9 @@ const StyledCard = styled.div<StyledProps>`
     height: 100%;
     width: 100%;
     background: ${(props) =>
-      props.isUser
+      props.$is_user
         ? "linear-gradient(90deg, rgba(183,251,43, 0.3) 0%, rgba(183,251,43,0) 8%);"
-        : props.Rank >= 1 && props.Rank <= 3
+        : props.$rank >= 1 && props.$rank <= 3
         ? "linear-gradient(90deg, rgba(255,215,0,0.8) 0%, rgba(255,215,0,0) 8%);"
         : ""};
     position: absolute;
@@ -63,12 +63,12 @@ const StyledCard = styled.div<StyledProps>`
 
   &:hover {
     box-shadow: ${(props) =>
-          props.Rank === 1 || props.Rank === 2 || props.Rank === 3
+          props.$rank === 1 || props.$rank === 2 || props.$rank === 3
             ? "rgb(255, 215, 0, 0.1)"
             : "rgba(0, 0, 0, 0.1)"}
         3px 12px 34px 0px,
       ${(props) =>
-          props.Rank === 1 || props.Rank === 2 || props.Rank === 3
+          props.$rank === 1 || props.$rank === 2 || props.$rank === 3
             ? "rgb(255, 215, 0, 0.4)"
             : "rgba(0, 0, 0, 0.1)"}
         0px 1px 2px 0px;
@@ -86,7 +86,7 @@ const StyledCard = styled.div<StyledProps>`
     border-top-left-radius: 10px;
     position: relative;
     background-color: var(--border_grey);
-    background-image: ${(props) => `url(${props.Avatar})`};
+    background-image: ${(props) => `url(${props.$avatar})`};
     background-position: center;
     background-size: cover;
     overflow: hidden;
@@ -184,7 +184,7 @@ interface Profile {
   Level: number;
   img: string;
   IsUser: boolean;
-  IsEven: boolean;
+  is_even: boolean;
   setSelectedId: (id: number) => void;
 }
 
@@ -198,7 +198,7 @@ const RankCard: FC<Profile & { forwardedRef: Ref<HTMLDivElement> }> = ({
   setSelectedId,
   IsUser,
   forwardedRef,
-  IsEven
+  is_even
 }) => {
   const { data: session } = useSession();
 
@@ -208,14 +208,14 @@ const RankCard: FC<Profile & { forwardedRef: Ref<HTMLDivElement> }> = ({
 
   return (
     <StyledCard
-      Rank={Rank}
-      Avatar={img}
+      $rank={Rank}
+      $avatar={img}
       onClick={handleClick}
-      isUser={IsUser}
+      $is_user={IsUser}
       ref={forwardedRef}
-      isEven={IsEven}
+      $is_even={is_even}
     >
-      <LinePatternSvg color={" rgba(183,251,43,0.1)"} />
+      {/* <LinePatternSvg color={" rgba(183,251,43,0.1)"} /> */}
 
       <div className="Card_Rank">
         {Rank >= 1 && Rank <= 3 ? (

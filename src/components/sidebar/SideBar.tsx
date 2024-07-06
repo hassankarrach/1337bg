@@ -150,9 +150,9 @@ const StyledSideBar = styled.div`
 `;
 
 interface StyleSideElement {
-  is_first: boolean;
-  is_last: boolean;
-  is_active: boolean;
+  $is_first: boolean;
+  $is_last: boolean;
+  $is_active: boolean;
 }
 const StyleSideElement = styled.div<StyleSideElement>`
   width: 100%;
@@ -160,14 +160,14 @@ const StyleSideElement = styled.div<StyleSideElement>`
   border-radius: 4px;
   cursor: pointer;
   clip-path: ${(props) =>
-    props.is_first
+    props.$is_first
       ? "polygon(0% 0%, calc(100% - 20px) 0%, 100% 20px, 100% 100%, 0% 100%)"
-      : props.is_last
+      : props.$is_last
       ? "polygon(0% 0%, 100% 0%, 100% 100%, 20px 100%, 0% calc(100% - 20px));"
       : ""};
-  margin-top: ${(props) => props.is_last && "auto"};
+  margin-top: ${(props) => props.$is_last && "auto"};
   color: ${(props) =>
-    props.is_active ? "var(--main_color_dark)" : "var(--main_color)"};
+    props.$is_active ? "var(--main_color_dark)" : "var(--main_color)"};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -189,7 +189,7 @@ const StyleSideElement = styled.div<StyleSideElement>`
     height: 100%;
     background-color: var(--main_color);
     z-index: -1;
-    opacity: ${(props) => (props.is_active ? "1" : "0.2")};
+    opacity: ${(props) => (props.$is_active ? "1" : "0.2")};
     transition: 0.2s ease-in-out;
   }
 `;
@@ -234,9 +234,9 @@ const SideBarElement: React.FC<SideElementProps> = ({
     >
       <Link href={path} style={{marginTop : `${is_last && 'auto'}`}}>
         <StyleSideElement
-          is_first={is_first}
-          is_last={is_last}
-          is_active={is_active}
+          $is_first={is_first}
+          $is_last={is_last}
+          $is_active={is_active}
           onClick={() => { if (is_last) Handle_logout(); }}>
           <Icon size={25} />
         </StyleSideElement>
@@ -256,9 +256,10 @@ const SideBar = () => {
       ></div>
 
       <div className="ListBar">
-        {List.map((ListItem) => {
+        {List.map((ListItem, key) => {
           return (
             <SideBarElement
+              key={key}
               is_first={ListItem.is_first}
               icon={ListItem.icon}
               is_last={ListItem.is_last}

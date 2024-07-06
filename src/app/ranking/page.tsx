@@ -104,16 +104,16 @@ const Ranking: React.FC = () => {
   //   setSearchTerm(event.target.value);
   // };
 
-  // const scrollToMe = () => {
-  //   // Scroll to the logged-in user's card if the ref exists
-  //   if (loggedInUserCardRef.current) {
-  //     loggedInUserCardRef.current.scrollIntoView({ behavior: "smooth" });
-  //   } else {
-  //     toast.info(
-  //       "You are not on the list. ensure that you have loaded all students or selected your promo."
-  //     );
-  //   }
-  // };
+  const scrollToMe = () => {
+    // Scroll to the logged-in user's card if the ref exists
+    if (loggedInUserCardRef.current) {
+      loggedInUserCardRef.current.scrollIntoView({ behavior: "smooth" });
+    } else {
+      toast.info(
+        "You are not on the list. ensure that you have loaded all students or selected your promo."
+      );
+    }
+  };
 
   useEffect(() => {
     if (data && session?.accessToken) {
@@ -172,7 +172,7 @@ const Ranking: React.FC = () => {
                 <div className="SearchUser">
                   <input
                     placeholder="Search User :"
-                    value={SearchTerm}
+                    // value={SearchTerm}
                     // onChange={handleSearchChange}
                   ></input>
                 </div>
@@ -204,7 +204,7 @@ const Ranking: React.FC = () => {
                 </div>
                 <button
                   className="ToMeButton"
-                  // onClick={scrollToMe}
+                  onClick={scrollToMe}
                 >
                   Me
                 </button>
@@ -244,7 +244,7 @@ const Ranking: React.FC = () => {
                             ? loggedInUserCardRef
                             : null
                         }
-                        IsEven = {!(key % 2)}
+                        is_even = {!(key % 2)}
                       />
                     );
                   })}
