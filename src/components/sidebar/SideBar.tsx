@@ -109,7 +109,7 @@ const StyledSideBar = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  padding: 5px 3px;
+  padding: 5px 3px; 
 
   .LogoPlaceHolder {
     width: 100%;
