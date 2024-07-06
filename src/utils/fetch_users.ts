@@ -1,5 +1,5 @@
 // utils/fetchUsers.ts
-export const fetchUsers = async (url: string, token: string): Promise<any> => {
+export const fetchUsers = async (url: string, token: string | undefined): Promise<any> => {
     try {
       const response = await fetch(url, {
         headers: {
