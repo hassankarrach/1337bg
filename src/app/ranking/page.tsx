@@ -24,6 +24,7 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 // Toast
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { InitialUsers } from "@/data/Fake";
 
 const Ranking: React.FC = () => {
   const { data: session } = useSession();
@@ -67,8 +68,15 @@ const Ranking: React.FC = () => {
       }
     );
     const data = await response.json();
+
+    const usersWithRankAndGender = data.map((user: any, index: number) => ({
+      ...user,
+      originalRank: (pageParam - 1) * 100 + index + 1,
+      Gender: getGender(user.user.first_name.trim()),
+    }));
+
     return {
-      data,
+      data: usersWithRankAndGender,
       nextPage: data.length > 0 ? pageParam + 1 : undefined,
     };
   };
@@ -78,60 +86,56 @@ const Ranking: React.FC = () => {
     status,
     fetchNextPage,
     hasNextPage,
-    isFetchingNextPage,
     isLoading,
-    isPending,
-    isError,
   } = useInfiniteQuery({
     queryKey: ["users", SelectedPromo, session?.accessToken],
     queryFn: fetchUsers,
     getNextPageParam: (lastPage, allPages) => lastPage.nextPage,
     initialPageParam: 1,
-    retry: 2,
-    refetchOnWindowFocus: false,
+    // retry: 2,
+    // refetchOnWindowFocus: false,
     enabled:
       session !== undefined &&
       SelectedPromo !== undefined &&
       SelectedPromo !== null,
   });
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
+  // const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSearchTerm(event.target.value);
+  // };
 
-  const scrollToMe = () => {
-    // Scroll to the logged-in user's card if the ref exists
-    if (loggedInUserCardRef.current) {
-      loggedInUserCardRef.current.scrollIntoView({ behavior: "smooth" });
-    } else {
-      toast.info(
-        "You are not on the list. ensure that you have loaded all students or selected your promo."
-      );
-    }
-  };
+  // const scrollToMe = () => {
+  //   // Scroll to the logged-in user's card if the ref exists
+  //   if (loggedInUserCardRef.current) {
+  //     loggedInUserCardRef.current.scrollIntoView({ behavior: "smooth" });
+  //   } else {
+  //     toast.info(
+  //       "You are not on the list. ensure that you have loaded all students or selected your promo."
+  //     );
+  //   }
+  // };
 
   useEffect(() => {
     if (data && session?.accessToken) {
-      // Add rank to each user based on their position in the flat array
-      let newUsers = data.pages.flatMap((page, pageIndex) =>
-          page.data.map((user: any, userIndex: number) => ({
-              ...user,
-              originalRank: pageIndex * 100 + userIndex + 1, // Calculate rank based on page and index
-              Gender: getGender(user.user.first_name.trim())
-          }))
-      );
-    //   SetSelectedUser(newUsers[0].user.id);
-      if (SelectedGender !== 'All') {
-          newUsers = newUsers.filter(user => {
-              // console.log(user.Gender);
-              return user.Gender === SelectedGender;
-          });
-      }
-      // console.log(getGender("anas"));
-      // Filter users based on SearchTerm
-    //   const filteredUsers = newUsers.filter(user =>
-    //       user.user.usual_full_name.toLowerCase().includes(SearchTerm.toLowerCase())
-    //   );
+      let newUsers = data.pages.flatMap(page => page.data);
+
+      //Filter By Gender ===========================
+      //   SetSelectedUser(newUsers[0].user.id);
+      // if (SelectedGender !== 'All') {
+      //     newUsers = newUsers.filter(user => {
+      //         // console.log(user.Gender);
+      //         return user.Gender === SelectedGender;
+      //     });
+      // }
+      //=============================================
+      
+      // Filter By searc ============================
+      //   const filteredUsers = newUsers.filter(user =>
+      //       user.user.usual_full_name.toLowerCase().includes(SearchTerm.toLowerCase())
+      //   );
+      //=============================================
+
+  
       SetUsers(newUsers);
     }
   }, [data, session, SelectedGender]);
@@ -153,110 +157,117 @@ const Ranking: React.FC = () => {
       />
 
       <div className="Container">
-        {/* <Profile
-          Promo={Promos[SelectedPromo]}
-          user_id={SelectedUser}
-          list_is_loading={!Users[0]}
-        /> */}
+        <div className="LeaderBoardContainer">
+          <div className="Ranking">
+            <div className="Options">
+              <div className="Filters">
+                <div className="Select_container">
+                  <CustomDropDown
+                    data={Promos}
+                    getValue={(item) => item.id.toString()}
+                    renderItem={(item) => item.Name}
+                    onChange={handlePromoChange}
+                  />
+                </div>
+                <div className="SearchUser">
+                  <input
+                    placeholder="Search User :"
+                    value={SearchTerm}
+                    // onChange={handleSearchChange}
+                  ></input>
+                </div>
+                <div className="GenderFilter">
+                  <div
+                    className={`Male ${
+                      SelectedGender === "male" && "selected"
+                    }`}
+                    onClick={() => setSelectedGender("male")}
+                  >
+                    <span className="gender_type">Male</span>
+                  </div>
+                  <div className="devider" />
+                  <div
+                    className={`Female ${
+                      SelectedGender === "female" && "selected"
+                    }`}
+                    onClick={() => setSelectedGender("female")}
+                  >
+                    <span className="gender_type">Female</span>
+                  </div>
+                  <div className="devider" />
+                  <div
+                    className={`All ${SelectedGender === "All" && "selected"}`}
+                    onClick={() => setSelectedGender("All")}
+                  >
+                    <span className="gender_type">All</span>
+                  </div>
+                </div>
+                <button
+                  className="ToMeButton"
+                  // onClick={scrollToMe}
+                >
+                  Me
+                </button>
+              </div>
+            </div>
 
-        <div className="Ranking">
-        <div className="Options">
-            <div className="Filters">
-              <div className="Select_container">
-                <span>Promo :</span>
-                <CustomDropDown
-                  data={Promos}
-                  getValue={(item) => item.id.toString()}
-                  renderItem={(item) => item.Name}
-                  onChange={handlePromoChange}
-                />
-              </div>
-              <div className="SearchUser">
-                <input
-                  placeholder="Search User :"
-                  value={SearchTerm}
-                  onChange={handleSearchChange}
-                ></input>
-              </div>
-              <div className="GenderFilter">
-                <div
-                  className={`Male ${SelectedGender === "male" && "selected"}`}
-                  onClick={() => setSelectedGender("male")}
-                >
-                  <FaMale className="GenderIcon" size={20} />
-                  <span className="gender_type">Male</span>
+            <div className="Profiles_container">
+              {isLoading || status === "pending" || !Users[0] ? (
+                <div className="Skeletons">
+                  {Array.from({ length: 11 }).map((_, key) => (
+                    <Skeleton
+                      animation={`${key % 2 ? "pulse" : "wave"}`}
+                      variant="rectangular"
+                      width="100%"
+                      height="65px"
+                      className="CardSkl"
+                      key={key}
+                    />
+                  ))}
                 </div>
-                <div className="devider" />
-                <div
-                  className={`Female ${
-                    SelectedGender === "female" && "selected"
-                  }`}
-                  onClick={() => setSelectedGender("female")}
-                >
-                  <FaFemale className="GenderIcon" size={20} />
-                  <span className="gender_type">Female</span>
-                </div>
-                <div className="devider" />
-                <div
-                  className={`All ${SelectedGender === "All" && "selected"}`}
-                  onClick={() => setSelectedGender("All")}
-                >
-                  {/* <FaOdnoklassniki className='GenderIcon' size={20}/> */}
-                  <span className="gender_type">All</span>
-                </div>
-              </div>
-              <button className="ToMeButton" onClick={scrollToMe}>
-                Me
-              </button>
+              ) : Users ? (
+                <>
+                  {Users.map((User: any, key: number) => {
+                    return (
+                      <Card
+                        id={User.user.id}
+                        FullName={User.user.usual_full_name}
+                        Level={User.level}
+                        Rank={User.originalRank}
+                        UserName={User.user.login}
+                        img={User.user.image.versions.small}
+                        key={key}
+                        setSelectedId={SetSelectedUser}
+                        IsUser={User.user.email === session?.user?.email}
+                        ref={
+                          User.user.email === session?.user?.email
+                            ? loggedInUserCardRef
+                            : null
+                        }
+                        IsEven = {!(key % 2)}
+                      />
+                    );
+                  })}
+                  <span
+                    ref={lastUserRef}
+                    className={`FetchMore ${hasNextPage && "Animated"}`}
+                  >
+                    {hasNextPage ? "Fetching more ..." : "No More Users."}
+                  </span>
+                </>
+              ) : (
+                ""
+              )}
             </div>
           </div>
-          {/* <div className="Profiles_container">
-            {isLoading || status === "pending" || !Users[0] ? (
-              <div className="Skeletons">
-                {Array.from({ length: 8 }).map((_, key) => (
-                  <Skeleton
-                    animation={`${key % 2 ? "pulse" : "wave"}`}
-                    variant="rectangular"
-                    width="100%"
-                    height="65px"
-                    className="CardSkl"
-                    key={key}
-                  />
-                ))}
-              </div>
-            ) : Users ? (
-              <>
-                {Users.map((User: any, key: number) => {
-                  return (
-                    <Card
-                      id={User.user.id}
-                      FullName={User.user.usual_full_name}
-                      Level={User.level}
-                      Rank={User.originalRank}
-                      UserName={User.user.login}
-                      img={User.user.image.versions.small}
-                      key={key}
-                      setSelectedId={SetSelectedUser}
-                      IsUser={User.user.email === session?.user?.email}
-                      ref={
-                        User.user.email === session?.user?.email
-                          ? loggedInUserCardRef
-                          : null
-                      }
-                    />
-                  );
-                })}
-                <span
-                  ref={lastUserRef}
-                  className={`FetchMore ${hasNextPage && "Animated"}`}
-                >
-                  {hasNextPage ? "Fetching more ..." : "No More Users."}
-                </span>
-              </>
-            ) : (
-              ""
-            )}
-          </div> */}
+        </div>
+
+        <div className="ProfileContainer">
+          <Profile
+            Promo={Promos[SelectedPromo]}
+            user_id={SelectedUser}
+            list_is_loading={!Users[0]}
+          />
         </div>
       </div>
     </StyledRanking>

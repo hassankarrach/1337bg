@@ -7,7 +7,7 @@ interface SvgProps {
 
 const StyledLinePatternSvg = styled.svg`
   position: absolute;
-  z-index : -1;
+  z-index : 1;
   /* width : 100%; */
   left: 0;
   display: flex;

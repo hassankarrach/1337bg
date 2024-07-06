@@ -79,43 +79,22 @@ const UpdateUser = (
 };
 
 const StyledProfile = styled.div<StyleProps>`
-  width: 35%;
+  width: 100%;
   height: 100%;
-  background-color: rgba(10,11,20, 0.4);
+  background-color : #212125;
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 5px;
-  position: sticky;
-  top: 0;
-  left: 0;
   overflow: hidden;
-  padding: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow-y : scroll;
-
-          /* Scrollbar styles */
-          &::-webkit-scrollbar {
-          width: 4px; /* Width of the scroll bar */
-        }
-        &::-webkit-scrollbar-track {
-          background: rgba(178, 162, 249, 0.2);
-        }
-        &::-webkit-scrollbar-thumb {
-          background: rgba(178, 162, 249, 0.4);
-          border-radius: 2px;
-          transition: 2s ease-in-out;
-        }
-        &::-webkit-scrollbar-thumb:hover {
-          background: rgba(178, 162, 249, 0.6);
-        }
-  /* border: 1px solid pink; */
 
   .User_Banner {
     width: 100%;
     height: 150px;
-    background-color: black;
+    background-color: var(--main_background);
     position: sticky;
-    top : 0;
+    top: 0;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -231,25 +210,24 @@ const StyledProfile = styled.div<StyleProps>`
       /* padding : 0px 5px; */
       /* padding : 0px 10px; */
       overflow: hidden;
-      border: 1px solid rgba(178, 162, 249, 0.2);
+      border: 1px solid rgba(44,44,48,1);
       .Feedback {
         flex-grow: 1;
         display: flex;
         justify-content: center;
         align-items: center;
-        color : rgba(178, 162, 249, 0.4);
-        background-color : rgba(178, 162, 249, 0.1);
-        transition : 0.2s ease-in-out;
-        height : 100%;
+        background-color: rgba(44,44,48,1);
+        transition: 0.2s ease-in-out;
+        height: 100%;
         cursor: pointer;
-        padding : 8px 0px;
-        &:hover{
-          background-color : rgba(178, 162, 249, 0.15);
+        padding: 8px 0px;
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.1);
         }
-        span{
-          color : rgba(178, 162, 249, 0.4);
-          font-size : 1.1rem;
-          font-weight : 300;
+        span {
+          color: rgba(255, 255, 255, 0.3);
+          font-size: 1.1rem;
+          font-weight: 300;
         }
       }
       .reaction_devider {
@@ -257,9 +235,9 @@ const StyledProfile = styled.div<StyleProps>`
         height: 100%;
         background: linear-gradient(
           0deg,
-          rgba(178, 162, 249, 0.2) 0%,
-          rgba(178, 162, 249, 0.4) 50%,
-          rgba(178, 162, 249, 0.2) 100%
+          rgba(255,255, 255, 0.1) 0%,
+          rgba(255,255, 255, 0.2) 50%,
+          rgba(255,255, 255, 0.1) 100%
         );
       }
       .Thumb {
@@ -269,9 +247,9 @@ const StyledProfile = styled.div<StyleProps>`
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        color: rgba(178, 162, 249, 0.4);
+        color: rgba(44,44,48,1);
         transition: 0.2s ease-in-out;
-        background-color : rgba(178, 162, 249, 0.2);
+        background-color: rgba(255,255, 255, 0.16);
       }
       .Thum_up {
         /* flex: 1 1 auto; */
@@ -297,30 +275,31 @@ const StyledProfile = styled.div<StyleProps>`
       margin-top: 20px;
       display: flex;
       gap: 3px;
-        .State_item {
+      padding : 0px 3px;
+      .State_item {
         padding: 2px 10px;
-        background-color: rgba(178, 162, 249, 0.15);
+        background-color: rgba(44,44,48,1);
         border-radius: 5px;
-        border: 1px solid rgba(178, 162, 249, 0.15);
+        border: 1px solid rgba(255,255,255, 0.1);
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 5px;
         flex: 1 1 auto;
-        font-size : 1rem;
-        font-weight : 800;
-        padding : 6px 0px;
-        span{
-          font-family : var(--main_font);
-          color : rgba(178, 162, 249, 0.5);
+        font-size: 1rem;
+        font-weight: 800;
+        padding: 6px 0px;
+        span {
+          font-family: var(--main_font);
+          color: rgba(255,255,255, 0.4);
         }
         .State_item_icon {
-          color: rgba(178, 162, 249, 0.35);
+          color: rgba(255,255,255, 0.4);
         }
         .State_item_active {
           color: #56ab2f;
         }
-        .State_item_inactive { 
+        .State_item_inactive {
           color: #e53935;
         }
       }
@@ -329,7 +308,7 @@ const StyledProfile = styled.div<StyleProps>`
       display: flex;
       justify-content: center;
       flex-direction: column;
-      padding: 5px 0px;
+      padding: 15px 3px;
       gap: 2px;
     }
   }
@@ -492,7 +471,7 @@ const Profile: React.FC<ComponentProps> = ({
             <span>RNCP 7 Progress :</span>
             <div className="RNCP_progress">
               <RncpItem value={userData?.level} by="21" title="Level" />
-              <RncpItem value={"0"} by="2" title="Events" />
+              <RncpItem value={"1"} by="2" title="Events" />
               <RncpItem value={"0"} by="4" title="Experiances" />
             </div>
           </>

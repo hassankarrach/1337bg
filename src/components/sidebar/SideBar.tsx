@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-
 import { IconType } from "react-icons";
 import {
   FaTrophy,
@@ -15,8 +14,9 @@ import {
 } from "react-icons/fa";
 
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -41,7 +41,7 @@ const List: {
   name: string;
   desc: string;
   icon: IconType;
-  path : string ;
+  path: string;
   is_first: boolean;
   is_last: boolean;
 }[] = [
@@ -52,7 +52,7 @@ const List: {
     icon: FaTrophy,
     is_first: true,
     is_last: false,
-    path : "/ranking"
+    path: "/ranking",
   },
   {
     id: 1,
@@ -61,7 +61,7 @@ const List: {
     icon: FaNetworkWired,
     is_first: false,
     is_last: false,
-    path : "/clusters"
+    path: "/clusters",
   },
   {
     id: 2,
@@ -70,7 +70,7 @@ const List: {
     icon: FaFolder,
     is_first: false,
     is_last: false,
-    path : "/corrections"
+    path: "/corrections",
   },
   {
     id: 3,
@@ -79,7 +79,7 @@ const List: {
     icon: FaSkull,
     is_first: false,
     is_last: false,
-    path : "/blackhole"
+    path: "/blackhole",
   },
   {
     id: 4,
@@ -88,7 +88,7 @@ const List: {
     icon: FaUserSecret,
     is_first: false,
     is_last: false,
-    path : "/feedback"
+    path: "/feedback",
   },
   {
     id: 5,
@@ -97,20 +97,19 @@ const List: {
     icon: FaSignOutAlt,
     is_first: false,
     is_last: true,
-    path : ""
+    path: "",
   },
 ];
-
 
 const StyledSideBar = styled.div`
   width: 68px;
   height: 100%;
-  position : fixed;
+  position: fixed;
   /* border : 1px solid white; */
   display: flex;
   flex-direction: column;
   gap: 5px;
-  padding : 5px 3px;
+  padding: 5px 3px;
 
   .LogoPlaceHolder {
     width: 100%;
@@ -153,7 +152,7 @@ const StyledSideBar = styled.div`
 interface StyleSideElement {
   is_first: boolean;
   is_last: boolean;
-  is_active : boolean;
+  is_active: boolean;
 }
 const StyleSideElement = styled.div<StyleSideElement>`
   width: 100%;
@@ -167,7 +166,8 @@ const StyleSideElement = styled.div<StyleSideElement>`
       ? "polygon(0% 0%, 100% 0%, 100% 100%, 20px 100%, 0% calc(100% - 20px));"
       : ""};
   margin-top: ${(props) => props.is_last && "auto"};
-  color: ${props => props.is_active ? "var(--main_color_dark)" : "var(--main_color)"};
+  color: ${(props) =>
+    props.is_active ? "var(--main_color_dark)" : "var(--main_color)"};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -189,7 +189,7 @@ const StyleSideElement = styled.div<StyleSideElement>`
     height: 100%;
     background-color: var(--main_color);
     z-index: -1;
-    opacity: ${props => props.is_active ? "1" : "0.2"};
+    opacity: ${(props) => (props.is_active ? "1" : "0.2")};
     transition: 0.2s ease-in-out;
   }
 `;
@@ -197,7 +197,8 @@ interface SideElementProps {
   is_first: boolean;
   is_last: boolean;
   title: string;
-  is_active : boolean;
+  is_active: boolean;
+  path : string;
   icon: IconType;
 }
 const SideBarElement: React.FC<SideElementProps> = ({
@@ -205,8 +206,14 @@ const SideBarElement: React.FC<SideElementProps> = ({
   is_last,
   title,
   is_active,
+  path,
   icon: Icon,
 }) => {
+  const { data: session } = useSession();
+  const Handle_logout = () => {
+    signOut({ callbackUrl: '/' });
+  }
+
   return (
     <LightTooltip
       title={title}
@@ -225,35 +232,40 @@ const SideBarElement: React.FC<SideElementProps> = ({
         },
       }}
     >
-      <StyleSideElement is_first={is_first} is_last={is_last} is_active={is_active}>
-        <Icon size={25} />
-      </StyleSideElement>
+      <Link href={path} style={{marginTop : `${is_last && 'auto'}`}}>
+        <StyleSideElement
+          is_first={is_first}
+          is_last={is_last}
+          is_active={is_active}
+          onClick={() => { if (is_last) Handle_logout(); }}>
+          <Icon size={25} />
+        </StyleSideElement>
+      </Link>
     </LightTooltip>
   );
 };
-
 
 const SideBar = () => {
   const path = usePathname();
 
   return (
     <StyledSideBar>
-      <div className="LogoPlaceHolder"
+      <div
+        className="LogoPlaceHolder"
         style={{ backgroundColor: path == "/" ? "var(--main_color)" : "" }}
       ></div>
 
       <div className="ListBar">
         {List.map((ListItem) => {
           return (
-            <Link href={ListItem.path}>
-              <SideBarElement
-                is_first={ListItem.is_first}
-                icon={ListItem.icon}
-                is_last={ListItem.is_last}
-                title={ListItem.name}
-                is_active = {path === ListItem.path}
-              />
-            </Link>
+            <SideBarElement
+              is_first={ListItem.is_first}
+              icon={ListItem.icon}
+              is_last={ListItem.is_last}
+              title={ListItem.name}
+              is_active={path === ListItem.path}
+              path={ListItem.path}
+            />
           );
         })}
       </div>

@@ -44,8 +44,8 @@ export const InitialUsers = [
         "updated_at": "2023-10-23T12:14:44.072Z",
         "user": {
             "id": 156068,
-            "email": "ybouchma@student.1337.ma",
-            "login": "ybouchma",
+            "email": "hkarrach@student.1337.ma",
+            "login": "hkarrach",
             "first_name": "Youssef",
             "last_name": "Bouchmama",
             "usual_full_name": "Youssef Bouchmama",
@@ -86,6 +86,7 @@ export const InitialUsers = [
         }
     },
     {
+        "originalRank" : 2,
         "grade": "Learner",
         "level": 4.89,
         "skills": [
@@ -172,6 +173,7 @@ export const InitialUsers = [
         }
     },
     {
+        "originalRank" : 3,
         "grade": "Learner",
         "level": 4.54,
         "skills": [
@@ -258,6 +260,7 @@ export const InitialUsers = [
         }
     },
     {
+        "originalRank" : 99,
         "grade": "Learner",
         "level": 4.51,
         "skills": [

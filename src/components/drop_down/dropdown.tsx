@@ -79,12 +79,12 @@ const StyledButton = styled('button')`
   transition: all 120ms cubic-bezier(0.4, 0, 0.2, 1);
   width : 100%;
   background-color : transparent;
-  border: 1px solid rgba(178, 162, 249, 0.2);
-  color  : var(--main_color);
+  border: 1px solid  rgba(44,44,48,1);
+  color  :  rgba(255,255,255, 0.5);
   cursor: pointer;
 
   &:hover {
-    background: rgba(178, 162, 249, 0.1);
+    background: rgba(44,44,48,1);
     /* border-color: #dae2ed; */
   }
 `;
@@ -100,7 +100,7 @@ const Listbox = styled('ul')`
   overflow: auto;
   outline: 0px;
   background: rgba(10,11,20, 0.8);
-  border: 1px solid rgba(178, 162, 249, 0.2);
+  border: 1px solid rgba(44,44,48,1);
   color: white;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
@@ -150,7 +150,7 @@ const Option = styled(BaseOption)`
   }
 
   &:hover:not(.Mui-disabled) {
-    background-color: rgba(178, 162, 249, 0.3);
+    background-color: rgba(44,44,48,1);
     color: white;
   }
 `;
