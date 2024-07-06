@@ -6,9 +6,7 @@ export async function middleware(req: NextRequest) {
   const token = await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET as string,
-    salt: process.env.NODE_ENV === "production"
-      ? "__Secure-authjs.session-token"
-      : "authjs.session-token",
+    salt: "next-auth.session-token",
   });
   
   if (!token) {
