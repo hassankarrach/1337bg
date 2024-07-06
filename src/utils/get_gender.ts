@@ -1,22 +1,3 @@
-export function getGender(name: string): string {
-    // First, check if the exact name exists in the map
-    if (NamesGender.has(name.toLowerCase())) {
-        return NamesGender.get(name.toLowerCase())!;
-    }
-
-    // If not found, check for partial matches
-    const lowerCaseName = name.toLowerCase();
-    for (const [key, value] of NamesGender.entries()) {
-        if (lowerCaseName.includes(key.toLowerCase())) {
-            return value;
-        }
-    }
-
-    // Return undefined if no match is found
-    return "unknown";
-}
-
-
 const NamesGender: Map<string, string> = new Map([
     ['aaron', 'male'],
     ['abd el rahim', 'male'],
@@ -4454,4 +4435,23 @@ const NamesGender: Map<string, string> = new Map([
     ['Taoufiq', 'male'],
     ['Hafid','male']
 ]);
-  
+
+
+// Function to get gender based on name
+export function getGender(name: string): string {
+    // First, check if the exact name exists in the map
+    if (NamesGender.has(name.toLowerCase())) {
+        return NamesGender.get(name.toLowerCase())!;
+    }
+
+    // If not found, check for partial matches
+    const lowerCaseName = name.toLowerCase();
+    for (const [key, value] of Array.from(NamesGender.entries())) {
+        if (lowerCaseName.includes(key.toLowerCase())) {
+            return value;
+        }
+    }
+
+    // Return "unknown" if no match is found
+    return "unknown";
+}
