@@ -30,7 +30,7 @@ export default function CustomDropDown<T>({ data, getValue, renderItem, onChange
           const value = getValue(item);
           return (
             <Option key={value} value={value}>
-              <FaBookmark color={item.sec_color} className='IconOption'/>
+              <FaBookmark color={(item as any).sec_color} className='IconOption'/>
               {renderItem(item)}
             </Option>
           );
