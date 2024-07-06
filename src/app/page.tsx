@@ -118,9 +118,9 @@ const Main = () => {
 
           <div className="PromosPresentation">
             <div className="Items_container">
-                <PromoItem rank={2} title="Green Promo" year={2023}/>
-                <PromoItem rank={1} title="Black Promo" year={2023}/>
-                <PromoItem rank={3} title="Red Promo" year={2022}/>
+                <PromoItem avatar="https://www.writeups.org/wp-content/uploads/CJ-Johnson-San-Andreas-Grand-Theft-Auto-GTA-d.jpg" rank={2} title="Green Promo" year={2023}/>
+                <PromoItem avatar="https://www.writeups.org/wp-content/uploads/CJ-Johnson-San-Andreas-Grand-Theft-Auto-GTA-d.jpg" rank={1} title="Black Promo" year={2023}/>
+                <PromoItem avatar="https://www.writeups.org/wp-content/uploads/CJ-Johnson-San-Andreas-Grand-Theft-Auto-GTA-d.jpg" rank={3} title="Red Promo" year={2022}/>
             </div>
           </div>
         </div>

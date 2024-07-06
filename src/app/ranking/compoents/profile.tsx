@@ -469,8 +469,8 @@ const Profile: React.FC<ComponentProps> = ({
           <>
             <span>RNCP 7 Progress :</span>
             <div className="RNCP_progress">
-              <RncpItem value={userData?.level} by="21" title="Level" />
-              <RncpItem value={"1"} by="2" title="Events" />
+              <RncpItem value={userData?.level || " "} by="21" title="Level" />
+              <RncpItem value={"0"} by="2" title="Events" />
               <RncpItem value={"0"} by="4" title="Experiances" />
             </div>
           </>
