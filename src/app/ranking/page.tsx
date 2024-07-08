@@ -60,7 +60,7 @@ const Ranking: React.FC = () => {
 
   const fetchUsers = async ({ pageParam = 1 }) => {
     const response = await fetch(
-      `https://api.intra.42.fr/v2/cursus_users?&filter[campus_id]=21&filter[begin_at]=${Promos[SelectedPromo].start_date}&page[size]=100&page[number]=${pageParam}&sort=-level`,
+      `/api/students?started_date=${Promos[SelectedPromo].start_date}&page=${pageParam}`,
       {
         headers: {
           Authorization: `Bearer ${session?.accessToken}`,
