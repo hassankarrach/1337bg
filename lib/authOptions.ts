@@ -24,8 +24,8 @@ export const {auth, handlers: {GET, POST}, signIn, signOut} = NextAuth({
         async signIn({profile, user}:any)
         {
             if (!profile || !user) return false;
-            console.log(profile);
-            //Limit Access later to ONLY (BG - KH - MED) campuses;
+            if (profile.campus[0].id !== 21) //limit access to only BG campus.
+                return false;
             return user;
         },
         async jwt({token, account, profile}:any)

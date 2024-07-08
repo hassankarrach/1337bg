@@ -54,6 +54,7 @@ const Ranking: React.FC = () => {
 
   const handlePromoChange = (value: string) => {
     SetUsers([]);
+    setSelectedGender("All");
     const promoId = parseInt(value, 10);
     setSelectedPromo(promoId);
   };
@@ -114,31 +115,33 @@ const Ranking: React.FC = () => {
       );
     }
   };
+  useEffect(() => {
+    //Filter By Gender ===========================
+    if (SelectedGender !== 'All') {
+      SetUsers([]);
+      const FilteredUsers = Users.filter(user => {
+            // console.log(user.Gender);
+            return user.Gender === SelectedGender;
+      });
+      SetUsers(FilteredUsers);
+    }
+    //=============================================
+
+  }, [SelectedGender])
 
   useEffect(() => {
     if (data && session?.accessToken) {
-      let newUsers = data.pages.flatMap(page => page.data);
-
-      //Filter By Gender ===========================
-      //   SetSelectedUser(newUsers[0].user.id);
-      // if (SelectedGender !== 'All') {
-      //     newUsers = newUsers.filter(user => {
-      //         // console.log(user.Gender);
-      //         return user.Gender === SelectedGender;
-      //     });
-      // }
-      //=============================================
+      const newUsers = data.pages.flatMap(page => page.data);
+      // SetSelectedUser(newUsers[0].user.id);
       
-      // Filter By searc ============================
+      // Filter By search ===========================
       //   const filteredUsers = newUsers.filter(user =>
       //       user.user.usual_full_name.toLowerCase().includes(SearchTerm.toLowerCase())
       //   );
       //=============================================
-
-  
       SetUsers(newUsers);
     }
-  }, [data, session, SelectedGender]);
+  }, [data, session]);
 
   return (
     <StyledRanking>

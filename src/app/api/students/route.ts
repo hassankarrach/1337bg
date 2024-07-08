@@ -37,7 +37,6 @@ export async function GET(req: Request) {
     const Students = await response.json();
     return NextResponse.json(Students, { status: 200 });
   } catch (error) {
-    console.error("Error fetching Students:", error);
     return NextResponse.json(
       { message: "Error fetching Students!" },
       { status: 500 }
