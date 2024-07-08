@@ -115,11 +115,14 @@ const Ranking: React.FC = () => {
       );
     }
   };
+
+  
   useEffect(() => {
     //Filter By Gender ===========================
-    if (SelectedGender !== 'All') {
+    if (SelectedGender !== 'All' && data) {
       SetUsers([]);
-      const FilteredUsers = Users.filter(user => {
+      const newUsers = data.pages.flatMap(page => page.data);
+      const FilteredUsers = newUsers.filter(user => {
             // console.log(user.Gender);
             return user.Gender === SelectedGender;
       });
