@@ -75,6 +75,7 @@ const Ranking: React.FC = () => {
       originalRank: (pageParam - 1) * 100 + index + 1,
       Gender: getGender(user.user.first_name.trim()),
     }));
+    setSelectedGender("All");
 
     return {
       data: usersWithRankAndGender,
@@ -126,7 +127,7 @@ const Ranking: React.FC = () => {
             // console.log(user.Gender);
             return user.Gender === SelectedGender;
       });
-      SetUsers(FilteredUsers);
+      SetUsers(FilteredUsers); //CURR PROBLEM => on fetch more, the gender filter should updated
     }
     //=============================================
 
