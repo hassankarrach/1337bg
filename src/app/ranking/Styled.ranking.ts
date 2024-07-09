@@ -12,16 +12,15 @@ export const StyledRanking = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: var(--main_background);
-  overflow : hidden;
-  padding-left : 70px;
-  @media only screen and (max-width: 767px){
-    height  : auto;
-    padding : 0px;
-    padding : 5px;
+  overflow: hidden;
+  padding-left: 70px;
+  @media only screen and (max-width: 767px) {
+    height: auto;
+    padding: 0px;
+    padding: 5px;
   }
 
   /* background-color :#FAFBF4; */
-
 
   /* &:before{
     content : "";
@@ -35,8 +34,6 @@ export const StyledRanking = styled.div`
     opacity : 0.3;
   } */
 
-
-
   //Test : feeling weird:because of what. t
   .Container {
     width: 100%;
@@ -46,34 +43,34 @@ export const StyledRanking = styled.div`
     align-items: center;
     position: relative;
     z-index: 9;
-    @media only screen and (max-width: 767px){
-      height : auto;
+    @media only screen and (max-width: 767px) {
+      height: auto;
     }
     /* flex-direction : column; */
     /* overflow  :hidden; */
 
-    .ProfileContainer{
-      width : 400px;
-      height : 100%;
-      padding : 55px 10px;
-      
-      @media only screen and (max-width: 767px){
+    .ProfileContainer {
+      width: 400px;
+      height: 100%;
+      padding: 55px 10px;
+
+      @media only screen and (max-width: 767px) {
         display: none;
       }
     }
-    .LeaderBoardContainer{
-      height : 100%;
-      flex : 1;
-      padding : 55px 10px;
-      @media only screen and (max-width: 767px){
-        padding : 0px;
+    .LeaderBoardContainer {
+      height: 100%;
+      flex: 1;
+      padding: 55px 10px;
+      @media only screen and (max-width: 767px) {
+        padding: 0px;
       }
       .Ranking {
         width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
-        @media only screen and (max-width: 767px){
+        @media only screen and (max-width: 767px) {
           /* height: auto; */
           /* display : none; */
         }
@@ -83,12 +80,12 @@ export const StyledRanking = styled.div`
           flex-direction: column;
           padding-right: 5px;
           gap: 5px;
-          @media only screen and (max-width: 767px){
-            padding : 0px;
-            padding-top : 50px;
-            overflow-y : unset;
+          @media only screen and (max-width: 767px) {
+            padding: 0px;
+            padding-top: 50px;
+            overflow-y: unset;
           }
-      
+
           .FetchMore {
             width: 100%;
             display: flex;
@@ -102,21 +99,21 @@ export const StyledRanking = styled.div`
           /* Scrollbar styles */
           &::-webkit-scrollbar {
             width: 8px; /* Width of the scroll bar */
-            @media only screen and (max-width: 767px){
-              width : 0px;
+            @media only screen and (max-width: 767px) {
+              width: 0px;
             }
           }
           &::-webkit-scrollbar-track {
-            background: rgba(183,251,43,0.2);
+            background: rgba(183, 251, 43, 0.2);
             border-radius: 2px;
           }
           &::-webkit-scrollbar-thumb {
-            background: rgba(183,251,43,0.4);
+            background: rgba(183, 251, 43, 0.4);
             border-radius: 10px;
             transition: 2s ease-in-out;
           }
           &::-webkit-scrollbar-thumb:hover {
-            background: rgba(183,251,43,0.6);
+            background: rgba(183, 251, 43, 0.6);
           }
         }
         .Skeletons {
@@ -127,7 +124,7 @@ export const StyledRanking = styled.div`
           position: relative;
           .CardSkl {
             border-radius: 5px;
-            background-color : rgba(44,44,48,1);
+            background-color: rgba(44, 44, 48, 1);
           }
           .profileSkl {
             top: 0;
@@ -142,8 +139,18 @@ export const StyledRanking = styled.div`
       border-radius: 5px;
       display: flex;
       position: relative;
-      @media only screen and (max-width: 767px){
-        display: none;
+      @media only screen and (max-width: 767px) {
+        max-width: 100%;
+        position: fixed;
+        bottom: 0;
+        z-index: 99;
+        height: auto;
+        background: rgba(33,33,37,0.9);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 10px;
+        /* display: none; */
       }
 
       .Filters {
@@ -152,30 +159,36 @@ export const StyledRanking = styled.div`
         align-items: flex-end;
         justify-content: space-between;
         gap: 8px;
-        padding-bottom:  10px;
+        padding-bottom: 10px;
+        @media only screen and (max-width: 767px) {
+          /* display: none; */
+        }
         .Select_container {
           flex-grow: 1;
-          color : white;
+          color: white;
         }
         .SearchUser {
           flex-grow: 1;
           height: 100%;
           display: flex;
           align-items: flex-end;
-          position : relative;
+          position: relative;
+          @media only screen and (max-width: 767px){
+            display : none;
+          }
           input {
             height: 38px;
             width: 100%;
             border-radius: 7px;
             padding: 10px;
             outline: none;
-            background-color : transparent;
-            border: 1px solid rgba(44,44,48,1);
-            font-size : 0.9;
-            text-transform : uppercase;
-            color  :  rgba(255,255,255, 0.7);
-            &::placeholder{
-              color  :  rgba(255,255,255, 0.5);
+            background-color: transparent;
+            border: 1px solid rgba(44, 44, 48, 1);
+            font-size: 0.9;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+            &::placeholder {
+              color: rgba(255, 255, 255, 0.5);
             }
           }
         }
@@ -184,33 +197,36 @@ export const StyledRanking = styled.div`
           height: 38px;
           border-radius: 7px;
           cursor: pointer;
-          border: 1px solid rgba(183,251,43,0.4);
+          border: 1px solid rgba(183, 251, 43, 0.4);
           background-color: transparent;
-          color: rgba(183,251,43,0.5);
+          color: rgba(183, 251, 43, 0.5);
           font-size: 0.9rem;
           justify-self: right;
           margin-left: auto;
-          padding : 0px 15px;
-          transition : 0.1s ease-in-out;
-          &:hover{
-            background-color : rgba(183,251,43,0.07);
+          padding: 0px 15px;
+          transition: 0.1s ease-in-out;
+          &:hover {
+            background-color: rgba(183, 251, 43, 0.07);
           }
         }
         .GenderFilter {
           flex-grow: 1;
-          width : 300px;
+          width: 300px;
           height: 38px;
           border-radius: 5px;
-          border: 1px solid rgba(44,44,48,1);
+          border: 1px solid rgba(44, 44, 48, 1);
           display: flex;
           overflow: hidden;
-          span{
-            font-family : var(--main_font);
-            color  :  rgba(255,255,255, 0.5);
+          @media only screen and (max-width: 767px){
+            width : auto;
+          }
+          span {
+            font-family: var(--main_font);
+            color: rgba(255, 255, 255, 0.5);
           }
           .Male {
             color: #c3e8ff;
-            padding : 0px 10px;
+            padding: 0px 10px;
           }
 
           .Female {
@@ -219,7 +235,6 @@ export const StyledRanking = styled.div`
           .All {
             /* background-color : red; */
           }
-         
 
           .Male,
           .Female,
@@ -233,11 +248,11 @@ export const StyledRanking = styled.div`
             .GenderIcon {
               size: 50px;
             }
-            &.selected{
-              background-color : rgba(44,44,48,1);
+            &.selected {
+              background-color: rgba(44, 44, 48, 1);
             }
-            &:hover{
-                background-color : rgba(44,44,48,1);
+            &:hover {
+              background-color: rgba(44, 44, 48, 1);
             }
           }
           .devider {
@@ -245,9 +260,9 @@ export const StyledRanking = styled.div`
             height: 100%;
             background: linear-gradient(
               0deg,
-              rgba(44,44,48, 0) 0%,
-              rgba(44,44,48,1) 50%,
-              rgba(44,44,48, 0) 100%
+              rgba(44, 44, 48, 0) 0%,
+              rgba(44, 44, 48, 1) 50%,
+              rgba(44, 44, 48, 0) 100%
             );
           }
         }

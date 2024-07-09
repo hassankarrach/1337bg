@@ -71,11 +71,11 @@ const Ranking: React.FC = () => {
       );
   
       if (!response.ok) {
-        toast.error("Failed to fetch Students.", {icon : false});
         throw new Error('Failed to fetch Students.');
       }
   
       const data = await response.json();
+      setSelectedGender('All');
       return {
         data: data,
         nextPage: data.length > 0 ? pageParam + 1 : undefined,
@@ -164,6 +164,7 @@ const Ranking: React.FC = () => {
       //   );
       //=============================================
       SetUsers(newUsers);
+      console.log("yep");
     }
   }, [data, session]);
 
@@ -241,7 +242,7 @@ const Ranking: React.FC = () => {
             <div className="Profiles_container">
               {isLoading || status === "pending" || !Users[0] ? (
                 <div className="Skeletons">
-                  {Array.from({ length: 11 }).map((_, key) => (
+                  {Array.from({ length: 15 }).map((_, key) => (
                     <Skeleton
                       animation={`${key % 2 ? "pulse" : "wave"}`}
                       variant="rectangular"
@@ -255,6 +256,8 @@ const Ranking: React.FC = () => {
               ) : Users ? (
                 <>
                   {Users.map((User: any, key: number) => {
+                    if (!User || !User.user)
+                      return null;
                     return (
                       <Card
                         id={User.user.id}
