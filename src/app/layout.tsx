@@ -9,6 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 //Next_Auth
 import Providers from "./Providers";
 import SideBar from "@/components/sidebar/SideBar";
+import { useState } from "react";
 
 export const metadata = {
   title: "1337 Hub",

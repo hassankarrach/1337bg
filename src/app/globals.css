@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 @import url('https://fonts.cdnfonts.com/css/neuropolitical');
+
 /* * Define Local Fonts */
 
 /* @font-face {
@@ -69,4 +70,19 @@ span {
   100% {
     opacity: 0.2;
   }
+}
+
+/* Toast */
+.foo .Toastify__toast-theme--light {
+  background: rgba(44,44,48,0.9);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color : white;
+}
+.foo .Toastify__progress-bar--error {
+  background-color: var(--main_color_light);
+}
+.foo .Toastify__close-button > svg {
+  color: white;
 }

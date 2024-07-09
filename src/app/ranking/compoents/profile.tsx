@@ -32,8 +32,8 @@ import RncpItem from "./RncpItem";
 
 interface ComponentProps {
   Promo: Promo;
-  user_id: number;
   list_is_loading: boolean;
+  StudentData : any;
 }
 interface StyleProps {
   $primary_color: string;
@@ -45,35 +45,19 @@ const UpdateUser = (
   data: any,
   setUserData: Dispatch<SetStateAction<User | null>>
 ) => {
+  console.log(data);
   const ExtractedUserData: User = {
     id: data.id,
-    full_name: `${data.first_name} ${data.last_name}`,
-    email: data.email,
-    login: data.login,
-    level:
-      data.cursus_users.length == 2
-        ? data.cursus_users[1].level.toFixed(2)
-        : data.cursus_users[0].level.toFixed(2),
-    img: data.image?.versions.small,
-    location: data.location,
-    wallet: data.wallet,
-    intra_link: data.url,
-    corrections_points: data.correction_point,
-    is_pooler: data.cursus_users.length === 1 ? true : false,
-    projects: data.projects_users.map((project: any) => ({
-      cursus_id: project.cursus_ids[0],
-      final_make: project.final_mark,
-      project_name: project.project.name,
-      finished_date: project.updated_at,
-      is_marked: project.marked,
-      is_validated: project["validated?"],
-      status: project.status,
-    })),
-    achievements: data.achievements.map((achievement: any) => ({
-      achievement_name: achievement.name,
-      achievement_desc: achievement.description,
-      achievement_img: achievement.image,
-    })),
+    full_name: `${data.user.first_name} ${data.user.last_name}`,
+    email: data.user.email,
+    login: data.user.login,
+    level: data.level.toFixed(2),
+    img: data.user.image?.versions.small,
+    location: data.user.location,
+    wallet: data.user.wallet,
+    intra_link: data.user.url,
+    corrections_points: data.user.correction_point,
+    is_pooler: data.blackholed_at === null,
   };
   setUserData(ExtractedUserData);
 };
@@ -151,7 +135,6 @@ const StyledProfile = styled.div<StyleProps>`
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
-      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -315,9 +298,7 @@ const StyledProfile = styled.div<StyleProps>`
 `;
 
 const Profile: React.FC<ComponentProps> = ({
-  Promo,
-  user_id,
-  list_is_loading,
+  StudentData, Promo, list_is_loading
 }) => {
   //Stats
   const [userData, setUserData] = useState<User | null>(null);
@@ -325,25 +306,11 @@ const Profile: React.FC<ComponentProps> = ({
   //Modal
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
-  //Auth
-  const { data: session } = useSession();
-
-  const BaseUrl = `https://api.intra.42.fr/v2/users/${user_id}`;
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["user", user_id],
-    queryFn: () => fetchUsers(BaseUrl, session?.accessToken),
-    enabled: !!user_id,
-    retry: 2,
-    refetchOnWindowFocus: false,
-    staleTime: 5 * 24 * 60 * 60 * 1000,
-  });
 
   useEffect(() => {
-    console.log(user_id);
-    if (data) {
-      UpdateUser(data, setUserData);
-    }
-  }, [data, user_id]);
+    if (StudentData != undefined)
+        UpdateUser(StudentData, setUserData);
+  }, [StudentData]);
 
   return (
     <StyledProfile
@@ -354,9 +321,9 @@ const Profile: React.FC<ComponentProps> = ({
       <CustomModal open={IsModalOpen} onClose={handleCloseModal} />
 
       <div className="User_Banner">
-        {userData?.is_pooler && <h1 className="Userkind">POOLER</h1>}
+        {userData?.is_pooler && !list_is_loading && <h1 className="Userkind">POOLER</h1>}
         <img className="BinaryBack" src={BinaryBack.src} />
-        {!isLoading && !list_is_loading ? (
+        {!list_is_loading ? (
           <div
             className="Profile_avatar"
             style={{ backgroundImage: `url(${userData?.img})` }}
@@ -366,23 +333,23 @@ const Profile: React.FC<ComponentProps> = ({
                 width="76"
                 height="20"
                 viewBox="0 0 76 20"
-                fill="rgba(178, 162, 249, 0.3)"
+                fill="rgba(44,44,48,1)"
               >
                 <path
                   d="M2.8333 17.6623H5.92418V2.33766H2.31816V5.45455H0V1.49012e-07H8.75748V17.6623H11.8484V20H2.8333V17.6623Z"
-                  fill="rgba(178, 162, 249, 0.3)"
+                  fill="rgba(44,44,48,1)"
                 ></path>
                 <path
                   d="M21.3785 17.6623H30.6512V10.9091H22.1513V8.57143H30.6512V2.33766H21.3785V0H33.4845V20H21.3785V17.6623Z"
-                  fill="rgba(178, 162, 249, 0.3)"
+                  fill="rgba(44,44,48,1)"
                 ></path>
                 <path
                   d="M42.2419 17.6623H51.5146V10.9091H43.0147V8.57143H51.5146V2.33766H42.2419V0H54.3479V20H42.2419V17.6623Z"
-                  fill="rgba(178, 162, 249, 0.3)"
+                  fill="rgba(44,44,48,1)"
                 ></path>
                 <path
                   d="M72.6355 2.33766H64.9084V7.27273H62.5902V0H75.2113V20H72.6355V2.33766Z"
-                  fill="rgba(178, 162, 249, 0.3)"
+                  fill="rgba(44,44,48,1)"
                 ></path>
               </svg>
             )}
@@ -465,7 +432,7 @@ const Profile: React.FC<ComponentProps> = ({
             </span>
           </div>
         </div>
-        {!userData?.is_pooler && (
+        {!userData?.is_pooler && !list_is_loading && (
           <>
             <span>RNCP 7 Progress :</span>
             <div className="RNCP_progress">
@@ -475,7 +442,6 @@ const Profile: React.FC<ComponentProps> = ({
             </div>
           </>
         )}
-        <Exams UserData={userData} />
       </div>
 
       <div className="Feedback_feature">

@@ -14,6 +14,11 @@ export const StyledRanking = styled.div`
   background-color: var(--main_background);
   overflow : hidden;
   padding-left : 70px;
+  @media only screen and (max-width: 767px){
+    height  : auto;
+    padding : 0px;
+    padding : 5px;
+  }
 
   /* background-color :#FAFBF4; */
 
@@ -41,6 +46,9 @@ export const StyledRanking = styled.div`
     align-items: center;
     position: relative;
     z-index: 9;
+    @media only screen and (max-width: 767px){
+      height : auto;
+    }
     /* flex-direction : column; */
     /* overflow  :hidden; */
 
@@ -48,22 +56,38 @@ export const StyledRanking = styled.div`
       width : 400px;
       height : 100%;
       padding : 55px 10px;
+      
+      @media only screen and (max-width: 767px){
+        display: none;
+      }
     }
     .LeaderBoardContainer{
       height : 100%;
       flex : 1;
       padding : 55px 10px;
+      @media only screen and (max-width: 767px){
+        padding : 0px;
+      }
       .Ranking {
         width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
+        @media only screen and (max-width: 767px){
+          /* height: auto; */
+          /* display : none; */
+        }
         .Profiles_container {
           overflow-y: scroll;
           display: flex;
           flex-direction: column;
           padding-right: 5px;
           gap: 5px;
+          @media only screen and (max-width: 767px){
+            padding : 0px;
+            padding-top : 50px;
+            overflow-y : unset;
+          }
       
           .FetchMore {
             width: 100%;
@@ -78,6 +102,9 @@ export const StyledRanking = styled.div`
           /* Scrollbar styles */
           &::-webkit-scrollbar {
             width: 8px; /* Width of the scroll bar */
+            @media only screen and (max-width: 767px){
+              width : 0px;
+            }
           }
           &::-webkit-scrollbar-track {
             background: rgba(183,251,43,0.2);
@@ -115,6 +142,9 @@ export const StyledRanking = styled.div`
       border-radius: 5px;
       display: flex;
       position: relative;
+      @media only screen and (max-width: 767px){
+        display: none;
+      }
 
       .Filters {
         width: 100%;

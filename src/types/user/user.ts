@@ -12,6 +12,4 @@ export interface User {
     img                 : string | undefined;
     location            : string;
     wallet              : number;
-    projects            : project[];
-    achievements        : achievement[];
 }

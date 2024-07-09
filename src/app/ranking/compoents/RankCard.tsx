@@ -33,6 +33,9 @@ const StyledCard = styled.div<StyledProps>`
   position: relative;
   transition: 0.3s ease-in-out;
   overflow: hidden;
+  @media only screen and (max-width: 767px){
+    height : 60px;
+  }
 
   &:after {
     content: "";

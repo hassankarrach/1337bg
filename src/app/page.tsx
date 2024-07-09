@@ -10,6 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SideBar from "@/components/sidebar/SideBar";
 import Navbar from "@/components/navbar/navbar";
+import { Icon } from "@mui/material";
 
 export interface PromoItemProps {
     avatar : string,
@@ -45,7 +46,11 @@ const Main = () => {
     const params = new URLSearchParams(window.location.search);
     const message = params.get("error");
     if (message) {
-      toast.error("You must be logged in to access the ranking page.");
+      toast.error("🔒 You must be logged in to access the leaderboard.",
+        {
+          icon: false,
+        },
+      );
     }
   }, []);
 
@@ -62,6 +67,7 @@ const Main = () => {
         draggable
         pauseOnHover
         theme="light"
+        className="foo"
       />
       <div className="Banner">
         <h1>

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { InitialUsers } from "@/data/Fake"; // Assuming you need this for some reason
+import { getGender } from "@/utils/get_gender";
 
 export async function GET(req: Request) {
   // Extract query parameters
@@ -35,7 +36,14 @@ export async function GET(req: Request) {
 
     // Parse and return the data
     const Students = await response.json();
-    return NextResponse.json(Students, { status: 200 });
+
+    const StudentsWithRankAndGender = Students.map((user: any, index: number) => ({
+      ...user,
+      originalRank: (parseInt(page || "1", 10) - 1) * 100 + index + 1,
+      Gender: getGender(user.user.first_name.trim()),
+    }));
+
+    return NextResponse.json(StudentsWithRankAndGender, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: "Error fetching Students!" },

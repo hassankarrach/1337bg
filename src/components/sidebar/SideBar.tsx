@@ -11,12 +11,15 @@ import {
   FaSignOutAlt,
   FaSkull,
   FaUserSecret,
+  FaEllipsisV,
+  FaWindowClose,
 } from "react-icons/fa";
 
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
+import useMobileDetection from "@/hooks/useMobile";
 
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -101,7 +104,10 @@ const List: {
   },
 ];
 
-const StyledSideBar = styled.div`
+interface StyledSideBarProps {
+  $is_open : boolean
+}
+const StyledSideBar = styled.div<StyledSideBarProps>`
   width: 68px;
   height: 100%;
   position: fixed;
@@ -109,11 +115,15 @@ const StyledSideBar = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  padding: 5px 3px; 
+  padding: 5px 3px;
+  @media only screen and (max-width: 767px) {
+    /* display : none; */
+    z-index: 999;
+  }
 
   .LogoPlaceHolder {
     width: 100%;
-    height: 80px;
+    height: 70px;
     background-color: #212125;
     border-radius: 3px;
     clip-path: polygon(
@@ -124,9 +134,17 @@ const StyledSideBar = styled.div`
       0% calc(100% - 20px)
     );
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transition: 0.2s ease-in-out;
+    color: white;
     &:hover {
       background-color: var(--main_color);
+    }
+    @media only screen and (max-width: 767px) {
+      height : 50px;
+      /* display: none; */
     }
   }
   .ListBar {
@@ -146,6 +164,16 @@ const StyledSideBar = styled.div`
     display: flex;
     flex-direction: column;
     gap: 4px;
+
+    @media only screen and (max-width: 767px) {
+      /* display : none; */
+      margin-left : ${props => props.$is_open ? '0' : '-200%'};
+      z-index: 99999;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      /* left : -20%; */
+    }
   }
 `;
 
@@ -198,7 +226,7 @@ interface SideElementProps {
   is_last: boolean;
   title: string;
   is_active: boolean;
-  path : string;
+  path: string;
   icon: IconType;
 }
 const SideBarElement: React.FC<SideElementProps> = ({
@@ -211,8 +239,8 @@ const SideBarElement: React.FC<SideElementProps> = ({
 }) => {
   const { data: session } = useSession();
   const Handle_logout = () => {
-    signOut({ callbackUrl: '/' });
-  }
+    signOut({ callbackUrl: "/" });
+  };
 
   return (
     <LightTooltip
@@ -232,12 +260,15 @@ const SideBarElement: React.FC<SideElementProps> = ({
         },
       }}
     >
-      <Link href={path} style={{marginTop : `${is_last && 'auto'}`}}>
+      <Link href={path} style={{ marginTop: `${is_last && "auto"}` }}>
         <StyleSideElement
           $is_first={is_first}
           $is_last={is_last}
           $is_active={is_active}
-          onClick={() => { if (is_last) Handle_logout(); }}>
+          onClick={() => {
+            if (is_last) Handle_logout();
+          }}
+        >
           <Icon size={25} />
         </StyleSideElement>
       </Link>
@@ -247,13 +278,29 @@ const SideBarElement: React.FC<SideElementProps> = ({
 
 const SideBar = () => {
   const path = usePathname();
+  const [IsOpen, setIsOpen] = useState(false);
+  const isMobile = useMobileDetection();
+
+  const ToggleSideBar = () => {
+    console.log("triggred");
+    setIsOpen(prev => !prev);
+  };
+
+  
 
   return (
-    <StyledSideBar>
+    <StyledSideBar $is_open = {IsOpen}>
       <div
+        onClick={ToggleSideBar}
         className="LogoPlaceHolder"
         style={{ backgroundColor: path == "/" ? "var(--main_color)" : "" }}
-      ></div>
+      >
+        {
+        !isMobile ? "Logo"
+        :IsOpen ? <FaWindowClose size={20} /> 
+        : <FaEllipsisV size={20} />
+        }
+      </div>
 
       <div className="ListBar">
         {List.map((ListItem, key) => {

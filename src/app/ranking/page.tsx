@@ -30,7 +30,7 @@ const Ranking: React.FC = () => {
   const { data: session } = useSession();
   const [Users, SetUsers] = useState<any[]>([]);
   const [SearchTerm, setSearchTerm] = useState<string>("");
-  const [SelectedUser, SetSelectedUser] = useState<number>(0);
+  const [SelectedUser, SetSelectedUser] = useState<any>();
   const [SelectedPromo, setSelectedPromo] = useState<number>(0);
   const [SelectedGender, setSelectedGender] = useState<string>("All");
 
@@ -60,29 +60,32 @@ const Ranking: React.FC = () => {
   };
 
   const fetchUsers = async ({ pageParam = 1 }) => {
-    const response = await fetch(
-      `/api/students?started_date=${Promos[SelectedPromo].start_date}&page=${pageParam}`,
-      {
-        headers: {
-          Authorization: `Bearer ${session?.accessToken}`,
-        },
+    try {
+      const response = await fetch(
+        `/api/students?started_date=${Promos[SelectedPromo].start_date}&page=${pageParam}`,
+        {
+          headers: {
+            Authorization: `Bearer ${session?.accessToken}`,
+          },
+        }
+      );
+  
+      if (!response.ok) {
+        toast.error("Failed to fetch Students.", {icon : false});
+        throw new Error('Failed to fetch Students.');
       }
-    );
-    const data = await response.json();
-
-    const usersWithRankAndGender = data.map((user: any, index: number) => ({
-      ...user,
-      originalRank: (pageParam - 1) * 100 + index + 1,
-      Gender: getGender(user.user.first_name.trim()),
-    }));
-    setSelectedGender("All");
-
-    return {
-      data: usersWithRankAndGender,
-      nextPage: data.length > 0 ? pageParam + 1 : undefined,
-    };
+  
+      const data = await response.json();
+      return {
+        data: data,
+        nextPage: data.length > 0 ? pageParam + 1 : undefined,
+      };
+    } catch (error) {
+      toast.error("Error fetching Students.", {icon : false});
+      throw error;
+    }
   };
-
+  
   const {
     data,
     status,
@@ -111,13 +114,23 @@ const Ranking: React.FC = () => {
     if (loggedInUserCardRef.current) {
       loggedInUserCardRef.current.scrollIntoView({ behavior: "smooth" });
     } else {
-      toast.info(
-        "You are not on the list. ensure that you have loaded all students or selected your promo."
+      toast.error(
+        "📋 You are not on the list. ensure that you have loaded all students or selected your promo."
+        ,
+        {
+          icon : false
+        }
       );
     }
   };
 
-  
+  const updateSelectedUserById = (userId : number) => {
+    const foundUser = Users.find(user => user.user.id === userId);
+    if (foundUser) {
+      SetSelectedUser(foundUser);
+    }
+  };
+
   useEffect(() => {
     //Filter By Gender ===========================
     if (SelectedGender !== 'All' && data) {
@@ -127,7 +140,14 @@ const Ranking: React.FC = () => {
             // console.log(user.Gender);
             return user.Gender === SelectedGender;
       });
-      SetUsers(FilteredUsers); //CURR PROBLEM => on fetch more, the gender filter should updated
+      SetSelectedUser(FilteredUsers[0]);
+      SetUsers(FilteredUsers);
+    }
+    else if (data)
+    {
+      const newUsers = data.pages.flatMap(page => page.data);
+      SetSelectedUser(newUsers[0]);
+      SetUsers(newUsers);
     }
     //=============================================
 
@@ -136,7 +156,7 @@ const Ranking: React.FC = () => {
   useEffect(() => {
     if (data && session?.accessToken) {
       const newUsers = data.pages.flatMap(page => page.data);
-      // SetSelectedUser(newUsers[0].user.id);
+      SetSelectedUser(newUsers[0]);
       
       // Filter By search ===========================
       //   const filteredUsers = newUsers.filter(user =>
@@ -160,7 +180,7 @@ const Ranking: React.FC = () => {
         draggable
         pauseOnHover
         theme="light"
-        // transition:Bounce,
+        className="foo"
       />
 
       <div className="Container">
@@ -244,7 +264,7 @@ const Ranking: React.FC = () => {
                         UserName={User.user.login}
                         img={User.user.image.versions.small}
                         key={key}
-                        setSelectedId={SetSelectedUser}
+                        setSelectedId={updateSelectedUserById}
                         IsUser={User.user.email === session?.user?.email}
                         ref={
                           User.user.email === session?.user?.email
@@ -272,8 +292,8 @@ const Ranking: React.FC = () => {
         <div className="ProfileContainer">
           <Profile
             Promo={Promos[SelectedPromo]}
-            user_id={SelectedUser}
             list_is_loading={!Users[0]}
+            StudentData={SelectedUser}
           />
         </div>
       </div>
