@@ -63,7 +63,7 @@ export const StyledRanking = styled.div`
       flex: 1;
       padding: 55px 10px;
       @media only screen and (max-width: 767px) {
-        padding: 0px;
+        padding: 0px
       }
       .Ranking {
         width: 100%;
@@ -82,8 +82,9 @@ export const StyledRanking = styled.div`
           gap: 5px;
           @media only screen and (max-width: 767px) {
             padding: 0px;
-            padding-top: 50px;
+            padding-top: 45px;
             overflow-y: unset;
+            padding-right: 0px;
           }
 
           .FetchMore {
@@ -122,6 +123,9 @@ export const StyledRanking = styled.div`
           padding-right: 5px;
           gap: 5px;
           position: relative;
+          @media only screen and (max-width: 767px){
+            padding-right : 0px;
+          }
           .CardSkl {
             border-radius: 5px;
             background-color: rgba(44, 44, 48, 1);
@@ -149,8 +153,9 @@ export const StyledRanking = styled.div`
         backdrop-filter: blur(4px);
         -webkit-backdrop-filter: blur(4px);
         border-top: 1px solid rgba(255, 255, 255, 0.06);
-        padding: 10px;
+        padding: 10px 5px;
         /* display: none; */
+        flex-direction : column;
       }
 
       .Filters {
@@ -162,10 +167,16 @@ export const StyledRanking = styled.div`
         padding-bottom: 10px;
         @media only screen and (max-width: 767px) {
           /* display: none; */
+          flex-direction : column;
+          padding-bottom : 0px;
+          padding-right : 5px;
         }
         .Select_container {
           flex-grow: 1;
           color: white;
+          @media only screen and (max-width: 767px){
+              width : 100%;
+          }
         }
         .SearchUser {
           flex-grow: 1;
@@ -208,6 +219,12 @@ export const StyledRanking = styled.div`
           &:hover {
             background-color: rgba(183, 251, 43, 0.07);
           }
+          @media only screen and (max-width: 767px){
+              width : 25%;
+              position : absolute;
+              bottom : 10px;
+              left : 5px;
+          }
         }
         .GenderFilter {
           flex-grow: 1;
@@ -218,7 +235,7 @@ export const StyledRanking = styled.div`
           display: flex;
           overflow: hidden;
           @media only screen and (max-width: 767px){
-            width : auto;
+            width : 70%;
           }
           span {
             font-family: var(--main_font);
@@ -245,6 +262,9 @@ export const StyledRanking = styled.div`
             align-items: center;
             padding: 0px 15px;
             cursor: pointer;
+            @media only screen and (max-width: 767px){
+              padding : 0px 2px;
+            }
             .GenderIcon {
               size: 50px;
             }

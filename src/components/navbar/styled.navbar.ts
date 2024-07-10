@@ -2,12 +2,15 @@ import styled from "styled-components";
 
 export const StyledNavbar = styled.div`
   position: fixed;
-  top: 0;
   z-index: 999;
   right: 10px;
   top: 10px;
   display : flex;
   gap : 5px;
+  @media only screen and (max-width: 767px){
+    top : 5px;
+    right : 5px;
+  }
 
   .Profile {
     width: 200px;

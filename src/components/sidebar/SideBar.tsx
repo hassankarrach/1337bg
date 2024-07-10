@@ -12,6 +12,7 @@ import {
   FaSkull,
   FaUserSecret,
   FaEllipsisV,
+  FaRocket,
   FaWindowClose,
 } from "react-icons/fa";
 
@@ -95,6 +96,15 @@ const List: {
   },
   {
     id: 5,
+    name: "42 Improved Intra V3 extension",
+    desc: "",
+    icon: FaRocket,
+    is_first: false,
+    is_last: false,
+    path: "/Extension",
+  },
+  {
+    id: 6,
     name: "Sign out",
     desc: "",
     icon: FaSignOutAlt,
@@ -105,7 +115,7 @@ const List: {
 ];
 
 interface StyledSideBarProps {
-  $is_open : boolean
+  $is_open: boolean;
 }
 const StyledSideBar = styled.div<StyledSideBarProps>`
   width: 68px;
@@ -143,7 +153,8 @@ const StyledSideBar = styled.div<StyledSideBarProps>`
       background-color: var(--main_color);
     }
     @media only screen and (max-width: 767px) {
-      height : 50px;
+      height: 40px;
+      width : 40px;
       /* display: none; */
     }
   }
@@ -167,7 +178,7 @@ const StyledSideBar = styled.div<StyledSideBarProps>`
 
     @media only screen and (max-width: 767px) {
       /* display : none; */
-      margin-left : ${props => props.$is_open ? '0' : '-200%'};
+      margin-left: ${(props) => (props.$is_open ? "0" : "-200%")};
       z-index: 99999;
       box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
         rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
@@ -228,6 +239,7 @@ interface SideElementProps {
   is_active: boolean;
   path: string;
   icon: IconType;
+  setIsOpen : (value : boolean) => void;
 }
 const SideBarElement: React.FC<SideElementProps> = ({
   is_first,
@@ -236,6 +248,7 @@ const SideBarElement: React.FC<SideElementProps> = ({
   is_active,
   path,
   icon: Icon,
+  setIsOpen
 }) => {
   const { data: session } = useSession();
   const Handle_logout = () => {
@@ -267,6 +280,7 @@ const SideBarElement: React.FC<SideElementProps> = ({
           $is_active={is_active}
           onClick={() => {
             if (is_last) Handle_logout();
+            setIsOpen(false);
           }}
         >
           <Icon size={25} />
@@ -282,25 +296,26 @@ const SideBar = () => {
   const isMobile = useMobileDetection();
 
   const ToggleSideBar = () => {
-    console.log("triggred");
-    setIsOpen(prev => !prev);
+    setIsOpen((prev) => !prev);
   };
 
-  
-
   return (
-    <StyledSideBar $is_open = {IsOpen}>
-      <div
-        onClick={ToggleSideBar}
-        className="LogoPlaceHolder"
-        style={{ backgroundColor: path == "/" ? "var(--main_color)" : "" }}
-      >
-        {
-        !isMobile ? "Logo"
-        :IsOpen ? <FaWindowClose size={20} /> 
-        : <FaEllipsisV size={20} />
-        }
-      </div>
+    <StyledSideBar $is_open={IsOpen}>
+      <Link href={!isMobile ? '/' : ''}>
+        <div
+          onClick={ToggleSideBar}
+          className="LogoPlaceHolder"
+          style={{ backgroundColor: path == "/" ? "var(--main_color)" : "" }}
+        >
+          {!isMobile ? (
+            "Logo"
+          ) : IsOpen ? (
+            <FaWindowClose size={20} />
+          ) : (
+            <FaEllipsisV size={20} />
+          )}
+        </div>
+      </Link>
 
       <div className="ListBar">
         {List.map((ListItem, key) => {
@@ -313,6 +328,7 @@ const SideBar = () => {
               title={ListItem.name}
               is_active={path === ListItem.path}
               path={ListItem.path}
+              setIsOpen={setIsOpen}
             />
           );
         })}

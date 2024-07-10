@@ -62,6 +62,15 @@ const StyledCard = styled.div<StyledProps>`
         : ""};
     position: absolute;
     left: 0;
+
+    @media only screen and (max-width: 767px){
+      background: ${(props) =>
+      props.$is_user
+        ? "linear-gradient(90deg, rgba(183,251,43, 0.3) 0%, rgba(183,251,43,0) 25%);"
+        : props.$rank >= 1 && props.$rank <= 3
+        ? "linear-gradient(90deg, rgba(255,215,0,0.8) 0%, rgba(255,215,0,0) 25%);"
+        : ""};
+    }
   }
 
   &:hover {
@@ -75,11 +84,6 @@ const StyledCard = styled.div<StyledProps>`
             ? "rgb(255, 215, 0, 0.4)"
             : "rgba(0, 0, 0, 0.1)"}
         0px 1px 2px 0px;
-    /* .Card_Avatar{
-            z-index : 999;
-            width : 75px;
-            margin-bottom :0;
-        } */
   }
 
   .Card_Avatar {

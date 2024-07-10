@@ -10,15 +10,21 @@ export const StyledMain = styled.div`
   overflow: hidden;
   background-color: var(--main_background);
   padding: 5px;
-  padding-left: 5vw;
+  padding-left: 70px;
   flex-direction: column;
   /* justify-content : space-between; */
   align-items: flex-start;
+  @media only screen and (max-width: 767px){
+    padding : 3px;
+  }
 
   .Details {
     flex: 1;
     width: 100%;
     display: flex;
+    @media only screen and (max-width: 767px){
+      display : none;
+    }
     .Right_side {
       width: 50%;
       position: relative;
@@ -87,6 +93,9 @@ export const StyledMain = styled.div`
       50px 100%,
       0% calc(100% - 50px)
     );
+    @media only screen and (max-width: 767px){
+      height : 100vh;
+    }
 
     background-image: url("/Header.jpg");
     background-position: center;
@@ -103,6 +112,9 @@ export const StyledMain = styled.div`
       font-size: 2.4rem;
       font-weight: 100;
       color: white;
+      @media only screen and (max-width: 767px){
+        font-size : 1.5rem;
+      }
     }
 
     .login_card {
@@ -113,6 +125,7 @@ export const StyledMain = styled.div`
       justify-content: space-between;
       align-items: center;
       position: relative;
+      
 
       .login_button {
         outline: none;
