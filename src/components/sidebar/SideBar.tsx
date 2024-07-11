@@ -22,6 +22,8 @@ import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import useMobileDetection from "@/hooks/useMobile";
 
+import _13bg from "../../../public/logos/13bg.png";
+
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
@@ -151,6 +153,9 @@ const StyledSideBar = styled.div<StyledSideBarProps>`
     color: white;
     &:hover {
       background-color: var(--main_color);
+    }
+    .MainLogo{
+      width :100%;
     }
     @media only screen and (max-width: 767px) {
       height: 40px;
@@ -308,7 +313,7 @@ const SideBar = () => {
           style={{ backgroundColor: path == "/" ? "var(--main_color)" : "" }}
         >
           {!isMobile ? (
-            "Logo"
+            <img src={_13bg.src} className="MainLogo"/>
           ) : IsOpen ? (
             <FaWindowClose size={20} />
           ) : (

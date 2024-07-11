@@ -38,11 +38,11 @@ export const StyledMain = styled.div`
         align-items : center;
 
         h1 {
-          font-family: var(--playable_font);
-          font-size: 5rem;
-          -webkit-text-stroke: 1px var(--main_color);
+          /* font-family: var(--playable_font); */
+          font-size: 6rem;
+          -webkit-text-stroke: 1px white;
           -webkit-text-fill-color: transparent;
-          opacity : 0.4;
+          opacity : 0.2;
           &:nth-of-type(1){
             margin-left : -40%;
           }
@@ -96,10 +96,32 @@ export const StyledMain = styled.div`
     @media only screen and (max-width: 767px){
       height : 100vh;
     }
+    background-color : #101B2B;
 
-    background-image: url("/Header.jpg");
+    .Header_photo{
+      height :140%;
+      top : -30%;
+      position  :absolute;
+      right : 0;
+      @media only screen and (max-width: 767px){
+        height : 100%;
+        top : 0;
+        left : -30%;
+      }
+      /* position : relative; */
+    }
+    &:after{
+      position : absolute;
+      left : 0;
+      content : "";
+      height : 100%;
+      width  :100%;
+      background : linear-gradient(90deg, rgba(16,27,43,1) 50%, rgba(16,27,43,0) 100%);
+    }
+
+    /* background-image: url("/Header.jpg");
     background-position: center;
-    background-size: cover;
+    background-size: cover; */
 
     display: flex;
     flex-direction: column;
@@ -112,6 +134,7 @@ export const StyledMain = styled.div`
       font-size: 2.4rem;
       font-weight: 100;
       color: white;
+      z-index : 9;
       @media only screen and (max-width: 767px){
         font-size : 1.5rem;
       }

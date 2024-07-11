@@ -12,6 +12,13 @@ import SideBar from "@/components/sidebar/SideBar";
 import Navbar from "@/components/navbar/navbar";
 import { Icon } from "@mui/material";
 
+//promos_avatar
+import _black from "../../public/assets/black.jpeg"
+import _red from "../../public/assets/red.jpg"
+import _green from "../../public/assets/green.jpeg"
+
+import _header from "../../public/Header.jpg"
+
 export interface PromoItemProps {
     avatar : string,
     rank? : number,
@@ -70,6 +77,8 @@ const Main = () => {
         className="foo"
       />
       <div className="Banner">
+        <img src={_header.src} className="Header_photo"/>
+
         <h1>
           Navigate School Like <br /> a Boss!
         </h1>
@@ -124,9 +133,9 @@ const Main = () => {
 
           <div className="PromosPresentation">
             <div className="Items_container">
-                <PromoItem avatar="https://www.writeups.org/wp-content/uploads/CJ-Johnson-San-Andreas-Grand-Theft-Auto-GTA-d.jpg" rank={2} title="Green Promo" year={2023}/>
-                <PromoItem avatar="https://www.writeups.org/wp-content/uploads/CJ-Johnson-San-Andreas-Grand-Theft-Auto-GTA-d.jpg" rank={1} title="Black Promo" year={2023}/>
-                <PromoItem avatar="https://www.writeups.org/wp-content/uploads/CJ-Johnson-San-Andreas-Grand-Theft-Auto-GTA-d.jpg" rank={3} title="Red Promo" year={2022}/>
+                <PromoItem avatar={_green.src} rank={2} title="Green Promo" year={2021}/>
+                <PromoItem avatar={_black.src} rank={1} title="Black Promo" year={2023}/>
+                <PromoItem avatar={_red.src} rank={3} title="Red Promo" year={2022}/>
             </div>
           </div>
         </div>
