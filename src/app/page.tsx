@@ -2,15 +2,10 @@
 import { StyledMain, StyledPromoItem } from "./styled.home";
 import _42logo from "../../public/logos/42.png";
 import _stars from "../../public/stars.png";
-import router, { useRouter } from "next/router";
-import { useSession, signIn, signOut, getSession } from "next-auth/react";
-import MainSvg from "@/components/Svgs/MainSvg";
+import { useSession, signIn} from "next-auth/react";
 import React, { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SideBar from "@/components/sidebar/SideBar";
-import Navbar from "@/components/navbar/navbar";
-import { Icon } from "@mui/material";
 
 //promos_avatar
 import _black from "../../public/assets/black.jpeg"

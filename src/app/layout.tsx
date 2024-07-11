@@ -2,18 +2,20 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import StyledComponentsRegistry from "./registry";
 import Navbar from "@/components/navbar/navbar";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-
-//React-query
-const inter = Inter({ subsets: ["latin"] });
-//Next_Auth
-import Providers from "./Providers";
 import SideBar from "@/components/sidebar/SideBar";
-import { useState } from "react";
+import _fav from "../../public/logos/fav.png"
+
+//Fonts
+const inter = Inter({ subsets: ["latin"] });
+//Providers
+import Providers from "./Providers";
 
 export const metadata = {
-  title: "1337 Hub",
-  description: "TBA",
+  title: "1337bg",
+  description: "Web app providing essential utilities for 1337 campus peers.",
+  icons: {
+    icon: _fav.src,
+  },
 };
 
 export default function RootLayout({

@@ -76,7 +76,7 @@ const List: {
     icon: FaFolder,
     is_first: false,
     is_last: false,
-    path: "/corrections",
+    path: "/correction_pages",
   },
   {
     id: 3,
@@ -103,7 +103,7 @@ const List: {
     icon: FaRocket,
     is_first: false,
     is_last: false,
-    path: "/Extension",
+    path: "/extension",
   },
   {
     id: 6,

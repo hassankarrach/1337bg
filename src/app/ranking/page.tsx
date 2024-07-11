@@ -57,6 +57,7 @@ const Ranking: React.FC = () => {
     setSelectedGender("All");
     const promoId = parseInt(value, 10);
     setSelectedPromo(promoId);
+    window.scrollTo(0, 0);
   };
 
   const fetchUsers = async ({ pageParam = 1 }) => {
@@ -80,7 +81,7 @@ const Ranking: React.FC = () => {
         nextPage: data.length > 0 ? pageParam + 1 : undefined,
       };
     } catch (error) {
-      toast.error("Error fetching Students.", {icon : false});
+      toast.error("Error fetching Students, try re-login!", {icon : false});
       throw error;
     }
   };
@@ -96,8 +97,8 @@ const Ranking: React.FC = () => {
     queryFn: fetchUsers,
     getNextPageParam: (lastPage, allPages) => lastPage.nextPage,
     initialPageParam: 1,
-    // retry: 2,
-    // refetchOnWindowFocus: false,
+    retry: 1,
+    refetchOnWindowFocus: false,
     enabled:
       session !== undefined &&
       SelectedPromo !== undefined &&
@@ -135,7 +136,7 @@ const Ranking: React.FC = () => {
       const newUsers = data.pages.flatMap(page => page.data);
   
       if (SelectedGender !== 'All') {
-        const filteredUsers = newUsers.filter(user => user.Gender === SelectedGender);
+        const filteredUsers = newUsers.filter(user => user.Gender === SelectedGender).slice(0, 10);
         SetSelectedUser(filteredUsers[0]);
         SetUsers(filteredUsers);
       } else {

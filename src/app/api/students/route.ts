@@ -30,6 +30,7 @@ export async function GET(req: Request) {
 
     // Handle response errors
     if (!response.ok) {
+      console.log(AccessToken);
       const errorData = await response.json();
       return NextResponse.json(errorData, { status: response.status });
     }

@@ -16,7 +16,6 @@ export const StyledRanking = styled.div`
   padding-left: 70px;
   @media only screen and (max-width: 767px) {
     height: auto;
-    padding: 0px;
     padding: 5px;
     min-height: 100vh;
   }
@@ -40,12 +39,12 @@ export const StyledRanking = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    align-items: flex-start;
     position: relative;
     z-index: 9;
     @media only screen and (max-width: 767px) {
-      height: auto;
+      padding: 0px;
+      min-height : 100vh;
     }
     /* flex-direction : column; */
     /* overflow  :hidden; */
@@ -64,13 +63,14 @@ export const StyledRanking = styled.div`
       flex: 1;
       padding: 55px 10px;
       @media only screen and (max-width: 767px) {
-        padding: 0px
+        padding : 0px;
       }
       .Ranking {
         width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
+        justify-content  :flex-start;
         @media only screen and (max-width: 767px) {
           /* height: auto; */
           /* display : none; */
@@ -86,6 +86,7 @@ export const StyledRanking = styled.div`
             padding-top: 45px;
             overflow-y: unset;
             padding-right: 0px;
+            padding-bottom : 100px;
           }
 
           .FetchMore {
@@ -94,6 +95,10 @@ export const StyledRanking = styled.div`
             justify-content: center;
             align-items: center;
             padding: 10px;
+            @media only screen and (max-width: 767px){
+              /* position : fixed; */
+              background : linear-gradient(90deg, rgb(44,44,48, 0) 0%, rgb(44,44,48, 0.8) 50%, rgb(44,44,48, 0) 100%);
+            }
           }
           .Animated {
             animation: fadeInOut 1s infinite;
@@ -148,6 +153,7 @@ export const StyledRanking = styled.div`
         max-width: 100%;
         position: fixed;
         bottom: 0;
+        left :0;
         z-index: 99;
         height: auto;
         background: rgba(33,33,37,0.9);
@@ -157,6 +163,8 @@ export const StyledRanking = styled.div`
         padding: 10px 5px;
         /* display: none; */
         flex-direction : column;
+        border-bottom-left-radius  : 0px;
+        border-bottom-right-radius : 0px;
       }
 
       .Filters {
@@ -170,7 +178,6 @@ export const StyledRanking = styled.div`
           /* display: none; */
           flex-direction : column;
           padding-bottom : 0px;
-          padding-right : 5px;
         }
         .Select_container {
           flex-grow: 1;
