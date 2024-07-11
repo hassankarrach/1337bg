@@ -1,7 +1,6 @@
 import { useSession } from "next-auth/react";
 import React, { FC, forwardRef, Ref } from "react";
 import styled from "styled-components";
-import LinePatternSvg from "@/components/Svgs/LinePatternSvg";
 
 interface StyledProps {
   $rank: number;
