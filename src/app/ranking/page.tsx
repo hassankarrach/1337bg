@@ -75,7 +75,6 @@ const Ranking: React.FC = () => {
       }
   
       const data = await response.json();
-      setSelectedGender('All');
       return {
         data: data,
         nextPage: data.length > 0 ? pageParam + 1 : undefined,
@@ -132,41 +131,20 @@ const Ranking: React.FC = () => {
   };
 
   useEffect(() => {
-    //Filter By Gender ===========================
-    if (SelectedGender !== 'All' && data) {
-      SetUsers([]);
-      const newUsers = data.pages.flatMap(page => page.data);
-      const FilteredUsers = newUsers.filter(user => {
-            // console.log(user.Gender);
-            return user.Gender === SelectedGender;
-      });
-      SetSelectedUser(FilteredUsers[0]);
-      SetUsers(FilteredUsers);
-    }
-    else if (data)
-    {
-      const newUsers = data.pages.flatMap(page => page.data);
-      SetSelectedUser(newUsers[0]);
-      SetUsers(newUsers);
-    }
-    //=============================================
-
-  }, [SelectedGender])
-
-  useEffect(() => {
     if (data && session?.accessToken) {
       const newUsers = data.pages.flatMap(page => page.data);
-      SetSelectedUser(newUsers[0]);
-      
-      // Filter By search ===========================
-      //   const filteredUsers = newUsers.filter(user =>
-      //       user.user.usual_full_name.toLowerCase().includes(SearchTerm.toLowerCase())
-      //   );
-      //=============================================
-      SetUsers(newUsers);
-      console.log("yep");
+  
+      if (SelectedGender !== 'All') {
+        const filteredUsers = newUsers.filter(user => user.Gender === SelectedGender);
+        SetSelectedUser(filteredUsers[0]);
+        SetUsers(filteredUsers);
+      } else {
+        SetSelectedUser(newUsers[0]);
+        SetUsers(newUsers);
+      }
     }
-  }, [data, session]);
+  }, [data, session, SelectedGender]);
+  
 
   return (
     <StyledRanking>

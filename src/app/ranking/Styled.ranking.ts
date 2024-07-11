@@ -18,6 +18,7 @@ export const StyledRanking = styled.div`
     height: auto;
     padding: 0px;
     padding: 5px;
+    min-height: 100vh;
   }
 
   /* background-color :#FAFBF4; */
