@@ -1,5 +1,5 @@
 "use client";
-import { StyledMain, StyledPromoItem } from "./styled.home";
+import { StyledMain } from "./styled.home";
 import _42logo from "../../public/logos/42.png";
 import _stars from "../../public/stars.png";
 import { useSession, signIn} from "next-auth/react";
@@ -7,34 +7,7 @@ import React, { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-//promos_avatar
-import _black from "../../public/assets/black.jpeg"
-import _red from "../../public/assets/red.jpg"
-import _green from "../../public/assets/green.jpeg"
-
 import _header from "../../public/Header.jpg"
-
-export interface PromoItemProps {
-    avatar : string,
-    rank? : number,
-    title? : string,
-    year? : number
-}
-const PromoItem : React.FC<PromoItemProps> = ({avatar, rank, title, year}) => {
-  return (
-    <StyledPromoItem avatar={avatar} rank={rank}>
-      <div className="PromoAvatar">
-        <h1>{title}</h1>
-      </div>
-      <div className="PromoDetails">
-        <span>{year}</span>
-      </div>
-      <div className="PromoPower">
-        <h1>#{rank}</h1>
-      </div>
-    </StyledPromoItem>
-  );
-};
 
 const Main = () => {
   const { data: session, status } = useSession();
@@ -117,22 +90,6 @@ const Main = () => {
             <span>
             Ever wondered what happens when curiosity meets code? Dive in and find out. No rules! no limits—just pure exploration.
             </span>
-        </div>
-
-        <div className="Right_side">
-          <div className="BackgroundTexts">
-            <h1>LEET</h1>
-            <h1>Promos</h1>
-            <h1>Bengeurir</h1>
-          </div>
-
-          <div className="PromosPresentation">
-            <div className="Items_container">
-                <PromoItem avatar={_green.src} rank={2} title="Green Promo" year={2021}/>
-                <PromoItem avatar={_black.src} rank={1} title="Black Promo" year={2023}/>
-                <PromoItem avatar={_red.src} rank={3} title="Red Promo" year={2022}/>
-            </div>
-          </div>
         </div>
       </div>
     </StyledMain>

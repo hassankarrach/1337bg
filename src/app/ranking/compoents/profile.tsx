@@ -39,13 +39,13 @@ interface StyleProps {
   $primary_color: string;
   $second_color: string;
   $level: string;
+  $promo_id : number
 }
 
 const UpdateUser = (
   data: any,
   setUserData: Dispatch<SetStateAction<User | null>>
 ) => {
-  console.log(data);
   const ExtractedUserData: User = {
     id: data.id,
     full_name: `${data.user.first_name} ${data.user.last_name}`,
@@ -64,7 +64,8 @@ const UpdateUser = (
 
 const StyledProfile = styled.div<StyleProps>`
   width: 100%;
-  height: 100%;
+  /* flex : 1; */
+  height: ${props => props.$promo_id == 0 ? 'auto' : '100%'};
   background-color : #212125;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 5px;
@@ -177,6 +178,7 @@ const StyledProfile = styled.div<StyleProps>`
   }
 
   .Feedback_feature {
+    margin-top : 10px;
     height: 45px;
     width: 100%;
     display: flex;
@@ -317,6 +319,7 @@ const Profile: React.FC<ComponentProps> = ({
       $primary_color={Promo.Prm_color}
       $second_color={Promo.sec_color}
       $level={userData ? userData.level : "0"}
+      $promo_id={Promo.id}
     >
       <CustomModal open={IsModalOpen} onClose={handleCloseModal} />
 

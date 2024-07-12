@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import svg_illustr from "../../public/assets/main.svg";
 import { HexToRgba } from "@/utils/HexToRgba";
-import { PromoItemProps } from "./page";
 
 export const StyledMain = styled.div`
   width: 100%;
@@ -22,6 +21,7 @@ export const StyledMain = styled.div`
     flex: 1;
     width: 100%;
     display: flex;
+    display : none;
     @media only screen and (max-width: 767px){
       display : none;
     }
@@ -81,7 +81,7 @@ export const StyledMain = styled.div`
   }
   .Banner {
     width: 100%;
-    height: 60vh;
+    height: 100vh;
     background-color: transparent;
     border-radius: 5px;
     overflow: hidden;
@@ -99,8 +99,8 @@ export const StyledMain = styled.div`
     background-color : #101B2B;
 
     .Header_photo{
-      height :140%;
-      top : -30%;
+      height :100%;
+      /* top : -30%; */
       position  :absolute;
       right : 0;
       @media only screen and (max-width: 767px){
@@ -210,66 +210,4 @@ export const StyledMain = styled.div`
     }
   }
 `;
-export const StyledPromoItem = styled.div<PromoItemProps>`
-  width: 70px;
-  height: ${props => props.rank == 1 ? '300px' : props.rank == 2 ? '280px' : '250px'};
-  background: rgba(10, 11, 20, 0.25);
-  box-shadow: 0 8px 32px 0  rgba(183,251,43, 0.05);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
-  border-top-left-radius: 40px;
-  border-top-right-radius: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-top: auto;
-  cursor: pointer;
-  transition : 0.2s ease-in-out;
-  &:hover{
-    box-shadow: 0 8px 52px 0  rgba(183,251,43, 0.1);
-  }
-  /* align-items  : flex-start; */
-  .PromoAvatar {
-    width: 70px;
-    height: 70px;
-    background-color: var(--main_color);
-    border-radius: 50%;
-    border-top: 1px solid var(--main_color);
-    border-left: 1px solid var(--main_color);
-    border-right: 1px solid var(--main_color);
-    background-position: center;
-    background-size: cover;
-    background-image : ${props => `url(${props.avatar})`};
-    h1 {
-      font-family: var(--playable_font);
-      font-size : 1.5rem;
-      margin-top: 90%;
-      transform: rotate(90deg);
-      color : white;
-      font-weight : 100;
-      /* -webkit-text-stroke: 1px var(--main_color);
-      -webkit-text-fill-color: transparent; */
-    }
-  }
-  .PromoDetails {
-    /* background-color: red; */
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    /* padding : 3px; */
-  }
-  .PromoPower {
-    padding: 2px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    h1 {
-      /* font-size : 1rem; */
-      -webkit-text-stroke: 1px var(--main_color);
-      -webkit-text-fill-color: transparent;
-    }
-  }
-`;
+

@@ -53,6 +53,9 @@ export const StyledRanking = styled.div`
       width: 400px;
       height: 100%;
       padding: 55px 10px;
+      display : flex;
+      flex-direction : column;
+      gap : 5px;
 
       @media only screen and (max-width: 767px) {
         display: none;

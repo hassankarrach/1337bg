@@ -25,6 +25,7 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { InitialUsers } from "@/data/Fake";
+import Top3 from "./compoents/Top3";
 
 const Ranking: React.FC = () => {
   const { data: session } = useSession();
@@ -105,9 +106,9 @@ const Ranking: React.FC = () => {
       SelectedPromo !== null,
   });
 
-  // const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setSearchTerm(event.target.value);
-  // };
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
 
   const scrollToMe = () => {
     // Scroll to the logged-in user's card if the ref exists
@@ -135,16 +136,16 @@ const Ranking: React.FC = () => {
     if (data && session?.accessToken) {
       const newUsers = data.pages.flatMap(page => page.data);
   
-      if (SelectedGender !== 'All') {
-        const filteredUsers = newUsers.filter(user => user.Gender === SelectedGender).slice(0, 10);
-        SetSelectedUser(filteredUsers[0]);
-        SetUsers(filteredUsers);
-      } else {
-        SetSelectedUser(newUsers[0]);
-        SetUsers(newUsers);
-      }
+      const filteredUsers = newUsers.filter(user => {
+        const matchesGender = SelectedGender === 'All' || user.Gender === SelectedGender;
+        const matchesSearchTerm = SearchTerm === '' || user.user.usual_full_name.toLowerCase().includes(SearchTerm.toLowerCase());
+        return matchesGender && matchesSearchTerm;
+      });
+
+      SetSelectedUser(filteredUsers[0]);
+      SetUsers(filteredUsers);
     }
-  }, [data, session, SelectedGender]);
+  }, [data, session, SelectedGender, SearchTerm]);
   
 
   return (
@@ -180,7 +181,7 @@ const Ranking: React.FC = () => {
                   <input
                     placeholder="Search User :"
                     // value={SearchTerm}
-                    // onChange={handleSearchChange}
+                    onChange={handleSearchChange}
                   ></input>
                 </div>
                 <div className="GenderFilter">
@@ -277,6 +278,9 @@ const Ranking: React.FC = () => {
             list_is_loading={!Users[0]}
             StudentData={SelectedUser}
           />
+          {
+            SelectedPromo == 0 && <Top3/> 
+          }
         </div>
       </div>
     </StyledRanking>
