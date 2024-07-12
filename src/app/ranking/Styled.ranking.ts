@@ -50,7 +50,7 @@ export const StyledRanking = styled.div`
     /* overflow  :hidden; */
 
     .ProfileContainer {
-      width: 400px;
+      width: 35%;
       height: 100%;
       padding: 55px 10px;
       display : flex;
