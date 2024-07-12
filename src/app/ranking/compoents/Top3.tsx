@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import { Span } from "next/dist/trace";
+import { Skeleton } from "@mui/material";
 
 interface PoolerItemProps {
   avatar: string;
@@ -29,21 +30,25 @@ const StyledPoolerItem = styled.div<PoolerItemProps>`
   margin-top: auto;
   cursor: pointer;
   transition: 0.2s ease-in-out;
-  background : ${props => props.rank === 1 ? 'linear-gradient(0deg, rgba(255,215,0,0.5) 0%, rgba(255,215,0,0) 60%)' 
-  : props.rank === 2 ? 'linear-gradient(0deg, rgba(192,192,192,0.5) 0%, rgba(192,192,192,0) 60%)'
-  : 'linear-gradient(0deg, rgba(205,127,50,0.5) 0%, rgba(205,127,50,0) 60%)'};
+  background: ${(props) =>
+    props.rank === 1
+      ? "linear-gradient(0deg, rgba(255,215,0,0.5) 0%, rgba(255,215,0,0) 60%)"
+      : props.rank === 2
+      ? "linear-gradient(0deg, rgba(192,192,192,0.5) 0%, rgba(192,192,192,0) 60%)"
+      : "linear-gradient(0deg, rgba(205,127,50,0.5) 0%, rgba(205,127,50,0) 60%)"};
   &:hover {
     box-shadow: 0 8px 52px 0 rgba(183, 251, 43, 0.1);
   }
-  overflow : hidden;
-  &:after{
-    content :"";
-    width :100%;
-    height : 20%;
-    background-color  :${props => props.rank == 1 ? '#FFD700' : props.rank == 2 ? '#C0C0C0' : '#CD7F32'};
-    position : absolute;
-    top : 0;
-    z-index : -1;
+  overflow: hidden;
+  &:after {
+    content: "";
+    width: 100%;
+    height: 20%;
+    background-color: ${(props) =>
+      props.rank == 1 ? "#FFD700" : props.rank == 2 ? "#C0C0C0" : "#CD7F32"};
+    position: absolute;
+    top: 0;
+    z-index: -1;
   }
   /* align-items  : flex-start; */
   .PromoAvatar {
@@ -127,15 +132,26 @@ const StyledPoolerItem = styled.div<PoolerItemProps>`
     justify-content: center;
     align-items: center;
     h1 {
-      /* color : ${props => props.rank == 1 ? '#FFD700' : props.rank == 2 ? '#C0C0C0' : '#CD7F32'}; */
+      /* color : ${(props) =>
+        props.rank == 1
+          ? "#FFD700"
+          : props.rank == 2
+          ? "#C0C0C0"
+          : "#CD7F32"}; */
       /* font-size : 1rem; */
-      -webkit-text-stroke: 1px ${props => props.rank == 1 ? '#FFD700' : props.rank == 2 ? '#C0C0C0' : '#CD7F32'};
+      -webkit-text-stroke: 1px
+        ${(props) =>
+          props.rank == 1
+            ? "#FFD700"
+            : props.rank == 2
+            ? "#C0C0C0"
+            : "#CD7F32"};
       -webkit-text-fill-color: transparent;
     }
   }
-  span{
-    color : white;
-    font-weight : 200;
+  span {
+    color: white;
+    font-weight: 200;
   }
 `;
 const PoolerItem: React.FC<PoolerItemProps> = ({
@@ -206,9 +222,16 @@ const StyledTop3 = styled.div`
   justify-content: center;
   align-items: center;
   gap: 5px;
+  h1 {
+    color: white;
+  }
   .Top3_container {
     display: flex;
     gap: 5px;
+    .skl{
+      border-radius : 5px;
+      background-color : rgba(44,44,48,0.9);
+    }
   }
 `;
 
@@ -307,20 +330,32 @@ const Top3 = () => {
     <StyledTop3>
       <h1>JULY POOL</h1>
       <div className="Top3_container">
-        {Top3Poolers &&
-          Top3Poolers.map((Pooler: any) => {
-            console.log(Pooler);
-            return (
-              <PoolerItem
-                key={Pooler.id}
-                avatar={Pooler.user.image.versions.small}
-                rank={Pooler.rank}
-                login={Pooler.user.login}
-                level={Pooler.level}
-                campus={Pooler.campus_name}
+        {Top3Poolers[0]
+          ? Top3Poolers.map((Pooler: any) => {
+              console.log(Pooler);
+              return (
+                <PoolerItem
+                  key={Pooler.id}
+                  avatar={Pooler.user.image.versions.small}
+                  rank={Pooler.rank}
+                  login={Pooler.user.login}
+                  level={Pooler.level}
+                  campus={Pooler.campus_name}
+                />
+              );
+            })
+          :
+          Array.from({ length: 3 }).map((_, key) => (
+              <Skeleton
+                animation={`${key % 2 ? "pulse" : "wave"}`}
+                variant="rectangular"
+                width="100px"
+                height="300px"
+                className="skl"
+                key={key}
               />
-            );
-          })}
+            ))
+          }
       </div>
     </StyledTop3>
   );
