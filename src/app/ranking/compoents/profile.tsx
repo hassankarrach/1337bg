@@ -33,13 +33,13 @@ import RncpItem from "./RncpItem";
 interface ComponentProps {
   Promo: Promo;
   list_is_loading: boolean;
-  StudentData : any;
+  StudentData: any;
 }
 interface StyleProps {
   $primary_color: string;
   $second_color: string;
   $level: string;
-  $promo_id : number
+  $promo_id: number;
 }
 
 const UpdateUser = (
@@ -57,7 +57,7 @@ const UpdateUser = (
     wallet: data.user.wallet,
     intra_link: data.user.url,
     corrections_points: data.user.correction_point,
-    is_pooler: data.blackholed_at === null,
+    is_pooler: data.user.pool_year === "2024",
   };
   setUserData(ExtractedUserData);
 };
@@ -65,8 +65,8 @@ const UpdateUser = (
 const StyledProfile = styled.div<StyleProps>`
   width: 100%;
   /* flex : 1; */
-  height: ${props => props.$promo_id == 0 ? 'auto' : '100%'};
-  background-color : #212125;
+  height: ${(props) => (props.$promo_id == 0 ? "auto" : "100%")};
+  background-color: #212125;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 5px;
   overflow: hidden;
@@ -77,12 +77,8 @@ const StyledProfile = styled.div<StyleProps>`
   .User_Banner {
     width: 100%;
     height: 150px;
-    background-color: var(--main_background);
     position: sticky;
     top: 0;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
     border-radius: 5px;
     display: flex;
     justify-content: center;
@@ -92,9 +88,23 @@ const StyledProfile = styled.div<StyleProps>`
       ${(props) => `${HexToRgba(props.$second_color, 1)} 0%`},
       ${(props) => `${HexToRgba(props.$primary_color, 1)} 100%`}
     );
+    position: relative;
+
+    &:after {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      content: "";
+      background-image: url(${BinaryBack.src});
+      background-size: cover;
+      background-position: center;
+      opacity: 0.6;
+      z-index: 1;
+    }
     .Userkind {
       position: absolute;
-      color: #c8c8c3;
+      color: white;
+      opacity: 0.5;
     }
     .BinaryBack {
       width: 100%;
@@ -112,7 +122,6 @@ const StyledProfile = styled.div<StyleProps>`
         margin: 0px 10px;
         cursor: pointer;
         transition: 0.2s ease-in-out;
-        opacity: 0.8;
         &:hover {
           opacity: 1;
         }
@@ -139,6 +148,7 @@ const StyledProfile = styled.div<StyleProps>`
       display: flex;
       justify-content: center;
       align-items: center;
+      z-index: 2;
       .Profile_Infos {
         display: flex;
         flex-direction: column;
@@ -178,7 +188,7 @@ const StyledProfile = styled.div<StyleProps>`
   }
 
   .Feedback_feature {
-    margin-top : 10px;
+    margin-top: 10px;
     height: 45px;
     width: 100%;
     display: flex;
@@ -195,13 +205,13 @@ const StyledProfile = styled.div<StyleProps>`
       /* padding : 0px 5px; */
       /* padding : 0px 10px; */
       overflow: hidden;
-      border: 1px solid rgba(44,44,48,1);
+      border: 1px solid rgba(44, 44, 48, 1);
       .Feedback {
         flex-grow: 1;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: rgba(44,44,48,1);
+        background-color: rgba(44, 44, 48, 1);
         transition: 0.2s ease-in-out;
         height: 100%;
         cursor: pointer;
@@ -220,9 +230,9 @@ const StyledProfile = styled.div<StyleProps>`
         height: 100%;
         background: linear-gradient(
           0deg,
-          rgba(255,255, 255, 0.1) 0%,
-          rgba(255,255, 255, 0.2) 50%,
-          rgba(255,255, 255, 0.1) 100%
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0.2) 50%,
+          rgba(255, 255, 255, 0.1) 100%
         );
       }
       .Thumb {
@@ -232,9 +242,9 @@ const StyledProfile = styled.div<StyleProps>`
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        color: rgba(44,44,48,1);
+        color: rgba(44, 44, 48, 1);
         transition: 0.2s ease-in-out;
-        background-color: rgba(255,255, 255, 0.16);
+        background-color: rgba(255, 255, 255, 0.16);
       }
       .Thum_up {
         /* flex: 1 1 auto; */
@@ -260,12 +270,12 @@ const StyledProfile = styled.div<StyleProps>`
       margin-top: 20px;
       display: flex;
       gap: 3px;
-      padding : 0px 3px;
+      padding: 0px 3px;
       .State_item {
         padding: 2px 10px;
-        background-color: rgba(44,44,48,1);
+        background-color: rgba(44, 44, 48, 1);
         border-radius: 5px;
-        border: 1px solid rgba(255,255,255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -276,10 +286,10 @@ const StyledProfile = styled.div<StyleProps>`
         padding: 6px 0px;
         span {
           font-family: var(--main_font);
-          color: rgba(255,255,255, 0.4);
+          color: rgba(255, 255, 255, 0.4);
         }
         .State_item_icon {
-          color: rgba(255,255,255, 0.4);
+          color: rgba(255, 255, 255, 0.4);
         }
         .State_item_active {
           color: #56ab2f;
@@ -300,7 +310,9 @@ const StyledProfile = styled.div<StyleProps>`
 `;
 
 const Profile: React.FC<ComponentProps> = ({
-  StudentData, Promo, list_is_loading
+  StudentData,
+  Promo,
+  list_is_loading,
 }) => {
   //Stats
   const [userData, setUserData] = useState<User | null>(null);
@@ -310,8 +322,8 @@ const Profile: React.FC<ComponentProps> = ({
   const handleCloseModal = () => setIsModalOpen(false);
 
   useEffect(() => {
-    if (StudentData != undefined)
-        UpdateUser(StudentData, setUserData);
+    if (StudentData != undefined) UpdateUser(StudentData, setUserData);
+    console.log(StudentData);
   }, [StudentData]);
 
   return (
@@ -324,43 +336,50 @@ const Profile: React.FC<ComponentProps> = ({
       <CustomModal open={IsModalOpen} onClose={handleCloseModal} />
 
       <div className="User_Banner">
-        {userData?.is_pooler && !list_is_loading && <h1 className="Userkind">POOLER</h1>}
-        <img className="BinaryBack" src={BinaryBack.src} />
+        {userData?.is_pooler && !list_is_loading && (
+          <h1 className="Userkind">POOLER</h1>
+        )}
         {!list_is_loading ? (
-          <div
-            className="Profile_avatar"
-            style={{ backgroundImage: `url(${userData?.img})` }}
+          <a
+            href={`https://profile.intra.42.fr/users/${userData?.login}`}
+            target="_blank"
+            style={{ textDecoration: "none" }}
           >
-            {!userData?.img && (
-              <svg
-                width="76"
-                height="20"
-                viewBox="0 0 76 20"
-                fill="rgba(44,44,48,1)"
-              >
-                <path
-                  d="M2.8333 17.6623H5.92418V2.33766H2.31816V5.45455H0V1.49012e-07H8.75748V17.6623H11.8484V20H2.8333V17.6623Z"
+            <div
+              className="Profile_avatar"
+              style={{ backgroundImage: `url(${userData?.img})` }}
+            >
+              {!userData?.img && (
+                <svg
+                  width="76"
+                  height="20"
+                  viewBox="0 0 76 20"
                   fill="rgba(44,44,48,1)"
-                ></path>
-                <path
-                  d="M21.3785 17.6623H30.6512V10.9091H22.1513V8.57143H30.6512V2.33766H21.3785V0H33.4845V20H21.3785V17.6623Z"
-                  fill="rgba(44,44,48,1)"
-                ></path>
-                <path
-                  d="M42.2419 17.6623H51.5146V10.9091H43.0147V8.57143H51.5146V2.33766H42.2419V0H54.3479V20H42.2419V17.6623Z"
-                  fill="rgba(44,44,48,1)"
-                ></path>
-                <path
-                  d="M72.6355 2.33766H64.9084V7.27273H62.5902V0H75.2113V20H72.6355V2.33766Z"
-                  fill="rgba(44,44,48,1)"
-                ></path>
-              </svg>
-            )}
-            <div className="Profile_Infos">
-              <h1 className="Profile_Full_Name">{userData?.full_name}</h1>
-              <span className="Profile_UserName">{userData?.login}</span>
+                >
+                  <path
+                    d="M2.8333 17.6623H5.92418V2.33766H2.31816V5.45455H0V1.49012e-07H8.75748V17.6623H11.8484V20H2.8333V17.6623Z"
+                    fill="rgba(44,44,48,1)"
+                  ></path>
+                  <path
+                    d="M21.3785 17.6623H30.6512V10.9091H22.1513V8.57143H30.6512V2.33766H21.3785V0H33.4845V20H21.3785V17.6623Z"
+                    fill="rgba(44,44,48,1)"
+                  ></path>
+                  <path
+                    d="M42.2419 17.6623H51.5146V10.9091H43.0147V8.57143H51.5146V2.33766H42.2419V0H54.3479V20H42.2419V17.6623Z"
+                    fill="rgba(44,44,48,1)"
+                  ></path>
+                  <path
+                    d="M72.6355 2.33766H64.9084V7.27273H62.5902V0H75.2113V20H72.6355V2.33766Z"
+                    fill="rgba(44,44,48,1)"
+                  ></path>
+                </svg>
+              )}
+              <div className="Profile_Infos">
+                <h1 className="Profile_Full_Name">{userData?.full_name}</h1>
+                <span className="Profile_UserName">{userData?.login}</span>
+              </div>
             </div>
-          </div>
+          </a>
         ) : (
           <Skeleton
             className="Skeleton_avatar"
@@ -371,36 +390,28 @@ const Profile: React.FC<ComponentProps> = ({
           />
         )}
         <div className="Profile_UserIcons">
-          <a
-            href={`https://profile.intra.42.fr/users/${userData?.login}`}
-            target="_blank"
+          <svg
+            className="_42logo"
+            version="1.1"
+            id="Calque_1"
+            x="0px"
+            y="0px"
+            viewBox="0 -200 960 960"
           >
-            <svg
-              className="_42logo"
-              version="1.1"
-              id="Calque_1"
-              x="0px"
-              y="0px"
-              viewBox="0 -200 960 960"
-            >
-              <polygon
-                id="polygon5"
-                points="32,412.6 362.1,412.6 362.1,578 526.8,578 526.8,279.1 197.3,279.1 526.8,-51.1 362.1,-51.1   32,279.1 "
-              />
-              <polygon
-                id="polygon7"
-                points="597.9,114.2 762.7,-51.1 597.9,-51.1 "
-              />
-              <polygon
-                id="polygon9"
-                points="762.7,114.2 597.9,279.1 597.9,443.9 762.7,443.9 762.7,279.1 928,114.2 928,-51.1 762.7,-51.1 "
-              />
-              <polygon
-                id="polygon11"
-                points="928,279.1 762.7,443.9 928,443.9 "
-              />
-            </svg>
-          </a>
+            <polygon
+              id="polygon5"
+              points="32,412.6 362.1,412.6 362.1,578 526.8,578 526.8,279.1 197.3,279.1 526.8,-51.1 362.1,-51.1   32,279.1 "
+            />
+            <polygon
+              id="polygon7"
+              points="597.9,114.2 762.7,-51.1 597.9,-51.1 "
+            />
+            <polygon
+              id="polygon9"
+              points="762.7,114.2 597.9,279.1 597.9,443.9 762.7,443.9 762.7,279.1 928,114.2 928,-51.1 762.7,-51.1 "
+            />
+            <polygon id="polygon11" points="928,279.1 762.7,443.9 928,443.9 " />
+          </svg>
         </div>
 
         <div className="Profil_UserLevel">

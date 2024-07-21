@@ -26,6 +26,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { InitialUsers } from "@/data/Fake";
 import Top3 from "./compoents/Top3";
+import { pool_months } from "@/data/Pool_months";
 
 const Ranking: React.FC = () => {
   const { data: session } = useSession();
@@ -71,40 +72,35 @@ const Ranking: React.FC = () => {
           },
         }
       );
-  
+
       if (!response.ok) {
-        throw new Error('Failed to fetch Students.');
+        throw new Error("Failed to fetch Students.");
       }
-  
+
       const data = await response.json();
       return {
         data: data,
         nextPage: data.length > 0 ? pageParam + 1 : undefined,
       };
     } catch (error) {
-      toast.error("Error fetching Students, try re-login!", {icon : false});
+      toast.error("Error fetching Students, try re-login!", { icon: false });
       throw error;
     }
   };
-  
-  const {
-    data,
-    status,
-    fetchNextPage,
-    hasNextPage,
-    isLoading,
-  } = useInfiniteQuery({
-    queryKey: ["users", SelectedPromo, session?.accessToken],
-    queryFn: fetchUsers,
-    getNextPageParam: (lastPage, allPages) => lastPage.nextPage,
-    initialPageParam: 1,
-    retry: 1,
-    refetchOnWindowFocus: false,
-    enabled:
-      session !== undefined &&
-      SelectedPromo !== undefined &&
-      SelectedPromo !== null,
-  });
+
+  const { data, status, fetchNextPage, hasNextPage, isLoading } =
+    useInfiniteQuery({
+      queryKey: ["users", SelectedPromo, session?.accessToken],
+      queryFn: fetchUsers,
+      getNextPageParam: (lastPage, allPages) => lastPage.nextPage,
+      initialPageParam: 1,
+      retry: 1,
+      refetchOnWindowFocus: false,
+      enabled:
+        session !== undefined &&
+        SelectedPromo !== undefined &&
+        SelectedPromo !== null,
+    });
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -116,17 +112,16 @@ const Ranking: React.FC = () => {
       loggedInUserCardRef.current.scrollIntoView({ behavior: "smooth" });
     } else {
       toast.error(
-        "📋 You are not on the list. ensure that you have loaded all students or selected your promo."
-        ,
+        "📋 You are not on the list. ensure that you have loaded all students or selected your promo.",
         {
-          icon : false
+          icon: false,
         }
       );
     }
   };
 
-  const updateSelectedUserById = (userId : number) => {
-    const foundUser = Users.find(user => user.user.id === userId);
+  const updateSelectedUserById = (userId: number) => {
+    const foundUser = Users.find((user) => user.user.id === userId);
     if (foundUser) {
       SetSelectedUser(foundUser);
     }
@@ -134,11 +129,16 @@ const Ranking: React.FC = () => {
 
   useEffect(() => {
     if (data && session?.accessToken) {
-      const newUsers = data.pages.flatMap(page => page.data);
-  
-      const filteredUsers = newUsers.filter(user => {
-        const matchesGender = SelectedGender === 'All' || user.Gender === SelectedGender;
-        const matchesSearchTerm = SearchTerm === '' || user.user.usual_full_name.toLowerCase().includes(SearchTerm.toLowerCase());
+      const newUsers = data.pages.flatMap((page) => page.data);
+
+      const filteredUsers = newUsers.filter((user) => {
+        const matchesGender =
+          SelectedGender === "All" || user.Gender === SelectedGender;
+        const matchesSearchTerm =
+          SearchTerm === "" ||
+          user.user.usual_full_name
+            .toLowerCase()
+            .includes(SearchTerm.toLowerCase());
         return matchesGender && matchesSearchTerm;
       });
 
@@ -146,7 +146,6 @@ const Ranking: React.FC = () => {
       SetUsers(filteredUsers);
     }
   }, [data, session, SelectedGender, SearchTerm]);
-  
 
   return (
     <StyledRanking>
@@ -177,6 +176,7 @@ const Ranking: React.FC = () => {
                     onChange={handlePromoChange}
                   />
                 </div>
+
                 <div className="SearchUser">
                   <input
                     placeholder="Search User :"
@@ -210,10 +210,7 @@ const Ranking: React.FC = () => {
                     <span className="gender_type">All</span>
                   </div>
                 </div>
-                <button
-                  className="ToMeButton"
-                  onClick={scrollToMe}
-                >
+                <button className="ToMeButton" onClick={scrollToMe}>
                   Me
                 </button>
               </div>
@@ -236,8 +233,10 @@ const Ranking: React.FC = () => {
               ) : Users ? (
                 <>
                   {Users.map((User: any, key: number) => {
-                    if (!User || !User.user)
-                      return null;
+                    if (!User || !User.user) return null;
+                    if (User.Gender === "unknown") console.log(User);
+
+                    // console.log(User);
                     return (
                       <Card
                         id={User.user.id}
@@ -254,7 +253,7 @@ const Ranking: React.FC = () => {
                             ? loggedInUserCardRef
                             : null
                         }
-                        is_even = {!(key % 2)}
+                        is_even={!(key % 2)}
                       />
                     );
                   })}
@@ -278,9 +277,7 @@ const Ranking: React.FC = () => {
             list_is_loading={!Users[0]}
             StudentData={SelectedUser}
           />
-          {
-            SelectedPromo == 0 && <Top3/> 
-          }
+          {SelectedPromo == 0 && <Top3 />}
         </div>
       </div>
     </StyledRanking>

@@ -24,7 +24,6 @@ export default function CustomDropDown<T>({ data, getValue, renderItem, onChange
   
 
   return (
-    <div>
       <Select value={selectedItem} onChange={handleChange}>
         {data.map((item) => {
           const value = getValue(item);
@@ -36,7 +35,6 @@ export default function CustomDropDown<T>({ data, getValue, renderItem, onChange
           );
         })}
       </Select>
-    </div>
   );
 }
 
@@ -75,19 +73,35 @@ const StyledButton = styled('button')`
   background: #fff;
   color: #1c2025;
   position: relative;
-  /* box-shadow: 0px 2px 2px #f3f6f9; */
-  transition: all 120ms cubic-bezier(0.4, 0, 0.2, 1);
-  width : 100%;
-  background-color : transparent;
-  border: 1px solid  rgba(44,44,48,1);
-  color  :  rgba(255,255,255, 0.5);
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid rgba(44, 44, 48, 1);
+  color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
 
   &:hover {
-    background: rgba(44,44,48,1);
-    /* border-color: #dae2ed; */
+    background: rgba(44, 44, 48, 1);
+  }
+
+  /* Add arrow icon */
+  &::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: solid rgba(255, 255, 255, 0.5);
+    border-width: 0 2px 2px 0;
+    padding: 3px;
+    display: inline-block;
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  &[aria-expanded="true"]::after {
+    transform: translateY(-50%) rotate(-135deg);
   }
 `;
+
 
 const Listbox = styled('ul')`
   font-family: 'IBM Plex Sans', sans-serif;
@@ -109,29 +123,28 @@ const Listbox = styled('ul')`
 `;
 
 const Option = styled(BaseOption)`
-  width : 100%;
+  width: 100%;
   list-style: none;
   padding: 8px;
   border-radius: 6px;
-  cursor: default;
-  display : flex;
-  align-items : center;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  
+
   .IconOption {
-    margin-right : 5px;
+    margin-right: 5px;
   }
 
   &:last-of-type {
     border-bottom: none;
   }
 
-  &.Mui-selected {
-    background-color: #daecff;
-    color: #3399ff;
+  &[aria-selected="true"] {
+    background-color: var(--main_color_light);
+    color: var(--main_color_dark);
   }
 
-  &.Mui-highlighted {
+  &[data-highlighted="true"] {
     background-color: #f3f6f9;
     color: #1c2025;
   }
@@ -140,17 +153,17 @@ const Option = styled(BaseOption)`
     outline: 3px solid #3399ff;
   }
 
-  &.Mui-highlighted.Mui-selected {
+  &[aria-selected="true"][data-highlighted="true"] {
     background-color: #daecff;
     color: #3399ff;
   }
 
-  &.Mui-disabled {
+  &[aria-disabled="true"] {
     color: #dae2ed;
   }
 
-  &:hover:not(.Mui-disabled) {
-    background-color: rgba(44,44,48,1);
+  &:hover:not([aria-disabled="true"]) {
+    background-color: rgba(44, 44, 48, 1);
     color: white;
   }
 `;

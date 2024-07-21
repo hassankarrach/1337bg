@@ -48,7 +48,7 @@ const StyledModal = styled.div`
   .left_Mod{
     width : 40%;
     height : 100%;
-    background-color :red;
+    background-color : var(--light_grey);
     background-image : url(${TomGym.src});
     background-position : center;
     background-size : cover;
@@ -114,8 +114,8 @@ const CustomModal: React.FC<Props> = ({ open, onClose }) => {
             <div className='left_Mod'>
             </div>
             <div className='Right_Mod'>
-              <h1>Site Still Cooking</h1>
-              <p>This website is currently under construction. Some features are still a work in progress (but they'll be up and running soon!). If you're interested in <a href='https://github.com/myrepo'>contributing</a> or have any suggestions, feel free to drop me a line on <a href='https://discord.com/me'>Discord</a>.</p>
+              <h1>Still Cooking.</h1>
+              <p>This website is currently under construction. Some features are still a work in progress (but they'll be up and running soon!). If you're interested in <a href='https://github.com/hassankarrach/1337bg'>contributing</a> or have any suggestions, feel free to drop me a line on Discord : @7ass1n</p>
             </div>
           </StyledModal>
         </Box>
