@@ -52,16 +52,17 @@ const Row: React.FC<RowProps> = ({ is_even, elements, index, is_loading }) => {
   return (
     <StyledRow $is_even={is_even} $index={index}>
       {is_loading
-        ? elements.map((el) => {
+        ? elements.map((el, key) => {
             return (
               <Skeleton
                 className="Skeleton"
                 animation="pulse"
                 variant="rectangular"
+                key={key}
               />
             );
           })
-        : elements.map((el) => {
+        : elements.map((el, key) => {
             // console.log(el);
             // console.log(daysBetweenDates(el.blackholed_at));
             return (
@@ -70,6 +71,7 @@ const Row: React.FC<RowProps> = ({ is_even, elements, index, is_loading }) => {
                 $level={el.level}
                 $avatar={el.user.image.versions.small}
                 $is_blackholed={!el.user["active?"]}
+                key={key}
               />
             );
           })}
