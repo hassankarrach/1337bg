@@ -175,7 +175,7 @@ const Page = () => {
   };
 
   const getUserByimpact = async () => {
-    const url = `https://api.intra.42.fr/v2/cursus_users?filter[campus_id]=21&filter[begin_at]=${Promos[SelectedPromo].start_date}&page[size]=100&page[number]=1&sort=blackholed_at`;
+    const url = `/api/blackholed?start_date=${Promos[SelectedPromo].start_date}`;
 
     try {
       const response = await fetch(url, {
