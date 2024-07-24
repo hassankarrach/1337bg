@@ -21,7 +21,7 @@ const Main = () => {
     const params = new URLSearchParams(window.location.search);
     const message = params.get("error");
     if (message) {
-      toast.error("🔒 You must be logged in to access the leaderboard.",
+      toast.error("🔒 You must be logged in to access this page.",
         {
           icon: false,
         },
