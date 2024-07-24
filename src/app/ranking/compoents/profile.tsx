@@ -323,7 +323,6 @@ const Profile: React.FC<ComponentProps> = ({
 
   useEffect(() => {
     if (StudentData != undefined) UpdateUser(StudentData, setUserData);
-    console.log(StudentData);
   }, [StudentData]);
 
   return (
