@@ -128,6 +128,7 @@ const StyledSideBar = styled.div<StyledSideBarProps>`
   flex-direction: column;
   gap: 5px;
   padding: 5px 3px;
+  z-index : 99999;
   @media only screen and (max-width: 767px) {
     /* display : none; */
     z-index: 999;

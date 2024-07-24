@@ -309,6 +309,8 @@ const Top3 = () => {
     refetchOnWindowFocus: false,
     enabled: !!session?.accessToken && !!session,
   });
+
+  
   const {
     data: top_kh_pooler,
     isError: isError_kh,

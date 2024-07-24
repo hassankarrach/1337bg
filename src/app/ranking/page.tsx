@@ -129,6 +129,7 @@ const Ranking: React.FC = () => {
 
   useEffect(() => {
     if (data && session?.accessToken) {
+      console.log(session);
       const newUsers = data.pages.flatMap((page) => page.data);
 
       const filteredUsers = newUsers.filter((user) => {
