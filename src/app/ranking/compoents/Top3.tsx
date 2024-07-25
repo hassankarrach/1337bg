@@ -348,15 +348,11 @@ const Top3 = () => {
         ...addCampusName(top_med_pooler, "med"),
         ...addCampusName(top_bg_pooler, "benguerir"),
       ];
-
-      combinedPoolers.sort((a, b) => {
-        return b.criteria - a.criteria;
-      });
+      combinedPoolers.sort((a, b) => b.level - a.level);
       const rankedPoolers = combinedPoolers.map((item, index) => ({
         ...item,
         rank: index + 1,
       }));
-
       setTop3Poolers(rankedPoolers);
     }
   }, [top_med_pooler, top_kh_pooler]);
