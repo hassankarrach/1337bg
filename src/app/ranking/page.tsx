@@ -28,6 +28,8 @@ import { InitialUsers } from "@/data/Fake";
 import Top3 from "./compoents/Top3";
 import { pool_months } from "@/data/Pool_months";
 import useSessionEnd from "@/hooks/useSessionEnd";
+// weekly banner
+import _banner from "../../../public/banner.gif";
 
 const Ranking: React.FC = () => {
   const { data: session } = useSession();
@@ -170,7 +172,12 @@ const Ranking: React.FC = () => {
 
       <div className="Container">
         <div className="LeaderBoardContainer">
+
           <div className="Ranking">
+          <div className="BannerPlaceHolder">
+            <img className="gif" src={_banner.src} />
+          </div>
+
             <div className="Options">
               <div className="Filters">
                 <div className="Select_container">
