@@ -9,7 +9,6 @@ import _fav from "../../public/logos/fav.png"
 const inter = Inter({ subsets: ["latin"] });
 //Providers
 import Providers from "./Providers";
-import useSessionEnd from "@/hooks/useSessionEnd";
 
 export const metadata = {
   title: "1337bg",

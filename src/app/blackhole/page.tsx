@@ -9,6 +9,7 @@ import { Promos } from "@/data/Promos";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@mui/material";
 import { FaArrowsAlt } from "react-icons/fa";
+import useSessionEnd from "@/hooks/useSessionEnd";
 
 interface StyledRowProps {
   $is_even: boolean;
@@ -168,6 +169,8 @@ const Page = () => {
   const [Users, setUsers] = useState([]);
   const [SelectedPromo, setSelectedPromo] = useState(1);
   const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useSessionEnd();
 
   const handlePromoChange = (value: string) => {
     setUsers([]);

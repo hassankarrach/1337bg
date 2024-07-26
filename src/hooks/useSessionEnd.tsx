@@ -8,7 +8,7 @@ const useSessionEnd = () => {
   const { data: session, status } = useSession();
 
   const handleLogout = useCallback(() => {
-    toast.info("Session expired. Logging out...", {
+    toast.info("Your session has expired. Logging out...", {
       autoClose: 5000,
       onClose: () => signOut(),
     });
