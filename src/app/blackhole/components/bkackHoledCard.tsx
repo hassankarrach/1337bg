@@ -69,7 +69,6 @@ const StyledBlackHoledCard = styled.div<BlacHoledCard>`
       transform: rotate(-45deg);
     }
   }
-
 `;
 
 interface BlacHoledCard {
@@ -77,6 +76,7 @@ interface BlacHoledCard {
   $level: number;
   $avatar: string;
   $is_blackholed: boolean;
+  url: string;
 }
 
 const BlackHoledCard: React.FC<BlacHoledCard> = ({
@@ -84,19 +84,20 @@ const BlackHoledCard: React.FC<BlacHoledCard> = ({
   $level,
   $avatar,
   $is_blackholed,
+  url,
 }) => {
   return (
-    <StyledBlackHoledCard
-      $index={$index}
-      $level={$level}
-      $avatar={$avatar}
-      $is_blackholed={$is_blackholed}
-    >
-      <div className="Data_container">
-        {/* <div className="avatar"></div> */}
-        {/* <span>{$level}</span> */}
-      </div>
-    </StyledBlackHoledCard>
+    <a href={url} target="_blank">
+      <StyledBlackHoledCard
+        $index={$index}
+        $level={$level}
+        $avatar={$avatar}
+        $is_blackholed={$is_blackholed}
+        url={url}
+      >
+        <div className="Data_container">{/* <span>{$level}</span> */}</div>
+      </StyledBlackHoledCard>
+    </a>
   );
 };
 

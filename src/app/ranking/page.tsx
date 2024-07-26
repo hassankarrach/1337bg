@@ -27,6 +27,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { InitialUsers } from "@/data/Fake";
 import Top3 from "./compoents/Top3";
 import { pool_months } from "@/data/Pool_months";
+import useSessionEnd from "@/hooks/useSessionEnd";
 
 const Ranking: React.FC = () => {
   const { data: session } = useSession();
@@ -35,6 +36,9 @@ const Ranking: React.FC = () => {
   const [SelectedUser, SetSelectedUser] = useState<any>();
   const [SelectedPromo, setSelectedPromo] = useState<number>(0);
   const [SelectedGender, setSelectedGender] = useState<string>("All");
+
+  //Auto-signout after session ends.
+  useSessionEnd();
 
   const loggedInUserCardRef = useRef<HTMLDivElement>(null);
   const observer = useRef<IntersectionObserver | null>(null);
@@ -129,7 +133,7 @@ const Ranking: React.FC = () => {
 
   useEffect(() => {
     if (data && session?.accessToken) {
-      console.log(session);
+      // console.log(session);
       const newUsers = data.pages.flatMap((page) => page.data);
 
       const filteredUsers = newUsers.filter((user) => {

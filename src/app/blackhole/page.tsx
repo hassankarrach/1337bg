@@ -72,6 +72,7 @@ const Row: React.FC<RowProps> = ({ is_even, elements, index, is_loading }) => {
                 $avatar={el.user.image.versions.small}
                 $is_blackholed={!el.user["active?"]}
                 key={key}
+                url={`https://profile.intra.42.fr/users/${el.user.login}`}
               />
             );
           })}
