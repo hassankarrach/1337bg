@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
               className="online_dot"
               style={{ backgroundColor: `${session ? "#56ab2f" : "#e53935"}` }}
             />
-            <span>{session ? "online" : "ofline"}</span>
+            <span>{session ? "Online" : "Offline"}</span>
           </div>
         </div>
 
