@@ -28,8 +28,6 @@ import { InitialUsers } from "@/data/Fake";
 import Top3 from "./compoents/Top3";
 import { pool_months } from "@/data/Pool_months";
 import useSessionEnd from "@/hooks/useSessionEnd";
-// weekly banner
-import _banner from "../../../public/banner.gif";
 
 const Ranking: React.FC = () => {
   const { data: session } = useSession();
@@ -173,53 +171,6 @@ const Ranking: React.FC = () => {
       <div className="Container">
         <div className="LeaderBoardContainer">
           <div className="Ranking">
-            <div className="BannerPlaceHolder">
-              <div className="grd_main" />
-              {/* <img className="gif" src={_banner.src} /> */}
-              <h4>
-                Weekly <br /> Top <br /> Performers.
-              </h4>
-              <div className="Item M">
-                <div
-                  className="Avatar"
-                  style={{
-                    backgroundImage:
-                      "url(https://cdn.intra.42.fr/users/d2c9d7c45a902ee53772f4654e27b06f/small_abounade.jpg)",
-                  }}
-                />
-                <div className="Infos">
-                  <h1>Ayoub Bounader</h1>
-                  <span>Top M Pooler.</span>
-                </div>
-              </div>
-              <div className="Item F">
-                <div
-                  className="Avatar"
-                  style={{
-                    backgroundImage:
-                      "url(https://cdn.intra.42.fr/users/358da502bc02ec1005f547177051afab/small_kemzouri.jpg)",
-                  }}
-                />
-                <div className="Infos">
-                  <h1>Kenza Mzouri</h1>
-                  <span>Top F Pooler.</span>
-                </div>
-              </div>
-              <div className="Item">
-                <div
-                  className="Avatar"
-                  style={{
-                    backgroundImage:
-                      "url(https://cdn.intra.42.fr/users/b220a3f113580c4784af50cf36b04069/small_afanidi.jpeg)",
-                  }}
-                />
-                <div className="Infos">
-                  <h1>Abdellah Fanidi</h1>
-                  <span>Top Female Tab Clicker.</span>
-                </div>
-              </div>
-            </div>
-
             <div className="Options">
               <div className="Filters">
                 <div className="Select_container">
