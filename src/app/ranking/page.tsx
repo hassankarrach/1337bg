@@ -289,13 +289,17 @@ const Ranking: React.FC = () => {
             list_is_loading={!Users[0]}
             StudentData={SelectedUser}
           />
-          {SelectedPromo == 0 && <Top3 />}
-          <div className="free_placeholder">
-            <div className="close_ad">
-              <FaGooglePlay className="__icon"/>
-              <FaRegWindowClose className="__icon"/>
-            </div>
-          </div>
+          {SelectedPromo == 0 && (
+            <>
+              <Top3 />
+              <div className="free_placeholder">
+                <div className="close_ad">
+                  <FaGooglePlay className="__icon" />
+                  <FaRegWindowClose className="__icon" />
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </StyledRanking>
