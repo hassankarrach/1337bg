@@ -9,7 +9,14 @@ import Profile from "./compoents/profile";
 import { useSession } from "next-auth/react";
 import { Skeleton } from "@mui/material";
 // Icons
-import { FaSearch, FaFemale, FaMale, FaOdnoklassniki } from "react-icons/fa";
+import {
+  FaSearch,
+  FaFemale,
+  FaMale,
+  FaOdnoklassniki,
+  FaRegWindowClose,
+  FaGooglePlay,
+} from "react-icons/fa";
 // Types
 import { Promo, Cursuse } from "@/types/FortyTwo/types";
 // Data
@@ -283,6 +290,12 @@ const Ranking: React.FC = () => {
             StudentData={SelectedUser}
           />
           {SelectedPromo == 0 && <Top3 />}
+          <div className="free_placeholder">
+            <div className="close_ad">
+              <FaGooglePlay className="__icon"/>
+              <FaRegWindowClose className="__icon"/>
+            </div>
+          </div>
         </div>
       </div>
     </StyledRanking>

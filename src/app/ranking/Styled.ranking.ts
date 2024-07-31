@@ -1,4 +1,6 @@
 import styled from "styled-components";
+//weekly_placeholder
+import _ad from "../../../public/ad.gif"
 
 interface StyledCardProps {
   // BannerImg: string;
@@ -53,18 +55,46 @@ export const StyledRanking = styled.div`
       width: 35%;
       height: 100%;
       padding: 55px 10px;
+      padding-bottom : 5px;
       display : flex;
       flex-direction : column;
       gap : 5px;
+      .free_placeholder{
+        height : 30%;
+        background-color: #212125;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 5px;
+        background-position :center;
+        background-size : cover;
+        background-image : url(${_ad.src});
+        position : relative;
+        .close_ad{
+          z-index : 99;
+          position : absolute;
+          right : 1px;
+          top : 1px;
+          margin : 0;
+          display : flex;
+          gap : 1px;
+          .__icon{
+            background-color : white;
+            cursor : pointer;
+            color : skyblue;
+          }
+        }
+      }
 
       @media only screen and (max-width: 767px) {
         display: none;
       }
     }
+
+
     .LeaderBoardContainer {
       height: 100%;
       flex: 1;
       padding: 55px 10px;
+      padding-bottom : 5px;
       @media only screen and (max-width: 767px) {
         padding : 0px;
       }

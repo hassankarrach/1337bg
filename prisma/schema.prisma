@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String     @id @default(uuid())
+  user_name          String     @unique
+  curr_level         Int
+  last_level         Int
+  is_verified        Boolean    @default(false)
+  likes_given        Reaction[] @relation("likes_given")
+  likes_received     Reaction[] @relation("likes_received")
+  feedbacks_given    Feedback[] @relation("feedbacks_given")
+  feedbacks_received Feedback[] @relation("feedbacks_received")
+  created_at         DateTime   @default(now())
+  updated_at         DateTime   @updatedAt
+}
+
+model Reaction {
+  id          String   @id @default(uuid())
+  reactor_id  String
+  reactor     User     @relation("likes_given", fields: [reactor_id], references: [id])
+  receiver_id String
+  receiver    User     @relation("likes_received", fields: [receiver_id], references: [id])
+  isLike      Boolean
+  created_at  DateTime @default(now())
+
+  @@unique([reactor_id, receiver_id])
+}
+
+model Feedback {
+  id            String   @id @default(uuid())
+  feedback_text String
+  giver_id      String
+  giver         User     @relation("feedbacks_given", fields: [giver_id], references: [id])
+  receiver_id   String
+  receiver      User     @relation("feedbacks_received", fields: [receiver_id], references: [id])
+  created_at    DateTime @default(now())
+
+  @@unique([giver_id, receiver_id, created_at])
+}
