@@ -357,7 +357,7 @@ const Top3 = () => {
 
   return (
     <StyledTop3>
-      <h1 className="header">Campus Trio Leaders</h1>
+      <h1 className="header">Top 3 Campus Champs</h1>
       <div className="Top3_container">
         {Top3Poolers[0]
           ? Top3Poolers.map((Pooler: any) => {
