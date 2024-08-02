@@ -9,12 +9,12 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id                 String     @id @default(uuid())
+  id                 String     @id @default(cuid()) @map("_id")
   user_name          String     @unique
   curr_level         Int
   last_level         Int
@@ -28,7 +28,7 @@ model User {
 }
 
 model Reaction {
-  id          String   @id @default(uuid())
+  id          String   @id @default(cuid()) @map("_id")
   reactor_id  String
   reactor     User     @relation("likes_given", fields: [reactor_id], references: [id])
   receiver_id String
@@ -40,7 +40,7 @@ model Reaction {
 }
 
 model Feedback {
-  id            String   @id @default(uuid())
+  id            String   @id @default(cuid()) @map("_id")
   feedback_text String
   giver_id      String
   giver         User     @relation("feedbacks_given", fields: [giver_id], references: [id])

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 //weekly_placeholder
-import _ad from "../../../public/ad.gif"
 
 interface StyledCardProps {
   // BannerImg: string;
@@ -46,7 +45,7 @@ export const StyledRanking = styled.div`
     z-index: 9;
     @media only screen and (max-width: 767px) {
       padding: 0px;
-      min-height : 100vh;
+      min-height: 100vh;
     }
     /* flex-direction : column; */
     /* overflow  :hidden; */
@@ -55,32 +54,140 @@ export const StyledRanking = styled.div`
       width: 35%;
       height: 100%;
       padding: 55px 10px;
-      padding-bottom : 5px;
-      display : flex;
-      flex-direction : column;
-      gap : 5px;
-      .free_placeholder{
-        height : 30%;
+      padding-bottom: 5px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      .free_placeholder {
+        height: 270px;
         background-color: #212125;
         border: 1px solid rgba(255, 255, 255, 0.06);
         border-radius: 5px;
-        background-position :center;
-        background-size : cover;
-        background-image : url(${_ad.src});
-        position : relative;
-        .close_ad{
-          z-index : 99;
-          position : absolute;
-          right : 1px;
-          top : 1px;
-          margin : 0;
-          display : flex;
-          gap : 1px;
-          .__icon{
-            background-color : white;
-            cursor : pointer;
-            color : skyblue;
+        background-position: center;
+        background-size: cover;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        .Title {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 30px;
+          width: 100%;
+          background: linear-gradient(
+            0deg,
+            rgba(192, 192, 192, 0.2) 0%,
+            rgba(192, 192, 192, 0) 100%
+          );
+          h1 {
+            font-family: var(--playable_font);
+            font-size: 1.3rem;
+            font-weight: 100;
+            color: white;
+            opacity: 0.8;
           }
+        }
+        .Items {
+          flex: 1;
+          display: flex;
+          gap: 3px;
+          .Item {
+            flex: 1;
+            background-color: var(--main_color_light);
+            clip-path: polygon(
+              0% 0%,
+              calc(100% - 30px) 0%,
+              100% 30px,
+              100% 100%,
+              30px 100%,
+              0% calc(100% - 30px)
+            );
+            position: relative;
+            border-top-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            &:hover {
+              &::before {
+                opacity: 0.7;
+              }
+            }
+            &:before {
+              content: "";
+              height: 100%;
+              width: 100%;
+              position: absolute;
+              top: 0;
+              background: linear-gradient(
+                0deg,
+                rgba(204, 255, 97, 1) 0%,
+                rgba(204, 255, 97, 0) 60%
+              );
+              opacity: 0.5;
+              transition: 0.2s ease-in-out;
+              z-index: 9999;
+            }
+            .avatar_ {
+              height: 100%;
+              width: 100%;
+              background-position: center;
+              background-size: cover;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              position: relative;
+              overflow: hidden;
+              .title {
+                position: absolute;
+                top: 0;
+                font-size: 1.5rem;
+                -webkit-text-stroke: 1px var(--main_color_dark);
+                -webkit-text-fill-color: transparent;
+                white-space: nowrap;
+                z-index: 1;
+                display: none;
+              }
+              .rank {
+                position: absolute;
+                font-size: 15rem;
+                -webkit-text-stroke: 1px var(--main_color_dark);
+                -webkit-text-fill-color: transparent;
+              }
+              .av_img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                z-index: 2;
+                margin-right: -70%;
+                margin-bottom: -30%;
+              }
+            }
+            .TopTitle {
+              width: 100%;
+              height: auto;
+              position: absolute;
+              left: 0;
+              top: 0;
+              z-index: 99999;
+              display: flex;
+              /* justify-content : center; */
+              align-items: center;
+              padding: 2px 5px;
+              background: linear-gradient(
+                90deg,
+                rgba(92, 131, 10, 1) 0%,
+                rgba(92, 131, 10, 0) 100%
+              );
+              h2 {
+                /* transform : rotate(-90deg); */
+                /* white-space: nowrap; */
+                font-family: var(--playable_font);
+                color: var(--main_color);
+              }
+            }
+          }
+          /* transform : rotate(20deg); */
         }
       }
 
@@ -89,21 +196,20 @@ export const StyledRanking = styled.div`
       }
     }
 
-
     .LeaderBoardContainer {
       height: 100%;
       flex: 1;
       padding: 55px 10px;
-      padding-bottom : 5px;
+      padding-bottom: 5px;
       @media only screen and (max-width: 767px) {
-        padding : 0px;
+        padding: 0px;
       }
       .Ranking {
         width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content  :flex-start;
+        justify-content: flex-start;
         @media only screen and (max-width: 767px) {
           /* height: auto; */
           /* display : none; */
@@ -119,7 +225,7 @@ export const StyledRanking = styled.div`
             padding-top: 45px;
             overflow-y: unset;
             padding-right: 0px;
-            padding-bottom : 100px;
+            padding-bottom: 100px;
           }
 
           .FetchMore {
@@ -128,9 +234,14 @@ export const StyledRanking = styled.div`
             justify-content: center;
             align-items: center;
             padding: 10px;
-            @media only screen and (max-width: 767px){
+            @media only screen and (max-width: 767px) {
               /* position : fixed; */
-              background : linear-gradient(90deg, rgb(44,44,48, 0) 0%, rgb(44,44,48, 0.8) 50%, rgb(44,44,48, 0) 100%);
+              background: linear-gradient(
+                90deg,
+                rgb(44, 44, 48, 0) 0%,
+                rgb(44, 44, 48, 0.8) 50%,
+                rgb(44, 44, 48, 0) 100%
+              );
             }
           }
           .Animated {
@@ -162,8 +273,8 @@ export const StyledRanking = styled.div`
           padding-right: 5px;
           gap: 5px;
           position: relative;
-          @media only screen and (max-width: 767px){
-            padding-right : 0px;
+          @media only screen and (max-width: 767px) {
+            padding-right: 0px;
           }
           .CardSkl {
             border-radius: 5px;
@@ -186,18 +297,18 @@ export const StyledRanking = styled.div`
         max-width: 100%;
         position: fixed;
         bottom: 0;
-        left :0;
+        left: 0;
         z-index: 99;
         height: auto;
-        background: rgba(33,33,37,0.9);
+        background: rgba(33, 33, 37, 0.9);
         backdrop-filter: blur(4px);
         -webkit-backdrop-filter: blur(4px);
         border-top: 1px solid rgba(255, 255, 255, 0.06);
         padding: 10px 5px;
         /* display: none; */
-        flex-direction : column;
-        border-bottom-left-radius  : 0px;
-        border-bottom-right-radius : 0px;
+        flex-direction: column;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
       }
 
       .Filters {
@@ -209,14 +320,14 @@ export const StyledRanking = styled.div`
         padding-bottom: 10px;
         @media only screen and (max-width: 767px) {
           /* display: none; */
-          flex-direction : column;
-          padding-bottom : 0px;
+          flex-direction: column;
+          padding-bottom: 0px;
         }
         .Select_container {
           flex-grow: 1;
           color: white;
-          @media only screen and (max-width: 767px){
-              width : 100%;
+          @media only screen and (max-width: 767px) {
+            width: 100%;
           }
         }
         .SearchUser {
@@ -225,8 +336,8 @@ export const StyledRanking = styled.div`
           display: flex;
           align-items: flex-end;
           position: relative;
-          @media only screen and (max-width: 767px){
-            display : none;
+          @media only screen and (max-width: 767px) {
+            display: none;
           }
           input {
             height: 38px;
@@ -260,11 +371,11 @@ export const StyledRanking = styled.div`
           &:hover {
             background-color: rgba(183, 251, 43, 0.07);
           }
-          @media only screen and (max-width: 767px){
-              width : 25%;
-              position : absolute;
-              bottom : 10px;
-              left : 5px;
+          @media only screen and (max-width: 767px) {
+            width: 25%;
+            position: absolute;
+            bottom: 10px;
+            left: 5px;
           }
         }
         .GenderFilter {
@@ -275,8 +386,8 @@ export const StyledRanking = styled.div`
           border: 1px solid rgba(44, 44, 48, 1);
           display: flex;
           overflow: hidden;
-          @media only screen and (max-width: 767px){
-            width : 70%;
+          @media only screen and (max-width: 767px) {
+            width: 70%;
           }
           span {
             font-family: var(--main_font);
@@ -303,8 +414,8 @@ export const StyledRanking = styled.div`
             align-items: center;
             padding: 0px 15px;
             cursor: pointer;
-            @media only screen and (max-width: 767px){
-              padding : 0px 2px;
+            @media only screen and (max-width: 767px) {
+              padding: 0px 2px;
             }
             .GenderIcon {
               size: 50px;
