@@ -2,7 +2,7 @@
 
 import React from "react";
 import styled from "styled-components";
-import { create_user } from "../../../actions/user_action";
+// import { create_user } from "../../../actions/user_action";
 
 const StyledTest = styled.div`
   width: 100vw;
@@ -17,17 +17,17 @@ const StyledTest = styled.div`
 `;
 
 const page = () => {
-    const onClick = async () => {
-        try {
-          await create_user();
-        } catch (error) {
-          console.error("Error creating user:", JSON.stringify(error, null, 2));
-        }
-      };
+    // const onClick = async () => {
+    //     try {
+    //       await create_user();
+    //     } catch (error) {
+    //       console.error("Error creating user:", JSON.stringify(error, null, 2));
+    //     }
+    //   };
       
   return (
     <StyledTest>
-      <button onClick={onClick}>create user</button>
+      {/* <button onClick={onClick}>create user</button> */}
     </StyledTest>
   );
 };
