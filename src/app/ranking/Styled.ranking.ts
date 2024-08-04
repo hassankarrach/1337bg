@@ -71,123 +71,34 @@ export const StyledRanking = styled.div`
         overflow: hidden;
         .Title {
           display: flex;
-          justify-content: center;
-          align-items: center;
+          flex-direction: column;
+          justify-content: flex-start;
+          padding: 0px 5px;
+          align-items: flex-start;
           height: 30px;
           width: 100%;
-          background: linear-gradient(
-            0deg,
-            rgba(192, 192, 192, 0.2) 0%,
-            rgba(192, 192, 192, 0) 100%
-          );
           h1 {
             font-family: var(--playable_font);
-            font-size: 1.3rem;
+            font-size: 1rem;
             font-weight: 100;
             color: white;
             opacity: 0.8;
           }
-        }
-        .Items {
-          flex: 1;
-          display: flex;
-          gap: 3px;
-          .Item {
-            flex: 1;
-            background-color: var(--main_color_light);
-            clip-path: polygon(
-              0% 0%,
-              calc(100% - 30px) 0%,
-              100% 30px,
-              100% 100%,
-              30px 100%,
-              0% calc(100% - 30px)
-            );
-            position: relative;
-            border-top-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            overflow: hidden;
-            cursor: pointer;
-            &:hover {
-              &::before {
-                opacity: 0.7;
-              }
-            }
-            &:before {
-              content: "";
-              height: 100%;
-              width: 100%;
-              position: absolute;
-              top: 0;
-              background: linear-gradient(
-                0deg,
-                rgba(204, 255, 97, 1) 0%,
-                rgba(204, 255, 97, 0) 60%
-              );
-              opacity: 0.5;
-              transition: 0.2s ease-in-out;
-              z-index: 9999;
-            }
-            .avatar_ {
-              height: 100%;
-              width: 100%;
-              background-position: center;
-              background-size: cover;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              position: relative;
-              overflow: hidden;
-              .title {
-                position: absolute;
-                top: 0;
-                font-size: 1.5rem;
-                -webkit-text-stroke: 1px var(--main_color_dark);
-                -webkit-text-fill-color: transparent;
-                white-space: nowrap;
-                z-index: 1;
-                display: none;
-              }
-              .rank {
-                position: absolute;
-                font-size: 15rem;
-                -webkit-text-stroke: 1px var(--main_color_dark);
-                -webkit-text-fill-color: transparent;
-              }
-              .av_img {
-                height: 100%;
-                width: 100%;
-                object-fit: cover;
-                z-index: 2;
-                margin-right: -70%;
-                margin-bottom: -30%;
-              }
-            }
-            .TopTitle {
-              width: 100%;
-              height: auto;
-              position: absolute;
-              left: 0;
-              top: 0;
-              z-index: 99999;
-              display: flex;
-              /* justify-content : center; */
-              align-items: center;
-              padding: 2px 5px;
-              background: linear-gradient(
-                90deg,
-                rgba(92, 131, 10, 1) 0%,
-                rgba(92, 131, 10, 0) 100%
-              );
-              h2 {
-                /* transform : rotate(-90deg); */
-                /* white-space: nowrap; */
-                font-family: var(--playable_font);
-                color: var(--main_color);
-              }
-            }
+          span{
+            color : white;
           }
-          /* transform : rotate(20deg); */
+        }
+        .InsertIcon{
+          position : absolute;
+          left : 50%;
+          top : 50%;
+          transform : translate(-50%,-50%);
+          color : var(--main_color_light);
+          cursor : pointer;
+          transition : 0.2s ease-in-out;
+          &:hover{
+            color : var(--main_color_dark);
+          }
         }
       }
 

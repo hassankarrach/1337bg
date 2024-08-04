@@ -16,6 +16,7 @@ import {
   FaOdnoklassniki,
   FaRegWindowClose,
   FaGooglePlay,
+  FaFileUpload,
 } from "react-icons/fa";
 // Types
 import { Promo, Cursuse } from "@/types/FortyTwo/types";
@@ -35,10 +36,6 @@ import { InitialUsers } from "@/data/Fake";
 import Top3 from "./compoents/Top3";
 import { pool_months } from "@/data/Pool_months";
 import useSessionEnd from "@/hooks/useSessionEnd";
-//Weekly Top Performers
-import _topM from "../../../public//topM.png";
-import _topF from "../../../public/topF.png";
-import _topW from "../../../public/topW.png";
 
 const Ranking: React.FC = () => {
   const { data: session } = useSession();
@@ -298,70 +295,15 @@ const Ranking: React.FC = () => {
               <Top3 />
               <div className="free_placeholder">
                 <div className="Title">
-                  <h1>Weekly Top Performers.</h1>
+                  <h1>Memories 📸🎉</h1>
+                  <span>
+                    Share any memories (videos, images, funny moments) you've
+                    got so far to be featured here!{" "}
+                  </span>
                 </div>
-                <div className="Items">
-                  <div
-                    className="Item"
-                    onClick={() =>
-                      window.open(
-                        "https://profile.intra.42.fr/users/obendaou",
-                        "_blank"
-                      )
-                    }
-                  >
-                    <div className="avatar_">
-                      <h1 className="title">Top M Pooler</h1>
-                      <h1 className="rank">1</h1>
-                      <img src={_topF.src} className="av_img" />
-                    </div>
-                    <div className="TopTitle">
-                      <h2>
-                        Top <br /> F <br /> Pooler
-                      </h2>
-                    </div>
-                  </div>
-                  <div
-                    className="Item"
-                    onClick={() =>
-                      window.open(
-                        "https://profile.intra.42.fr/users/moel-mes",
-                        "_blank"
-                      )
-                    }
-                  >
-                    <div className="avatar_">
-                      <h1 className="title">Top M Pooler</h1>
-                      <h1 className="rank">2</h1>
-                      <img src={_topM.src} className="av_img" />
-                    </div>
-                    <div className="TopTitle">
-                      <h2>
-                        Top <br /> M <br /> Pooler
-                      </h2>
-                    </div>
-                  </div>
-                  <div
-                    className="Item"
-                    onClick={() =>
-                      window.open(
-                        "https://profile.intra.42.fr/users/sait-alo",
-                        "_blank"
-                      )
-                    }
-                  >
-                    <div className="avatar_">
-                      <h1 className="title">Top M Pooler</h1>
-                      <h1 className="rank">3</h1>
-                      <img src={_topW.src} className="av_img" />
-                    </div>
-                    <div className="TopTitle">
-                      <h2>
-                        Top <br /> M Tab <br /> clicker
-                      </h2>
-                    </div>
-                  </div>
-                </div>
+                <a target="_blank" href="https://docs.google.com/forms/d/1fyvqc72OHfIl8WunpxebspSE-J35BCJahr2kWu53VuA/">
+                  <FaFileUpload size={30} className="InsertIcon" />
+                </a>
               </div>
             </>
           )}
