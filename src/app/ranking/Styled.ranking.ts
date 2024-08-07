@@ -1,5 +1,6 @@
 import styled from "styled-components";
-//weekly_placeholder
+//weekly_placeholder'
+import _feedback from "../../../public/feedback.png";
 
 interface StyledCardProps {
   // BannerImg: string;
@@ -88,17 +89,13 @@ export const StyledRanking = styled.div`
             color : white;
           }
         }
-        .InsertIcon{
-          position : absolute;
-          left : 50%;
-          top : 50%;
-          transform : translate(-50%,-50%);
-          color : var(--main_color_light);
-          cursor : pointer;
-          transition : 0.2s ease-in-out;
-          &:hover{
-            color : var(--main_color_dark);
-          }
+        .PlaceHolder {
+          width : 100%;
+          height : 80%;
+          background-color : white;
+          background-image : url(${_feedback.src});
+          background-position : center;
+          background-size : contain;
         }
       }
 

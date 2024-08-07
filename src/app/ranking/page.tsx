@@ -37,6 +37,7 @@ import Top3 from "./compoents/Top3";
 import { pool_months } from "@/data/Pool_months";
 import useSessionEnd from "@/hooks/useSessionEnd";
 
+
 const Ranking: React.FC = () => {
   const { data: session } = useSession();
   const [Users, SetUsers] = useState<any[]>([]);
@@ -295,15 +296,10 @@ const Ranking: React.FC = () => {
               <Top3 />
               <div className="free_placeholder">
                 <div className="Title">
-                  <h1>Memories 📸🎉</h1>
-                  <span>
-                    Share any memories (videos, images, funny moments) you've
-                    got so far to be featured here!{" "}
-                  </span>
+                  <h1>Feedback of the year :</h1>
                 </div>
-                <a target="_blank" href="https://docs.google.com/forms/d/1fyvqc72OHfIl8WunpxebspSE-J35BCJahr2kWu53VuA/">
-                  <FaFileUpload size={30} className="InsertIcon" />
-                </a>
+                <div className="PlaceHolder">
+                </div>
               </div>
             </>
           )}
