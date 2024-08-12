@@ -54,8 +54,8 @@ const LevelCalculator = () => {
       </div>
       <div className="container">
         <div className="SelectedProjects">
-          {projectList.map((item: Project) => {
-            return <ProjectItem title={item.title} xp={item.xp} />;
+          {projectList.map((item: Project, key) => {
+            return <ProjectItem key={key} title={item.title} xp={item.xp} />;
           })}
         </div>
 
