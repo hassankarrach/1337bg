@@ -61,7 +61,7 @@ const StyledBadgePage = styled.div`
   }
 `;
 
-const page = () => {
+const Page = () => {
   const { data: session } = useSession();
   const [banner_url, setBannerUrl] = React.useState<string>(
     "https://media.tenor.com/Zlq493uaVWcAAAAM/u-got-that.gif"
@@ -163,4 +163,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
