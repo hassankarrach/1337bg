@@ -59,43 +59,31 @@ export const StyledRanking = styled.div`
       display: flex;
       flex-direction: column;
       gap: 5px;
-      .free_placeholder {
-        height: 270px;
-        background-color: #212125;
-        border: 1px solid rgba(255, 255, 255, 0.06);
+      .tmp {
+        flex: 1;
         border-radius: 5px;
-        background-position: center;
-        background-size: cover;
-        position: relative;
         display: flex;
         flex-direction: column;
-        overflow: hidden;
-        .Title {
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
+        background-color: #212125;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        h1 {
+          color: white;
           padding: 0px 5px;
-          align-items: flex-start;
-          height: 30px;
-          width: 100%;
-          h1 {
-            font-family: var(--playable_font);
-            font-size: 1rem;
-            font-weight: 100;
-            color: white;
-            opacity: 0.8;
-          }
-          span{
-            color : white;
-          }
+          padding-bottom : 10px;
+          font-size: 1rem;
+          font-family: var(--playable_font);
+          font-weight: 100;
+          opacity: 0.8;
         }
-        .PlaceHolder {
-          width : 100%;
-          height : 80%;
-          background-color : white;
-          background-image : url(${_feedback.src});
-          background-position : center;
-          background-size : contain;
+        .VideoContainer {
+          flex: 1;
+          overflow: hidden;
+          video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 3px;
+          }
         }
       }
 

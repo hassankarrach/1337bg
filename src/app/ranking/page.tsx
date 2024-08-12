@@ -36,7 +36,7 @@ import { InitialUsers } from "@/data/Fake";
 import Top3 from "./compoents/Top3";
 import { pool_months } from "@/data/Pool_months";
 import useSessionEnd from "@/hooks/useSessionEnd";
-
+import LevelCalculator from "./compoents/LevelCalculator/LevelCalculator";
 
 const Ranking: React.FC = () => {
   const { data: session } = useSession();
@@ -293,14 +293,14 @@ const Ranking: React.FC = () => {
           />
           {SelectedPromo == 0 && (
             <>
-              <Top3 />
-              <div className="free_placeholder">
-                <div className="Title">
-                  <h1>Feedback of the year :</h1>
-                </div>
-                <div className="PlaceHolder">
+              {/* <LevelCalculator /> */}
+              <div className="tmp">
+                <h1>week 4 : progress overflow</h1>
+                <div className="VideoContainer">
+                  <video src="/video.mp4"  controls/>
                 </div>
               </div>
+              <Top3 />
             </>
           )}
         </div>

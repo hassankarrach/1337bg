@@ -12,7 +12,11 @@ import _um6p_logo from "../../../../public/logos/um6p.png";
 import _42_logo from "../../../../public/logos/42.png";
 import _1337_logo from "../../../../public/logos/1337.svg";
 
-const StyledBadg = styled.div`
+interface BadgeStyleProps {
+  $banner_url: string;
+  $avatar_url: string;
+}
+const StyledBadg = styled.div<BadgeStyleProps>`
   width: 600px;
   height: 300px;
   background-color: white;
@@ -25,7 +29,7 @@ const StyledBadg = styled.div`
     width: 100%;
     height: 40%;
     background-color: var(--main_color);
-    background-image: url("https://www.icegif.com/wp-content/uploads/2023/03/icegif-47.gif");
+    background-image: url(${(props: any) => props.$banner_url});
     background-position: center;
     background-size: cover;
     position: relative;
@@ -43,17 +47,71 @@ const StyledBadg = styled.div`
     .level {
       position: absolute;
       right: 20px;
-      bottom: 10%;
-      background-color: var(--main_color_dark);
-      background: rgba(44, 44, 48, 0.2);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      bottom: -10%;
       padding: 1px 10px;
       border-radius: 5px;
       font-size: 1.2rem;
-      p {
-        color: white;
+      .orange {
+        background: linear-gradient(to bottom right, #ffeb3b 0%, #fbc02d 100%);
+        color: #ffb300;
+      }
+      .badge {
+        position: relative;
+        width: 40px;
+        height: 57px;
+        border-radius: 10px;
+        display: inline-block;
+        top: 0;
+        cursor: pointer;
+        &:before,
+        &:after {
+          position: absolute;
+          width: inherit;
+          height: inherit;
+          border-radius: inherit;
+          background: inherit;
+          content: "";
+          @include margin-auto;
+        }
+        &:before {
+          transform: rotate(60deg);
+        }
+        &:after {
+          transform: rotate(-60deg);
+        }
+        .circle {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          z-index: 10;
+          color: white;
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          h1 {
+            position: static;
+            font-size: 2.2rem;
+            font-weight: 500;
+          }
+        }
+        .ribbon {
+          position: absolute;
+          border-radius: 4px;
+          width: 60px;
+          padding: 2px 10px;
+          z-index: 11;
+          color: #fff;
+          height: 15px;
+          font-size: 13px;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.27);
+          text-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+          text-transform: uppercase;
+          background: linear-gradient(to bottom right, #555 0%, #333 100%);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          bottom: 10%;
+        }
       }
     }
   }
@@ -65,7 +123,7 @@ const StyledBadg = styled.div`
     border-radius: 10px;
     top: 30px;
     left: 20px;
-    background-image: url("https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg");
+    background-image: url(${(props: any) => props.$avatar_url});
     background-size: cover;
     background-position: center;
   }
@@ -74,7 +132,7 @@ const StyledBadg = styled.div`
     gap: 8px;
     position: absolute;
     align-items: center;
-    left: 5px;
+    left: 20px;
     bottom: 5px;
     width: 100%;
     .org_item {
@@ -87,7 +145,7 @@ const StyledBadg = styled.div`
   }
   .socials {
     position: absolute;
-    right: 5px;
+    right: 20px;
     bottom: 5px;
     color: var(--Header_grey);
 
@@ -99,30 +157,109 @@ const StyledBadg = styled.div`
       }
     }
   }
+  .infos {
+    position: absolute;
+    top: calc(40% + 20px);
+    left: 20px;
+    .info_item {
+      display: flex;
+      p:first-child {
+        opacity: 0.7;
+        /* width : 100px; */
+        width: 120px;
+      }
+    }
+  }
 `;
 
-const Badg = () => {
+interface BadgProps {
+  full_name: string;
+  nickname : string | undefined;
+  login: string;
+  level: number;
+  email: string;
+  cursus: string;
+  join_date: string;
+  campus: string;
+  twitter_link: string;
+  github_link: string;
+  linkedin_link: string;
+  banner_url: string;
+  avatar_url: string;
+}
+
+const Badg: React.FC<BadgProps> = ({
+  full_name,
+  avatar_url,
+  banner_url,
+  campus,
+  cursus,
+  email,
+  github_link,
+  join_date,
+  level,
+  linkedin_link,
+  login,
+  twitter_link,
+  nickname
+}) => {
   return (
-    <StyledBadg>
+    <StyledBadg $avatar_url={avatar_url} $banner_url={banner_url}>
       <div className="banner">
         <h1>
-          Hassan Karrach
+          {full_name} {nickname && `(${nickname})`}
           <FaCheckSquare size={22} className="verified" />
         </h1>
 
         <div className="level">
-          <p>2.5</p>
+          <div className="badge orange">
+            <div className="circle">
+              <h1>{Math.floor(level || 0)}</h1>
+              <div className="ribbon">
+                {level == 0
+                  ? "Newbie"
+                  : level > 0 && level < 3
+                  ? "Novice"
+                  : level > 2 && level < 5
+                  ? "Learner"
+                  : level > 4 && level < 7
+                  ? "Intermediate"
+                  : level > 6 && level < 9
+                  ? "Advanced"
+                  : level > 8 && level < 11
+                  ? "Expert"
+                  : level >= 11
+                  ? "Master"
+                  : ""}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className="avatar"></div>
-      {/* <div className="infos">
-        <p>42 Login : hkarrach</p>
-        <p>join date : </p>
-        <p>Campus : Benguerir</p>
-        <p
-      </div> */}
+      <div className="infos">
+        <div className="info_item">
+          <p>42 Login</p>
+          <p>: {login}</p>
+        </div>
+        <div className="info_item">
+          <p>Student mail</p>
+          <p>: {email}</p>
+        </div>
+        <div className="info_item">
+          <p>Cursus</p>
+          <p>: {cursus}</p>
+        </div>
+        <div className="info_item">
+          <p>joined year</p>
+          <p>: {join_date}</p>
+        </div>
+        <div className="info_item">
+          <p>Campus</p>
+          <p>: {campus}</p>
+        </div>
+      </div>
       <div className="orgs">
-        <img src={_um6p_logo.src} className="org_item" />
         <svg
           height="15px"
           viewBox="0 0 76 20"
@@ -147,11 +284,18 @@ const Badg = () => {
           ></path>
         </svg>
         <img src={_42_logo.src} className="org_item forty_two" />
+        <img src={_um6p_logo.src} className="org_item" />
       </div>
       <div className="socials">
-        <FaLinkedin size={20} className="icon_" />
-        <FaGithubSquare size={20} className="icon_" />
-        <FaTwitterSquare size={20} className="icon_" />
+        <a href={linkedin_link} target="_blank">
+          <FaLinkedin size={20} className="icon_" />
+        </a>
+        <a href={github_link} target="_blank">
+          <FaGithubSquare size={20} className="icon_" />
+        </a>
+        <a href={twitter_link} target="_blank">
+          <FaTwitterSquare size={20} className="icon_" />
+        </a>
       </div>
     </StyledBadg>
   );

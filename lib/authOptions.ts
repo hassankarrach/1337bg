@@ -34,6 +34,13 @@ export const {
       if (profile) {
         token.accessToken = account.access_token;
         token.id = profile.id;
+        token.login = profile.login;
+        token.main_cursus =
+          profile.cursus_users[profile.cursus_users.length - 1].cursus_id;
+        token.start_year =
+          profile.cursus_users[profile.cursus_users.length - 1].begin_at;
+        token.user_level =
+          profile.cursus_users[profile.cursus_users.length - 1].level;
         if (!token.loginTime) {
           token.loginTime = Date.now(); // Store the original login time
         }
@@ -43,6 +50,10 @@ export const {
     async session({ session, token }: any) {
       session.accessToken = token.accessToken;
       session.loginTime = token.loginTime;
+      session.user.login = token.login;
+      session.user.main_cursus = token.main_cursus;
+      session.user.start_year = token.start_year;
+      session.user.user_level = token.user_level;
       return session;
     },
   },

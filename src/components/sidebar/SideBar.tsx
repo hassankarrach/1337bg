@@ -6,8 +6,7 @@ import styled from "styled-components";
 import { IconType } from "react-icons";
 import {
   FaTrophy,
-  FaNetworkWired,
-  FaFolder,
+  FaIdCard,
   FaSignOutAlt,
   FaSkull,
   FaUserSecret,
@@ -50,6 +49,7 @@ const List: {
   path: string;
   is_first: boolean;
   is_last: boolean;
+  is_underdev : boolean
 }[] = [
   {
     id: 0,
@@ -59,51 +59,47 @@ const List: {
     is_first: true,
     is_last: false,
     path: "/ranking",
+    is_underdev : false
   },
   {
     id: 1,
-    name: "Clusters",
-    desc: "",
-    icon: FaNetworkWired,
-    is_first: false,
-    is_last: false,
-    path: "/clusters",
-  },
-  {
-    id: 2,
-    name: "Correction Pages",
-    desc: "",
-    icon: FaFolder,
-    is_first: false,
-    is_last: false,
-    path: "/correction_pages",
-  },
-  {
-    id: 3,
     name: "BlackHole",
     desc: "",
     icon: FaSkull,
     is_first: false,
     is_last: false,
     path: "/blackhole",
+    is_underdev : false
+  },
+  {
+    id: 2,
+    name: "Digital Badge (In Progress)",
+    desc: "",
+    icon: FaIdCard,
+    is_first: false,
+    is_last: false,
+    path: "/badge",
+    is_underdev : true
   },
   {
     id: 4,
-    name: "Anonymous Feedback",
+    name: "Anonymous Feedback (In Progress)",
     desc: "",
     icon: FaUserSecret,
     is_first: false,
     is_last: false,
     path: "/feedback",
+    is_underdev : true
   },
   {
     id: 5,
-    name: "42 Improved Intra V3 extension",
+    name: "42 Improved Intra V3 extension (In Progress)",
     desc: "",
     icon: FaRocket,
     is_first: false,
     is_last: false,
     path: "/extension",
+    is_underdev : true
   },
   {
     id: 6,
@@ -113,6 +109,7 @@ const List: {
     is_first: false,
     is_last: true,
     path: "",
+    is_underdev : false
   },
 ];
 
@@ -198,6 +195,7 @@ interface StyleSideElement {
   $is_first: boolean;
   $is_last: boolean;
   $is_active: boolean;
+  $is_under_dev : boolean;
 }
 const StyleSideElement = styled.div<StyleSideElement>`
   width: 100%;
@@ -212,7 +210,9 @@ const StyleSideElement = styled.div<StyleSideElement>`
       : ""};
   margin-top: ${(props) => props.$is_last && "auto"};
   color: ${(props) =>
-    props.$is_active ? "var(--main_color_dark)" : "var(--main_color)"};
+    props.$is_active ? "var(--main_color_dark)" 
+    : props.$is_under_dev ? "#2f391c" 
+    : "var(--main_color)"};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -243,6 +243,7 @@ interface SideElementProps {
   is_last: boolean;
   title: string;
   is_active: boolean;
+  is_under_dev : boolean
   path: string;
   icon: IconType;
   setIsOpen : (value : boolean) => void;
@@ -252,6 +253,7 @@ const SideBarElement: React.FC<SideElementProps> = ({
   is_last,
   title,
   is_active,
+  is_under_dev,
   path,
   icon: Icon,
   setIsOpen
@@ -284,6 +286,7 @@ const SideBarElement: React.FC<SideElementProps> = ({
           $is_first={is_first}
           $is_last={is_last}
           $is_active={is_active}
+          $is_under_dev = {is_under_dev}
           onClick={() => {
             if (is_last) Handle_logout();
             setIsOpen(false);
@@ -335,6 +338,7 @@ const SideBar = () => {
               is_active={path === ListItem.path}
               path={ListItem.path}
               setIsOpen={setIsOpen}
+              is_under_dev = {ListItem.is_underdev}
             />
           );
         })}

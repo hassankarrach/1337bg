@@ -235,7 +235,8 @@ const StyledTop3 = styled.div`
     rgba(44, 44, 48, 0) 100%
   ); */
   width: 100%;
-  flex: 1;
+  height : auto;
+  padding : 5px 0px;
   border-radius: 5px;
   display: flex;
   justify-content: center;
