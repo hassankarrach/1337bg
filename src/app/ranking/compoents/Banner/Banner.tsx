@@ -23,9 +23,7 @@ const Banner = () => {
     if (audioRef.current) {
       audioRef.current.muted = isMuted;
       if (!isMuted) {
-        audioRef.current
-          .play()
-          .catch((error) => console.error("Audio playback failed:", error));
+        audioRef.current.play().catch(() => setIsMuted(true));
       }
     }
   }, [isMuted, isClient]);
@@ -42,7 +40,7 @@ const Banner = () => {
     <StyledBanner>
       <audio ref={audioRef} src="/banner.mp3" loop />
       <h1 className="message">Scrolling Text Here</h1>
-      
+
       {isMuted ? (
         <MuteIcon className="MuteIcon" onClick={toggleMute} />
       ) : (
