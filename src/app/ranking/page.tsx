@@ -37,6 +37,7 @@ import Top3 from "./compoents/Top3";
 import { pool_months } from "@/data/Pool_months";
 import useSessionEnd from "@/hooks/useSessionEnd";
 import LevelCalculator from "./compoents/LevelCalculator/LevelCalculator";
+import Banner from "./compoents/Banner/Banner";
 
 const Ranking: React.FC = () => {
   const { data: session } = useSession();
@@ -179,6 +180,7 @@ const Ranking: React.FC = () => {
 
       <div className="Container">
         <div className="LeaderBoardContainer">
+          <Banner />
           <div className="Ranking">
             <div className="Options">
               <div className="Filters">
@@ -297,7 +299,7 @@ const Ranking: React.FC = () => {
               <div className="tmp">
                 <h1>week 4 : progress overflow</h1>
                 <div className="VideoContainer">
-                  <video src="/video.mp4"  controls/>
+                  <video src="/video.mp4" controls />
                 </div>
               </div>
               <Top3 />
