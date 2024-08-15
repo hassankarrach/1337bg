@@ -1,11 +1,11 @@
 "use client";
-import Feauture from "@/components/feauture/Feauture";
-import React from "react";
-import styled from "styled-components";
-import Banner from "../ranking/compoents/Banner/Banner";
+import Feauture from '@/components/feauture/Feauture';
+import React from 'react';
+import styled from 'styled-components';
+
 
 const Page = () => {
-  return <Banner />;
-};
+    return <Feauture/>;
+}
 
 export default Page;

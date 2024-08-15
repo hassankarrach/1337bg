@@ -64,26 +64,47 @@ export const StyledRanking = styled.div`
         border-radius: 5px;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
         background-color: #212125;
         border: 1px solid rgba(255, 255, 255, 0.06);
+        position: relative;
+        overflow: hidden;
+        .PaymentMethods {
+          display: flex;
+          gap: 2px;
+          .PaymentMethod {
+            size: 20px;
+            cursor: pointer;
+            color: white;
+            opacity: 0.5;
+            transition: 0.2s ease-in-out;
+            &:hover {
+              opacity: 1;
+              //1 - on hover here
+            }
+          }
+        }
         h1 {
           color: white;
+          text-align: center;
           padding: 0px 5px;
-          padding-bottom : 10px;
+          padding-bottom: 10px;
           font-size: 1rem;
-          font-family: var(--playable_font);
-          font-weight: 100;
+          font-family: var(--Sec_Font);
+          font-weight: 400;
           opacity: 0.8;
         }
-        .VideoContainer {
-          flex: 1;
-          overflow: hidden;
-          video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 3px;
-          }
+        ._TomPhoto {
+          position: absolute;
+          width: 40%;
+          left: -10%;
+          bottom: -20%;
+          display: none; 
+          transition: 0.2s ease-in-out; 
+        }
+        .PaymentMethods:hover ~ ._TomPhoto {
+          display: block;
         }
       }
 
@@ -188,6 +209,7 @@ export const StyledRanking = styled.div`
       width: 100%;
       border-radius: 5px;
       display: flex;
+      flex-direction: column;
       position: relative;
       @media only screen and (max-width: 767px) {
         max-width: 100%;

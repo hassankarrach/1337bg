@@ -39,8 +39,9 @@ const Banner = () => {
   return (
     <StyledBanner>
       <audio ref={audioRef} src="/banner.mp3" loop />
-      <h1 className="message">Scrolling Text Here</h1>
-
+      <h1 className="message">
+        ッ Congrats, pool survivors! guess what? Whether you're leading the ranking or making sure no one's left behind at the very end, you're still in the game. Good luck, y’all!
+      </h1>
       {isMuted ? (
         <MuteIcon className="MuteIcon" onClick={toggleMute} />
       ) : (

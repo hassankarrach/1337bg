@@ -39,6 +39,14 @@ import useSessionEnd from "@/hooks/useSessionEnd";
 import LevelCalculator from "./compoents/LevelCalculator/LevelCalculator";
 import Banner from "./compoents/Banner/Banner";
 
+import {
+  FaCcMastercard as MasterCard,
+  FaCcPaypal as Paypal,
+  FaCcVisa as Visa,
+  FaBitcoin as BitCoin,
+} from "react-icons/fa";
+import _Tom from "../../../public/tom.png";
+
 const Ranking: React.FC = () => {
   const { data: session } = useSession();
   const [Users, SetUsers] = useState<any[]>([]);
@@ -180,9 +188,10 @@ const Ranking: React.FC = () => {
 
       <div className="Container">
         <div className="LeaderBoardContainer">
-          <Banner />
           <div className="Ranking">
             <div className="Options">
+              {SelectedPromo == 0 && <Banner />}
+
               <div className="Filters">
                 <div className="Select_container">
                   <CustomDropDown
@@ -295,14 +304,22 @@ const Ranking: React.FC = () => {
           />
           {SelectedPromo == 0 && (
             <>
-              {/* <LevelCalculator /> */}
-              <div className="tmp">
-                <h1>week 4 : progress overflow</h1>
-                <div className="VideoContainer">
-                  <video src="/video.mp4" controls />
-                </div>
-              </div>
               <Top3 />
+              <div className="tmp">
+                <h1>
+                  If you didn’t pass your last exam, here’s another way to boost
+                  your chances:
+                </h1>
+
+                <div className="PaymentMethods">
+                  <MasterCard className="PaymentMethod" size={30} />
+                  <Paypal className="PaymentMethod" size={30} />
+                  <Visa className="PaymentMethod" size={30} />
+                  <BitCoin className="PaymentMethod" size={30} />
+                </div>
+
+                <img src={_Tom.src} className="_TomPhoto"/>
+              </div>
             </>
           )}
         </div>

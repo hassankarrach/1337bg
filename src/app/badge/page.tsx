@@ -46,15 +46,20 @@ const StyledBadgePage = styled.div`
           padding: 10px 6px;
           border-radius: 5px;
         }
-        button {
-          width: 300px;
-          padding: 5px;
-          height: 40px;
-          background-color: var(--main_color_light);
-          outline: none;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
+        .DownloadContainer {
+          display: flex;
+          gap: 2px;
+          width : 100%;
+          button {
+            padding: 5px;
+            height: 40px;
+            flex : 1;
+            background-color: var(--main_color_light);
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+          }
         }
       }
     }
@@ -130,7 +135,10 @@ const Page = () => {
             <input type="text" placeholder="Linkedin url" />
             <input type="text" placeholder="Github url" />
             <input type="text" placeholder="Twitter url" />
-            <button>Generate Badge</button>
+            <div className="DownloadContainer">
+              <button>Download (.gif)</button>
+              <button>Download (.jpeg)</button>
+            </div>
           </div>
         </div>
 
@@ -153,9 +161,6 @@ const Page = () => {
             campus="Benguerir"
             level={level}
             nickname={nickname}
-            github_link={github_url}
-            linkedin_link={linkedin_url}
-            twitter_link={twitter_url}
           />
         </div>
       </div>

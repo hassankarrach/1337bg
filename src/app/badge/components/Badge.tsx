@@ -181,9 +181,6 @@ interface BadgProps {
   cursus: string;
   join_date: string;
   campus: string;
-  twitter_link: string;
-  github_link: string;
-  linkedin_link: string;
   banner_url: string;
   avatar_url: string;
 }
@@ -195,12 +192,9 @@ const Badg: React.FC<BadgProps> = ({
   campus,
   cursus,
   email,
-  github_link,
   join_date,
   level,
-  linkedin_link,
   login,
-  twitter_link,
   nickname
 }) => {
   return (
@@ -285,17 +279,6 @@ const Badg: React.FC<BadgProps> = ({
         </svg>
         <img src={_42_logo.src} className="org_item forty_two" />
         <img src={_um6p_logo.src} className="org_item" />
-      </div>
-      <div className="socials">
-        <a href={linkedin_link} target="_blank">
-          <FaLinkedin size={20} className="icon_" />
-        </a>
-        <a href={github_link} target="_blank">
-          <FaGithubSquare size={20} className="icon_" />
-        </a>
-        <a href={twitter_link} target="_blank">
-          <FaTwitterSquare size={20} className="icon_" />
-        </a>
       </div>
     </StyledBadg>
   );

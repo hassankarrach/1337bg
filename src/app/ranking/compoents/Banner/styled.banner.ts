@@ -16,16 +16,21 @@ export const StyledBanner = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  .MuteIcon{
-    position : absolute;
-    top : 2px;
-    right : 2px;
-    color : white;
-    cursor : pointer;
-    opacity : 0.6;
-    transition : opacity 0.3s;
-    &:hover{
-      opacity : 1;
+  top: 0;
+  @media only screen and (max-width: 767px) {
+    /* display : none; */
+    height: 40px;
+  }
+  .MuteIcon {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    color: white;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+    &:hover {
+      opacity: 1;
     }
   }
 
@@ -33,19 +38,28 @@ export const StyledBanner = styled.div`
     font-family: var(--Dot_font);
     color: red;
     position: absolute;
+    right: 0;
     white-space: nowrap;
-    animation: scroll-left 70s linear infinite; /* Adjust duration as needed */
-  }
-
-  @keyframes scroll-left {
-    0% {
-      transform: translateX(100%); /* Start off-screen to the right */
-    }
-    100% {
-      transform: translateX(-100%); /* End off-screen to the left */
+    animation-delay: 0s;
+    @media only screen and (max-width: 767px) {
+      font-size : 1.1rem;
     }
   }
 
-  .Dot {
+  .message {
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+
+    animation: my-animation 40s linear infinite;
+  }
+
+  @keyframes my-animation {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
   }
 `;
