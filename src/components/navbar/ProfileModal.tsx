@@ -30,6 +30,7 @@ const StyledProfileModal = styled.div<StyledProfileModalProps>`
     color: red;
     opacity: 0.5;
     font-family: var(--main_font);
+    z-index : 999;
     cursor: pointer;
     transition: 0.2s ease-in-out;
     &:hover {
