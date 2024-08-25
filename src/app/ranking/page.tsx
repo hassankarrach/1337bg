@@ -106,7 +106,7 @@ const Ranking: React.FC = () => {
         nextPage: data.length > 0 ? pageParam + 1 : undefined,
       };
     } catch (error) {
-      toast.error("Error fetching Students, try re-login!", { icon: false });
+      toast.error("Error fetching Students, trying again...", { icon: false });
       throw error;
     }
   };

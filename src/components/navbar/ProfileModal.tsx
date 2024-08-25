@@ -21,6 +21,21 @@ const StyledProfileModal = styled.div<StyledProfileModalProps>`
   height: 100%;
   display: flex;
   flex-direction: column;
+  .CloseIcon_elghalaba {
+    position: absolute;
+    right: 10px;
+    top: 3px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: red;
+    opacity: 0.5;
+    font-family: var(--main_font);
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 
   .User_Banner {
     width: 100%;
@@ -205,6 +220,9 @@ const ProfileModal: React.FC<Props> = ({ open, onClose, setIsOpen }) => {
   return (
     <CustomModal onClose={onClose} open={open} width="500px">
       <StyledProfileModal $banner_url={bannerUrl} tabIndex={-1}>
+        <span className="CloseIcon_elghalaba" onClick={() => setIsOpen(false)}>
+          X
+        </span>
         <div className="User_Banner">
           <div
             className="Profile_avatar"
