@@ -13,6 +13,7 @@ import { FaRegEdit, FaSignOutAlt, FaBell, FaCommentAlt } from "react-icons/fa";
 import GetVerified from "./GetVerified";
 import Profile from "@/app/ranking/compoents/profile";
 import ProfileModal from "./ProfileModal";
+import { toast } from "react-toastify";
 
 const get_username_from_email = (email: string) => {
   const username = email.split("@")[0];
@@ -50,6 +51,11 @@ const Navbar: React.FC = () => {
     signOut({ callbackUrl: "/" });
   };
 
+  const HandleFeatureClick = () => {
+    toast.info("Feature not implemented yet");
+    setAnchorEl(null);
+  }
+
   return (
     <StyledNavbar>
       <Menu
@@ -70,8 +76,8 @@ const Navbar: React.FC = () => {
         }}
       >
         <MenuItem onClick={handleOpenProfileModal}>My Profile</MenuItem>
-        <MenuItem onClick={handleCloseProfileDialog}>My Feedbacks</MenuItem>
-        <MenuItem onClick={handleCloseProfileDialog}>My Favorits</MenuItem>
+        <MenuItem onClick={HandleFeatureClick}>My Feedbacks</MenuItem>
+        <MenuItem onClick={HandleFeatureClick}>My Favorits</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
       {session?.user.verified === false && (

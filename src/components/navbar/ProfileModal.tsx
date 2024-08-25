@@ -167,6 +167,10 @@ const ProfileModal: React.FC<Props> = ({ open, onClose, setIsOpen }) => {
   };
 
   const handleUpdateProfile = async () => {
+    if (!session?.user.verified) {
+      toast.error("You need to be verified to update your profile.");
+      return;
+    }
     if (!session) return;
     try {
       const res = await fetch("/api/students/update", {
@@ -179,7 +183,7 @@ const ProfileModal: React.FC<Props> = ({ open, onClose, setIsOpen }) => {
       const data = await res.json();
 
       if (data.status === 200) {
-		invalidateUserCache();
+        invalidateUserCache();
         await signIn("42-school", { redirect: false });
         toast.success("Profile updated successfully.");
         setIsOpen(false);

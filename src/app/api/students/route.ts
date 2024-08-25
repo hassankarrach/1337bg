@@ -3,6 +3,22 @@ import { Campuses } from "@/data/Campuses";
 import { getGender } from "@/utils/get_gender";
 import { db } from "../../../../lib/db";
 
+// Define a type for the student fetched from MongoDB
+interface DbStudent {
+  user_name: string;
+  nickname: string | null;
+  banner_url: string | null;
+}
+
+// Define a type for the API response student
+interface ApiStudent {
+  user: {
+    login: string;
+    first_name: string;
+  };
+  // Add other properties from the API response as needed
+}
+
 export async function GET(req: Request) {
   // Extract query parameters
   const { searchParams } = new URL(req.url);
@@ -10,12 +26,6 @@ export async function GET(req: Request) {
   const page = searchParams.get("page");
   const campus_id = searchParams.get("campus_id");
   const allumni = searchParams.get("is_allumni");
-
-  console.log("started_date", started_date);
-  console.log(campus_id);
-  console.log(allumni);
-
-  //  [/v2/users] for alluminis, but it doesnt return levels.
 
   // Extract Authorization header
   const reqHeaders = new Headers(req.headers);
@@ -44,15 +54,15 @@ export async function GET(req: Request) {
     }
 
     // Parse and return the data
-    const ApiStudents = await response.json(); // get students from 42 API
-    const DbStudents = await db.user.findMany(); // get All Registered students from MongoDB
+    const ApiStudents: ApiStudent[] = await response.json(); // get students from 42 API
+    const DbStudents: DbStudent[] = await db.user.findMany(); // get All Registered students from MongoDB
 
     // Get All User_names from DbStudents
     const dbStudentsMap = new Map(
-      DbStudents.map((dbUser: any) => [dbUser.user_name, dbUser])
+      DbStudents.map((dbUser) => [dbUser.user_name, dbUser])
     );
 
-    const UpdatedStudentsData = ApiStudents.map((user: any, index: number) => {
+    const UpdatedStudentsData = ApiStudents.map((user, index) => {
       const dbStudent = dbStudentsMap.get(user.user.login); // Look up the MongoDB student by user_name
 
       return {
@@ -73,6 +83,3 @@ export async function GET(req: Request) {
     );
   }
 }
-
-// TBD : loop over ApiStudents and check if the user exists in DbStudents,
-// if yes then update the ApiStudent with the his extra data from DbStudents -_-
