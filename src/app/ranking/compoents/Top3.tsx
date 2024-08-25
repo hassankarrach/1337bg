@@ -36,7 +36,7 @@ const StyledPoolerItem = styled.div<PoolerItemProps>`
     rgba(44, 44, 48, 0) 100%
   );
   transition: 0.2s ease-in-out;
-  overflow : hidden;
+  overflow: hidden;
   &:hover {
     border-left: 3px solid var(--main_color);
   }
@@ -235,8 +235,8 @@ const StyledTop3 = styled.div`
     rgba(44, 44, 48, 0) 100%
   ); */
   width: 100%;
-  height : auto;
-  padding : 5px 0px;
+  flex: 1;
+  padding: 5px 0px;
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -333,20 +333,31 @@ const Top3 = () => {
     enabled: !!session?.accessToken && !!session,
   });
 
-  const addCampusName = (poolers: any[], campus: string): any[] => {
-    return poolers.map((pooler) => ({
-      ...pooler,
-      campus_name: campus,
-    }));
+  const {
+    data: top_rabat_pooler,
+    isError: isError_rabat,
+    isLoading: isLoading_rabat,
+  } = useQuery({
+    queryKey: ["top_rabat_pooler"],
+    queryFn: () => getTopPooler(75),
+    retry: 4,
+    refetchOnWindowFocus: false,
+    enabled: !!session?.accessToken && !!session,
+  });
+
+  const addCampusName = (pooler: any, campus: string): any => {
+    return pooler ? { ...pooler, campus_name: campus } : null;
   };
 
   useEffect(() => {
-    if (top_med_pooler && top_kh_pooler && top_bg_pooler) {
+    if (top_med_pooler && top_kh_pooler && top_bg_pooler && top_rabat_pooler) {
       const combinedPoolers = [
-        ...addCampusName(top_kh_pooler, "kh"),
-        ...addCampusName(top_med_pooler, "med"),
-        ...addCampusName(top_bg_pooler, "bg"),
-      ];
+        addCampusName(top_kh_pooler[0], "kh"),
+        addCampusName(top_med_pooler[0], "med"),
+        addCampusName(top_bg_pooler[0], "bg"),
+        addCampusName(top_rabat_pooler[0], "rabat"),
+      ].filter(Boolean); // This will remove any undefined entries
+
       combinedPoolers.sort((a, b) => b.level - a.level);
       const rankedPoolers = combinedPoolers.map((item, index) => ({
         ...item,
@@ -354,11 +365,11 @@ const Top3 = () => {
       }));
       setTop3Poolers(rankedPoolers);
     }
-  }, [top_med_pooler, top_kh_pooler]);
+  }, [top_med_pooler, top_kh_pooler, top_bg_pooler, top_rabat_pooler]);
 
   return (
     <StyledTop3>
-      <h1 className="header">Top 3 Campus Champs</h1>
+      <h1 className="header">Top Campus Champs</h1>
       <div className="Top3_container">
         {Top3Poolers[0]
           ? Top3Poolers.map((Pooler: any) => {
@@ -373,7 +384,7 @@ const Top3 = () => {
                 />
               );
             })
-          : Array.from({ length: 3 }).map((_, key) => (
+          : Array.from({ length: 4 }).map((_, key) => (
               <Skeleton
                 key={key}
                 animation={`${key % 2 ? "pulse" : "wave"}`}

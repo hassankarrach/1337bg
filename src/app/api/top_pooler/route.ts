@@ -17,7 +17,7 @@ export async function GET(req: Request) {
   try {
     // Fetch data from the 42 API
     const response = await fetch(
-      `https://api.intra.42.fr/v2/cursus_users?filter[campus_id]=${campus_id}&filter[begin_at]=2024-07-22T08:37:00.000Z&page[size]=1&sort=-level`,
+      `https://api.intra.42.fr/v2/cursus_users?filter[campus_id]=${campus_id}&filter[begin_at]=2024-08-26T09:37:00.000Z&page[size]=1&sort=-level`,
       {
         headers: {
           Authorization: `${AccessToken}`,

@@ -7,12 +7,12 @@ import Card from "./compoents/RankCard";
 import CustomDropDown from "@/components/drop_down/dropdown";
 import Profile from "./compoents/profile";
 import { useSession } from "next-auth/react";
-import { Skeleton } from "@mui/material";
+import { Select, Skeleton } from "@mui/material";
 // Icons
 import {
   FaSearch,
-  FaFemale,
-  FaMale,
+  FaFemale as FemaleIcon,
+  FaMale as MaleIcon,
   FaOdnoklassniki,
   FaRegWindowClose,
   FaGooglePlay,
@@ -21,7 +21,7 @@ import {
 // Types
 import { Promo, Cursuse } from "@/types/FortyTwo/types";
 // Data
-import { Campuses } from "@/data/Campuses";
+import { Campuses, Filters } from "@/data/Campuses";
 import { Cursuses } from "@/data/Cursuses";
 import { Promos } from "@/data/Promos";
 // Utils
@@ -37,6 +37,16 @@ import Top3 from "./compoents/Top3";
 import { pool_months } from "@/data/Pool_months";
 import useSessionEnd from "@/hooks/useSessionEnd";
 import LevelCalculator from "./compoents/LevelCalculator/LevelCalculator";
+
+import {
+  FaCcMastercard as MasterCard,
+  FaCcPaypal as Paypal,
+  FaCcVisa as Visa,
+  FaBitcoin as BitCoin,
+} from "react-icons/fa";
+import _Tom from "../../../public/tom.png";
+import useMobileDetection from "@/hooks/useMobile";
+import Stats from "./compoents/stats/Stats";
 
 const Ranking: React.FC = () => {
   const { data: session } = useSession();
@@ -142,7 +152,6 @@ const Ranking: React.FC = () => {
 
   useEffect(() => {
     if (data && session?.accessToken) {
-      // console.log(session);
       const newUsers = data.pages.flatMap((page) => page.data);
 
       const filteredUsers = newUsers.filter((user) => {
@@ -189,44 +198,65 @@ const Ranking: React.FC = () => {
                     renderItem={(item) => item.Name}
                     onChange={handlePromoChange}
                   />
-                </div>
-
-                <div className="SearchUser">
-                  <input
-                    placeholder="Search User :"
-                    // value={SearchTerm}
-                    onChange={handleSearchChange}
-                  ></input>
-                </div>
-                <div className="GenderFilter">
-                  <div
-                    className={`Male ${
-                      SelectedGender === "male" && "selected"
-                    }`}
-                    onClick={() => setSelectedGender("male")}
-                  >
-                    <span className="gender_type">Male</span>
+                  <div className="HideIt">
+                    <CustomDropDown
+                      data={Campuses}
+                      getValue={(item) => item.id.toString()}
+                      renderItem={(item) => item.name}
+                      onChange={() => {}}
+                      disabled
+                    />
                   </div>
-                  <div className="devider" />
-                  <div
-                    className={`Female ${
-                      SelectedGender === "female" && "selected"
-                    }`}
-                    onClick={() => setSelectedGender("female")}
-                  >
-                    <span className="gender_type">Female</span>
-                  </div>
-                  <div className="devider" />
-                  <div
-                    className={`All ${SelectedGender === "All" && "selected"}`}
-                    onClick={() => setSelectedGender("All")}
-                  >
-                    <span className="gender_type">All</span>
+                  <div className="HideIt">
+                    <CustomDropDown
+                      data={Filters}
+                      getValue={(item) => item.id.toString()}
+                      renderItem={(item) => `${item.name}`}
+                      onChange={() => {}}
+                      disabled
+                    />
                   </div>
                 </div>
-                <button className="ToMeButton" onClick={scrollToMe}>
-                  Me
-                </button>
+                <div className="Other_filters">
+                  <div className="SearchUser">
+                    <input
+                      placeholder="Search User :"
+                      // value={SearchTerm}
+                      onChange={handleSearchChange}
+                    ></input>
+                  </div>
+                  <div className="GenderFilter">
+                    <div
+                      className={`Male ${
+                        SelectedGender === "male" && "selected"
+                      }`}
+                      onClick={() => setSelectedGender("male")}
+                    >
+                      <span className="gender_type">Male</span>
+                    </div>
+                    <div className="devider" />
+                    <div
+                      className={`Female ${
+                        SelectedGender === "female" && "selected"
+                      }`}
+                      onClick={() => setSelectedGender("female")}
+                    >
+                      <span className="gender_type">Female</span>
+                    </div>
+                    <div className="devider" />
+                    <div
+                      className={`All ${
+                        SelectedGender === "All" && "selected"
+                      }`}
+                      onClick={() => setSelectedGender("All")}
+                    >
+                      <span className="gender_type">All</span>
+                    </div>
+                  </div>
+                  <button className="ToMeButton" onClick={scrollToMe}>
+                    Me
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -250,11 +280,15 @@ const Ranking: React.FC = () => {
                     if (!User || !User.user) return null;
                     if (User.Gender === "unknown") console.log(User);
 
-                    // console.log(User);
+                    if (User.user.login === "hkarrach") {
+                      console.log(User);
+                    }
+
                     return (
                       <Card
                         id={User.user.id}
                         FullName={User.user.usual_full_name}
+                        nickname={User.nickname}
                         Level={User.level}
                         Rank={User.originalRank}
                         UserName={User.user.login}
@@ -268,6 +302,7 @@ const Ranking: React.FC = () => {
                             : null
                         }
                         is_even={!(key % 2)}
+                        is_verified={User.verified}
                       />
                     );
                   })}
@@ -291,16 +326,12 @@ const Ranking: React.FC = () => {
             list_is_loading={!Users[0]}
             StudentData={SelectedUser}
           />
-          {SelectedPromo == 0 && (
+          <Stats />
+          {SelectedPromo == 0 ? (
+            <Top3 />
+          ) : (
             <>
-              {/* <LevelCalculator /> */}
-              <div className="tmp">
-                <h1>week 4 : progress overflow</h1>
-                <div className="VideoContainer">
-                  <video src="/video.mp4"  controls/>
-                </div>
-              </div>
-              <Top3 />
+              <LevelCalculator StudentData={SelectedUser} />
             </>
           )}
         </div>

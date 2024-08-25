@@ -1,14 +1,9 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import styled from 'styled-components';
-import { useSpring, animated } from '@react-spring/web';
-import Backdrop from '@mui/material/Backdrop';
-
-import { PiX } from 'react-icons/pi';
-//Tmp
-import TomGym from "../../../public/assets/under_dev.gif"
-import zIndex from '@mui/material/styles/zIndex';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import { useSpring, animated } from "@react-spring/web";
+import Backdrop from "@mui/material/Backdrop";
+import styled from "styled-components";
 
 interface FadeProps {
   children?: React.ReactElement;
@@ -17,21 +12,16 @@ interface FadeProps {
   onExited?: (node: HTMLElement, isAppearing: boolean) => void;
 }
 
-const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(props, ref) {
+const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(
+  props,
+  ref
+) {
   const { in: open, children, onEnter, onExited } = props;
   const style = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: open ? 1 : 0 },
-    onStart: () => {
-      if (open && onEnter) {
-        onEnter(null as any, true);
-      }
-    },
-    onRest: () => {
-      if (!open && onExited) {
-        onExited(null as any, true);
-      }
-    },
+    opacity: open ? 1 : 0,
+    config: { duration: 300 },
+    onStart: () => open && onEnter && onEnter(null as any, true),
+    onRest: () => !open && onExited && onExited(null as any, true),
   });
 
   return (
@@ -42,82 +32,54 @@ const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(props, re
 });
 
 const StyledModal = styled.div`
-  width : 100%;
-  height : 100%;
-  display : flex;
-  .left_Mod{
-    width : 40%;
-    height : 100%;
-    background-color : var(--light_grey);
-    background-image : url(${TomGym.src});
-    background-position : center;
-    background-size : cover;
-  }
-  .Right_Mod{
-    width : 60%;
-    height : 100%;
-    display : flex;
-    flex-direction : column;
-    justify-content  :center;
-    align-items : flex-start;
-    padding : 10px;
-    a{
-      text-decoration : none;
-      color : #5B8BD1;
-      font-weight :  500;
-    }
-    h1{
-      font-size : 1.5rem;
-      padding : 10px 0px;
-    }
-    p{
-      font-size : 0.9rem;
-    }
-  }
-`
+  width: 100%;
+  height: 100%;
+  display: flex;
+`;
 
 const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '600px',
-  height: '60vh',
-  bgcolor: 'background.paper',
-  border: 'none',
-  borderRadius: '6px',
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  bgcolor: "background.paper",
+  border: "none",
+  borderRadius: "6px",
   boxShadow: 24,
-  overflow: 'hidden',
+  overflow: "hidden",
 };
 
 interface Props {
   open: boolean;
   onClose: () => void;
+  width?: string;
+  height?: string;
+  children?: React.ReactNode;
 }
 
-
-
-const CustomModal: React.FC<Props> = ({ open, onClose }) => {
+const CustomModal: React.FC<Props> = ({
+  open,
+  onClose,
+  width = "600px",
+  height = "60vh",
+  children,
+}) => {
   return (
     <Modal
-      aria-labelledby="spring-modal-title"
-      aria-describedby="spring-modal-description"
+      aria-labelledby="custom-modal-title"
+      aria-describedby="custom-modal-description"
       open={open}
       onClose={onClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
-      BackdropProps={{ timeout: 500 }}
+      // BackdropProps={{ timeout: 500 }}
     >
       <Fade in={open}>
-        <Box sx={style}>
-          <StyledModal>
-            <div className='left_Mod'>
-            </div>
-            <div className='Right_Mod'>
-              <h1>Still Cooking.</h1>
-              <p>This website is currently under construction. Some features are still a work in progress (but they'll be up and running soon!). If you're interested in <a href='https://github.com/hassankarrach/1337bg'>contributing</a> or have any suggestions, feel free to drop me a line on Discord : @7ass1n</p>
-            </div>
-          </StyledModal>
+        <Box
+          sx={{ ...style, width, height, borderRadius: "8px" }}
+          tabIndex={-1}
+        >
+          <StyledModal>{children}</StyledModal>
         </Box>
       </Fade>
     </Modal>

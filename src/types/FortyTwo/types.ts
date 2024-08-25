@@ -1,9 +1,11 @@
 export type Promo = {
-    id: number;
-    Name: string;
-    start_date: string;
-    Prm_color: string;
-    sec_color: string
+  id: number;
+  Name: string;
+  start_date: string;
+  campus_start_dates?: { [campusId: number]: string };
+  disabled?: boolean;
+  Prm_color: string;
+  sec_color: string;
 }
 
 export type Cursuse = {

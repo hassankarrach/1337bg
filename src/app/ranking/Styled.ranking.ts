@@ -69,7 +69,7 @@ export const StyledRanking = styled.div`
         h1 {
           color: white;
           padding: 0px 5px;
-          padding-bottom : 10px;
+          padding-bottom: 10px;
           font-size: 1rem;
           font-family: var(--playable_font);
           font-weight: 100;
@@ -210,8 +210,9 @@ export const StyledRanking = styled.div`
       .Filters {
         width: 100%;
         display: flex;
+        flex-direction: column;
         align-items: flex-end;
-        justify-content: space-between;
+
         gap: 8px;
         padding-bottom: 10px;
         @media only screen and (max-width: 767px) {
@@ -220,118 +221,129 @@ export const StyledRanking = styled.div`
           padding-bottom: 0px;
         }
         .Select_container {
+          width: 100%;
           flex-grow: 1;
           color: white;
+          display: flex;
+          gap: 5px;
           @media only screen and (max-width: 767px) {
             width: 100%;
+            .HideIt{
+              display : none;
+            }
           }
         }
-        .SearchUser {
-          flex-grow: 1;
-          height: 100%;
-          display: flex;
-          align-items: flex-end;
-          position: relative;
-          @media only screen and (max-width: 767px) {
-            display: none;
+        .Other_filters {
+          width : 100%;
+          display : flex;
+          gap : 5px;
+          .SearchUser {
+            flex-grow: 1;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            position: relative;
+            @media only screen and (max-width: 767px) {
+              display: none;
+            }
+            input {
+              height: 38px;
+              width: 100%;
+              border-radius: 7px;
+              padding: 10px;
+              outline: none;
+              background-color: transparent;
+              border: 1px solid rgba(44, 44, 48, 1);
+              font-size: 0.9;
+              text-transform: uppercase;
+              color: rgba(255, 255, 255, 0.7);
+              &::placeholder {
+                color: rgba(255, 255, 255, 0.5);
+              }
+            }
           }
-          input {
+          .ToMeButton {
+            flex-grow: 1;
             height: 38px;
-            width: 100%;
             border-radius: 7px;
-            padding: 10px;
-            outline: none;
+            cursor: pointer;
+            border: 1px solid rgba(183, 251, 43, 0.4);
             background-color: transparent;
+            color: rgba(183, 251, 43, 0.5);
+            font-size: 0.9rem;
+            justify-self: right;
+            margin-left: auto;
+            padding: 0px 15px;
+            transition: 0.1s ease-in-out;
+            &:hover {
+              background-color: rgba(183, 251, 43, 0.07);
+            }
+            @media only screen and (max-width: 767px) {
+              width: 25%;
+              position: absolute;
+              bottom: 10px;
+              left: 5px;
+            }
+          }
+          .GenderFilter {
+            flex-grow: 1;
+            width: 300px;
+            height: 38px;
+            border-radius: 5px;
             border: 1px solid rgba(44, 44, 48, 1);
-            font-size: 0.9;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.7);
-            &::placeholder {
+            display: flex;
+            overflow: hidden;
+            @media only screen and (max-width: 767px) {
+              width: 70%;
+            }
+            span {
+              font-family: var(--main_font);
               color: rgba(255, 255, 255, 0.5);
             }
-          }
-        }
-        .ToMeButton {
-          flex-grow: 1;
-          height: 38px;
-          border-radius: 7px;
-          cursor: pointer;
-          border: 1px solid rgba(183, 251, 43, 0.4);
-          background-color: transparent;
-          color: rgba(183, 251, 43, 0.5);
-          font-size: 0.9rem;
-          justify-self: right;
-          margin-left: auto;
-          padding: 0px 15px;
-          transition: 0.1s ease-in-out;
-          &:hover {
-            background-color: rgba(183, 251, 43, 0.07);
-          }
-          @media only screen and (max-width: 767px) {
-            width: 25%;
-            position: absolute;
-            bottom: 10px;
-            left: 5px;
-          }
-        }
-        .GenderFilter {
-          flex-grow: 1;
-          width: 300px;
-          height: 38px;
-          border-radius: 5px;
-          border: 1px solid rgba(44, 44, 48, 1);
-          display: flex;
-          overflow: hidden;
-          @media only screen and (max-width: 767px) {
-            width: 70%;
-          }
-          span {
-            font-family: var(--main_font);
-            color: rgba(255, 255, 255, 0.5);
-          }
-          .Male {
-            color: #c3e8ff;
-            padding: 0px 10px;
-          }
+            .Male {
+              color: #c3e8ff;
+              padding: 0px 10px;
+            }
 
-          .Female {
-            color: #ffb6c1;
-          }
-          .All {
-            /* background-color : red; */
-          }
+            .Female {
+              color: #ffb6c1;
+            }
+            .All {
+              /* background-color : red; */
+            }
 
-          .Male,
-          .Female,
-          .All {
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0px 15px;
-            cursor: pointer;
-            @media only screen and (max-width: 767px) {
-              padding: 0px 2px;
+            .Male,
+            .Female,
+            .All {
+              flex-grow: 1;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding: 0px 15px;
+              cursor: pointer;
+              @media only screen and (max-width: 767px) {
+                padding: 0px 2px;
+              }
+              .GenderIcon {
+                size: 50px;
+              }
+              &.selected {
+                background-color: rgba(44, 44, 48, 1);
+              }
+              &:hover {
+                background-color: rgba(44, 44, 48, 1);
+              }
             }
-            .GenderIcon {
-              size: 50px;
+            .devider {
+              width: 1px;
+              height: 100%;
+              background: linear-gradient(
+                0deg,
+                rgba(44, 44, 48, 0) 0%,
+                rgba(44, 44, 48, 1) 50%,
+                rgba(44, 44, 48, 0) 100%
+              );
             }
-            &.selected {
-              background-color: rgba(44, 44, 48, 1);
-            }
-            &:hover {
-              background-color: rgba(44, 44, 48, 1);
-            }
-          }
-          .devider {
-            width: 1px;
-            height: 100%;
-            background: linear-gradient(
-              0deg,
-              rgba(44, 44, 48, 0) 0%,
-              rgba(44, 44, 48, 1) 50%,
-              rgba(44, 44, 48, 0) 100%
-            );
           }
         }
       }

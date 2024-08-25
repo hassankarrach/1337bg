@@ -1,6 +1,8 @@
 import { useSession } from "next-auth/react";
 import React, { FC, forwardRef, Ref } from "react";
 import styled from "styled-components";
+import { FaCheckSquare as VerifiedIcon } from "react-icons/fa";
+import useMobileDetection from "@/hooks/useMobile";
 
 interface StyledProps {
   $rank: number;
@@ -12,28 +14,28 @@ interface StyledProps {
 const StyledCard = styled.div<StyledProps>`
   width: 100%;
   min-height: 65px;
-  background-color: ${props => props.$is_even? "#212125" : "#2c2c30"};
+  background-color: ${(props) => (props.$is_even ? "#212125" : "#2c2c30")};
   /* background: ${(props) =>
     props.$is_user
       ? "linear-gradient(337deg, rgba(183,251,43,1) 30%, rgba(110,157,13,1) 100%);"
       : props.$rank === 1 || props.$rank === 2 || props.$rank === 3
       ? "linear-gradient(291deg, rgba(245,206,0,1) 0%, rgba(224,189,0,1) 100%);"
       : "#212125"}; */
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  /* border-left: 5px solid ${(props) =>
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-right: 5px solid ${(props) =>
     props.$rank === 1 || props.$rank === 2 || props.$rank === 3
       ? "#FFD700"
       : props.$is_user
-      ? "var(--main_color_dark)"
-      : "rgba(178, 162, 249, 0.6)"}; */
+      ? "var(--main_color_light)"
+      : "#2c2c30"};
   border-radius: 5px;
   display: flex;
   cursor: pointer;
   position: relative;
   transition: 0.3s ease-in-out;
   overflow: hidden;
-  @media only screen and (max-width: 767px){
-    height : 60px;
+  @media only screen and (max-width: 767px) {
+    height: 60px;
   }
 
   &:after {
@@ -62,13 +64,13 @@ const StyledCard = styled.div<StyledProps>`
     position: absolute;
     left: 0;
 
-    @media only screen and (max-width: 767px){
+    @media only screen and (max-width: 767px) {
       background: ${(props) =>
-      props.$is_user
-        ? "linear-gradient(90deg, rgba(183,251,43, 0.3) 0%, rgba(183,251,43,0) 25%);"
-        : props.$rank >= 1 && props.$rank <= 3
-        ? "linear-gradient(90deg, rgba(255,215,0,0.8) 0%, rgba(255,215,0,0) 25%);"
-        : ""};
+        props.$is_user
+          ? "linear-gradient(90deg, rgba(183,251,43, 0.3) 0%, rgba(183,251,43,0) 25%);"
+          : props.$rank >= 1 && props.$rank <= 3
+          ? "linear-gradient(90deg, rgba(255,215,0,0.8) 0%, rgba(255,215,0,0) 25%);"
+          : ""};
     }
   }
 
@@ -136,6 +138,15 @@ const StyledCard = styled.div<StyledProps>`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    .Card_FullName {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3px;
+      .VerifiedIcon {
+        color : var(--main_color_light);
+      }
+    }
 
     h1 {
       font-size: 1.1rem;
@@ -177,7 +188,7 @@ const StyledCard = styled.div<StyledProps>`
       font-size: 1rem;
       font-weight: 500;
       color: white;
-      opacity : 0.6;
+      opacity: 0.6;
     }
   }
 `;
@@ -186,11 +197,13 @@ interface Profile {
   id: number;
   FullName: string;
   UserName: string;
+  nickname: string;
   Rank: number;
   Level: number;
   img: string;
   IsUser: boolean;
   is_even: boolean;
+  is_verified: boolean;
   setSelectedId: (id: number) => void;
 }
 
@@ -203,12 +216,15 @@ const RankCard: FC<Profile & { forwardedRef: Ref<HTMLDivElement> }> = ({
   img,
   setSelectedId,
   IsUser,
+  is_verified,
   forwardedRef,
-  is_even
+  is_even,
+  nickname
 }) => {
   const { data: session } = useSession();
 
   const handleClick = () => {
+    console.log(is_verified);
     setSelectedId(id);
   };
 
@@ -263,7 +279,10 @@ const RankCard: FC<Profile & { forwardedRef: Ref<HTMLDivElement> }> = ({
       </div>
 
       <div className="Card_Data">
-        <h1 className="Card_FullName">{FullName}</h1>
+        <h1 className="Card_FullName">
+          {nickname ? nickname : FullName}
+          {is_verified && <VerifiedIcon className="VerifiedIcon" />}
+        </h1>
         <h2 className="Card_UserName">{UserName}</h2>
       </div>
 

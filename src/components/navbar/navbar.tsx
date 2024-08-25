@@ -5,11 +5,14 @@ import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
-//MaterialUI_Components
+// MaterialUI Components
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-//Icons
+// Icons
 import { FaRegEdit, FaSignOutAlt, FaBell, FaCommentAlt } from "react-icons/fa";
+import GetVerified from "./GetVerified";
+import Profile from "@/app/ranking/compoents/profile";
+import ProfileModal from "./ProfileModal";
 
 const get_username_from_email = (email: string) => {
   const username = email.split("@")[0];
@@ -19,22 +22,70 @@ const get_username_from_email = (email: string) => {
 const Navbar: React.FC = () => {
   const { data: session } = useSession();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
+  const [openGetVerified, setOpenGetVerified] = React.useState(false);
+  const [openProfileModal, setOpenProfileModal] = React.useState(false);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    setAnchorEl(event.currentTarget);
+
+  // Dialog Handlers
+  const handleGetVerified = () => {
+    setOpenGetVerified(true);
   };
-  const handleClose = () => {
+
+  const handleOpenProfileModal = () => {
+    setOpenProfileModal(true);
     setAnchorEl(null);
   };
 
-  const Handle_logout = () => {
+  const handleProfileClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!session) return;
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseProfileDialog = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
     setAnchorEl(null);
     signOut({ callbackUrl: "/" });
   };
 
   return (
     <StyledNavbar>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleCloseProfileDialog}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem onClick={handleOpenProfileModal}>My Profile</MenuItem>
+        <MenuItem onClick={handleCloseProfileDialog}>My Feedbacks</MenuItem>
+        <MenuItem onClick={handleCloseProfileDialog}>My Favorits</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      </Menu>
+      {session?.user.verified === false && (
+        <>
+          <GetVerified
+            open={openGetVerified}
+            onClose={() => {}}
+            setIsOpen={setOpenGetVerified}
+          />
+          <div className="GetVerified" onClick={handleGetVerified}>
+            <h1>Get Verified!</h1>
+          </div>
+        </>
+      )}
       {session && (
         <>
           <div className="Nav_item Messages">
@@ -46,7 +97,19 @@ const Navbar: React.FC = () => {
         </>
       )}
 
-      <div className="Profile">
+      <ProfileModal
+        open={openProfileModal}
+        onClose={() => {}}
+        setIsOpen={setOpenProfileModal}
+      />
+
+      <div
+        className="Profile"
+        onClick={handleProfileClick}
+        aria-controls={open ? "basic-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+      >
         <div className="UserInfo">
           <h4 className="User_name">{session?.user?.name}</h4>
           <div className="online">

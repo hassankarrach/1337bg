@@ -10,8 +10,14 @@ declare module "next-auth" {
       image: string;
       email: string;
       main_cursus: number;
+      campus_id : number;
       start_year : string;
+      pool_year : number;
+      pool_month : number;
       user_level : string;
+      verified: boolean;
+      banner_url: string;
+      nickname: string;
     };
   }
 }

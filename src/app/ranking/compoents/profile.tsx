@@ -15,6 +15,7 @@ import {
   FaFolder,
   FaThumbsUp,
   FaThumbsDown,
+  FaCheckSquare as VerifiedIcon,
 } from "react-icons/fa";
 //Utils
 import { HexToRgba } from "@/utils/HexToRgba";
@@ -28,7 +29,7 @@ import CustomModal from "@/components/modal/modal";
 import { useQuery } from "@tanstack/react-query";
 import { fetchUsers } from "@/utils/fetch_users";
 import Exams from "./Exams";
-import RncpItem from "./RncpItem";
+import { url } from "inspector";
 
 interface ComponentProps {
   Promo: Promo;
@@ -40,6 +41,7 @@ interface StyleProps {
   $second_color: string;
   $level: string;
   $promo_id: number;
+  $banner_url: string | null;
 }
 
 const UpdateUser = (
@@ -58,6 +60,7 @@ const UpdateUser = (
     intra_link: data.user.url,
     corrections_points: data.user.correction_point,
     is_pooler: data.user.pool_year === "2024",
+    nickname: data.nickname || null,
   };
   setUserData(ExtractedUserData);
 };
@@ -65,7 +68,7 @@ const UpdateUser = (
 const StyledProfile = styled.div<StyleProps>`
   width: 100%;
   /* flex : 1; */
-  height: ${(props) => (props.$promo_id == 0 ? "auto" : "100%")};
+  height: auto;
   background-color: #212125;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 5px;
@@ -95,12 +98,12 @@ const StyledProfile = styled.div<StyleProps>`
       height: 100%;
       position: absolute;
       content: "";
-      background-image: url(${BinaryBack.src});
+      background-image: url(${(props) => props.$banner_url || BinaryBack.src});
       background-size: cover;
       background-position: center;
-      opacity: 0.6;
-      z-index: 1;
+      opacity: ${(props) => (props.$banner_url ? 1 : 0.6)};
     }
+
     .Userkind {
       position: absolute;
       color: white;
@@ -114,6 +117,7 @@ const StyledProfile = styled.div<StyleProps>`
       position: absolute;
       right: 0;
       top: 5px;
+      z-index: 2;
 
       ._42logo {
         width: 30px;
@@ -148,7 +152,7 @@ const StyledProfile = styled.div<StyleProps>`
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 2;
+      z-index: 3;
       .Profile_Infos {
         display: flex;
         flex-direction: column;
@@ -179,6 +183,8 @@ const StyledProfile = styled.div<StyleProps>`
       position: absolute;
       right: 10px;
       bottom: 5px;
+      z-index: 2;
+
       span {
         font-size: 1.3rem;
         color: white;
@@ -299,13 +305,6 @@ const StyledProfile = styled.div<StyleProps>`
         }
       }
     }
-    .RNCP_progress {
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      padding: 15px 3px;
-      gap: 2px;
-    }
   }
 `;
 
@@ -323,6 +322,7 @@ const Profile: React.FC<ComponentProps> = ({
 
   useEffect(() => {
     if (StudentData != undefined) UpdateUser(StudentData, setUserData);
+    console.log(StudentData);
   }, [StudentData]);
 
   return (
@@ -331,6 +331,7 @@ const Profile: React.FC<ComponentProps> = ({
       $second_color={Promo.sec_color}
       $level={userData ? userData.level : "0"}
       $promo_id={Promo.id}
+      $banner_url={StudentData?.banner_url}
     >
       <CustomModal open={IsModalOpen} onClose={handleCloseModal} />
 
@@ -374,7 +375,14 @@ const Profile: React.FC<ComponentProps> = ({
                 </svg>
               )}
               <div className="Profile_Infos">
-                <h1 className="Profile_Full_Name">{userData?.full_name}</h1>
+                <h1 className="Profile_Full_Name">
+                  {userData && userData.nickname
+                    ? userData.nickname
+                    : userData?.full_name}
+                  {StudentData?.verified && (
+                    <VerifiedIcon  size={18} style={{marginLeft : '5px'}}/>
+                  )}
+                </h1>
                 <span className="Profile_UserName">{userData?.login}</span>
               </div>
             </div>
@@ -445,16 +453,6 @@ const Profile: React.FC<ComponentProps> = ({
             </span>
           </div>
         </div>
-        {!userData?.is_pooler && !list_is_loading && (
-          <>
-            <span>RNCP 7 Progress :</span>
-            <div className="RNCP_progress">
-              <RncpItem value={userData?.level || " "} by="21" title="Level" />
-              <RncpItem value={"0"} by="2" title="Events" />
-              <RncpItem value={"0"} by="4" title="Experiances" />
-            </div>
-          </>
-        )}
       </div>
 
       <div className="Feedback_feature">

@@ -1,7 +1,9 @@
 "use client";
-
-import React from "react";
+import { useSession } from "next-auth/react";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 import styled from "styled-components";
+
 // import { create_user } from "../../../actions/user_action";
 
 const StyledTest = styled.div`
@@ -17,17 +19,36 @@ const StyledTest = styled.div`
 `;
 
 const page = () => {
-    // const onClick = async () => {
-    //     try {
-    //       await create_user();
-    //     } catch (error) {
-    //       console.error("Error creating user:", JSON.stringify(error, null, 2));
-    //     }
-    //   };
-      
+  // create user
+  const { data: session } = useSession();
+
+  //hit post request to create user /api/students/create
+  const fetchData = async () => {
+    if (session) {
+      try {
+        //
+        const res = await fetch(
+          "https://api.intra.42.fr/v2/cursus_users?&filter[campus_id]=75&filter[begin_at]=2024-08-26T09:37:00.000Z&page[size]=100&page[number]=1&sort=-level",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${session?.accessToken}`,
+            },
+          }
+        );
+        const data = await res.json();
+        console.log(data);
+      } catch (error) {
+        toast.error("Error creating user");
+      }
+    } else {
+      toast.error("Please login first");
+    }
+  };
+
   return (
     <StyledTest>
-      {/* <button onClick={onClick}>create user</button> */}
+      <button onClick={fetchData}>Create Me</button>
     </StyledTest>
   );
 };

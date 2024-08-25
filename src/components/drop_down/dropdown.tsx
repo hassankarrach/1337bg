@@ -1,19 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { Select as BaseSelect, SelectProps, SelectRootSlotProps } from '@mui/base/Select';
-import { Option as BaseOption } from '@mui/base/Option';
-import { styled } from '@mui/system';
+import React, { useEffect, useState } from "react";
+import {
+  Select as BaseSelect,
+  SelectProps,
+  SelectRootSlotProps,
+} from "@mui/base/Select";
+import { Option as BaseOption } from "@mui/base/Option";
+import { styled } from "@mui/system";
 import { FaBookmark } from "react-icons/fa";
-
 
 interface CustomDropDownProps<T> {
   data: T[];
   getValue: (item: T) => string;
   renderItem: (item: T) => React.ReactNode;
   onChange: (value: string) => void;
+  disabled?: boolean;
 }
 
-export default function CustomDropDown<T>({ data, getValue, renderItem, onChange }: CustomDropDownProps<T>) {
-  const [selectedItem, setSelectedItem] = useState<string | null>(getValue(data[0]));
+export default function CustomDropDown<T>({
+  data,
+  getValue,
+  renderItem,
+  onChange,
+  disabled,
+}: CustomDropDownProps<T>) {
+  const [selectedItem, setSelectedItem] = useState<string | null>(
+    getValue(data[0])
+  );
 
   const handleChange = (event: any, newValue: string | null) => {
     setSelectedItem(newValue);
@@ -21,25 +33,28 @@ export default function CustomDropDown<T>({ data, getValue, renderItem, onChange
       onChange(newValue);
     }
   };
-  
 
   return (
-      <Select value={selectedItem} onChange={handleChange}>
-        {data.map((item) => {
-          const value = getValue(item);
-          return (
-            <Option key={value} value={value}>
-              <FaBookmark color={(item as any).sec_color} className='IconOption'/>
-              {renderItem(item)}
-            </Option>
-          );
-        })}
-      </Select>
+    <Select value={selectedItem} onChange={handleChange} >
+      {data.map((item, key) => {
+        const value = getValue(item);
+        return (
+          <Option key={value} value={value} disabled={disabled}>
+            {/* <FaBookmark
+              color={(item as any).sec_color}
+              className="IconOption"
+            /> */}
+            {renderItem(item)}
+            {disabled && key !== 0 && <span className="soon">Soon</span>}
+          </Option>
+        );
+      })}
+    </Select>
   );
 }
 
 function Select<TValue extends string>(props: SelectProps<TValue, false>) {
-  const slots: SelectProps<TValue, false>['slots'] = {
+  const slots: SelectProps<TValue, false>["slots"] = {
     root: Button,
     listbox: Listbox,
     popup: Popup,
@@ -51,7 +66,7 @@ function Select<TValue extends string>(props: SelectProps<TValue, false>) {
 
 const Button = React.forwardRef(function Button<TValue extends string>(
   props: SelectRootSlotProps<TValue, false>,
-  ref: React.ForwardedRef<HTMLButtonElement>,
+  ref: React.ForwardedRef<HTMLButtonElement>
 ) {
   const { ...other } = props;
   return (
@@ -61,8 +76,12 @@ const Button = React.forwardRef(function Button<TValue extends string>(
   );
 });
 
-const StyledButton = styled('button')`
-  font-family: 'IBM Plex Sans', sans-serif;
+interface StyledOptionProps {
+  disabled?: boolean;
+}
+
+const StyledButton = styled("button")<StyledOptionProps>`
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 0.875rem;
   box-sizing: border-box;
   min-width: 200px;
@@ -85,7 +104,7 @@ const StyledButton = styled('button')`
 
   /* Add arrow icon */
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     right: 12px;
     top: 50%;
@@ -100,11 +119,14 @@ const StyledButton = styled('button')`
   &[aria-expanded="true"]::after {
     transform: translateY(-50%) rotate(-135deg);
   }
+
+  @media (max-width: 768px) {
+    display: ${(props) => (props.disabled ? "none" : "block")};
+  }
 `;
 
-
-const Listbox = styled('ul')`
-  font-family: 'IBM Plex Sans', sans-serif;
+const Listbox = styled("ul")`
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 0.875rem;
   box-sizing: border-box;
   padding: 3px;
@@ -113,12 +135,12 @@ const Listbox = styled('ul')`
   border-radius: 8px;
   overflow: auto;
   outline: 0px;
-  background: rgba(10,11,20, 0.8);
-  border: 1px solid rgba(44,44,48,1);
+  background: rgba(10, 11, 20, 0.8);
+  border: 1px solid rgba(44, 44, 48, 1);
   color: white;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  font-family : var(--main_font);
+  font-family: var(--main_font);
   /* box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05); */
 `;
 
@@ -160,6 +182,17 @@ const Option = styled(BaseOption)`
 
   &[aria-disabled="true"] {
     color: #dae2ed;
+    cursor: not-allowed;
+    color: var(--Par_grey);
+    display: flex;
+    justify-content: space-between;
+    .soon {
+      background-color: var(--Par_grey);
+      color: white;
+      font-weight: 400;
+      padding: 2px 5px;
+      border-radius: 3px;
+    }
   }
 
   &:hover:not([aria-disabled="true"]) {
@@ -168,6 +201,6 @@ const Option = styled(BaseOption)`
   }
 `;
 
-const Popup = styled('div')`
-  z-index : 999;
+const Popup = styled("div")`
+  z-index: 999;
 `;
