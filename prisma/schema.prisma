@@ -18,8 +18,8 @@ model User {
   user_name          String     @unique
   nickname           String     @unique
   banner_url         String?
-  curr_level         Int
-  last_level         Int
+  curr_level         Float
+  last_level         Float
   is_verified        Boolean    @default(false)
   likes_given        Reaction[] @relation("likes_given")
   likes_received     Reaction[] @relation("likes_received")
