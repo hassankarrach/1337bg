@@ -30,6 +30,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchUsers } from "@/utils/fetch_users";
 import Exams from "./Exams";
 import { url } from "inspector";
+import { toast } from "react-toastify";
 
 interface ComponentProps {
   Promo: Promo;
@@ -317,7 +318,7 @@ const Profile: React.FC<ComponentProps> = ({
   const [userData, setUserData] = useState<User | null>(null);
   const [IsModalOpen, setIsModalOpen] = useState<boolean>(false);
   //Modal
-  const handleOpenModal = () => setIsModalOpen(true);
+  const handleOpenModal = () => toast.info("This feature is not available yet");
   const handleCloseModal = () => setIsModalOpen(false);
 
   useEffect(() => {

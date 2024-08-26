@@ -54,7 +54,14 @@ const Navbar: React.FC = () => {
   const HandleFeatureClick = () => {
     toast.info("Feature not implemented yet");
     setAnchorEl(null);
-  }
+  };
+
+  const handleCloseProfileModal = () => {
+    setOpenProfileModal(false);
+  };
+  const handleCloseGetVerified = () => {
+    setOpenGetVerified(false);
+  };
 
   return (
     <StyledNavbar>
@@ -84,7 +91,7 @@ const Navbar: React.FC = () => {
         <>
           <GetVerified
             open={openGetVerified}
-            onClose={() => {}}
+            onClose={() => handleCloseGetVerified()}
             setIsOpen={setOpenGetVerified}
           />
           <div className="GetVerified" onClick={handleGetVerified}>
@@ -105,7 +112,7 @@ const Navbar: React.FC = () => {
 
       <ProfileModal
         open={openProfileModal}
-        onClose={() => {}}
+        onClose={() => handleCloseProfileModal()}
         setIsOpen={setOpenProfileModal}
       />
 
