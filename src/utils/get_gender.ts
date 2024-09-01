@@ -6,6 +6,7 @@ const NamesGender: Map<string, string> = new Map([
     ['Karkeh', 'male'],
     ['Hasna', 'female'],
     ['Oumhani', 'female'],
+    ['Mahamat', 'male'],
     ['Oubaid', 'male'],
     ['Fath Eddine', 'male'],
     ['Nassro Allah', 'male'],

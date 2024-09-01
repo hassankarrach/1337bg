@@ -188,6 +188,59 @@ const Ranking: React.FC = () => {
 
       <div className="Container">
         <div className="LeaderBoardContainer">
+
+          {
+            SelectedPromo == 0 && 
+
+            <div className="BannerPlaceHolder">
+            <div className="grd_main" />
+            {/* <img className="gif" src={_banner.src} /> */}
+            <h4>
+              Weekly <br /> Top <br /> Performers.
+            </h4>
+            <div className="Item M">
+              <div
+                className="Avatar"
+                style={{
+                  backgroundImage:
+                    "url(https://cdn.intra.42.fr/users/a24180d3450ba5ed211f17fac66002ab/abouagou.jpg)",
+                }}
+              />
+              <div className="Infos">
+                <h1>@pip</h1>
+                <span className="DescSpan">Top M Pooler.</span>
+              </div>
+            </div>
+            <div className="Item F">
+              <div
+                className="Avatar"
+                style={{
+                  backgroundImage:
+                    "url(https://cdn.intra.42.fr/users/38260694b35385db61ab94bc58bed1ee/aschalh.jpg)",
+                }}
+              />
+              <div className="Infos">
+                <h1>@aschalh</h1>
+                <span className="DescSpan">Top F Pooler.</span>
+              </div>
+            </div>
+            <div className="Item">
+              <div
+                className="Avatar"
+                style={{
+                  backgroundImage:
+                    "url(https://cdn.intra.42.fr/users/df9bf96d11a85be98252e9dce843699d/obendaou.jpg  )",
+                }}
+              />
+              <div className="Infos">
+                <h1>Oumaima Bendaoud</h1>
+                <span className="DescSpan spec">Role Model of the Week: @abahja & @aakhrif's pick</span>
+              </div>
+            </div>
+        </div>
+          }
+        
+        
           <div className="Ranking">
             <div className="Options">
               <div className="Filters">

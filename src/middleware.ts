@@ -8,7 +8,7 @@ export async function middleware(req: NextRequest) {
     req,
     // secret: process.env.NEXTAUTH_SECRET as string,
     // cookieName: "__Secure-authjs.session-token",
-    secureCookie : true,
+    // secureCookie : true,
   });
 
 
