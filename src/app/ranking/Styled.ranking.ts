@@ -102,7 +102,7 @@ export const StyledRanking = styled.div`
       }
       .Ranking {
         width: 100%;
-        height: 100%;
+        height: 90%;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -118,7 +118,7 @@ export const StyledRanking = styled.div`
           gap: 5px;
           @media only screen and (max-width: 767px) {
             padding: 0px;
-            padding-top: 45px;
+            padding-top: 5px;
             overflow-y: unset;
             padding-right: 0px;
             padding-bottom: 100px;
@@ -228,15 +228,15 @@ export const StyledRanking = styled.div`
           gap: 5px;
           @media only screen and (max-width: 767px) {
             width: 100%;
-            .HideIt{
-              display : none;
+            .HideIt {
+              display: none;
             }
           }
         }
         .Other_filters {
-          width : 100%;
-          display : flex;
-          gap : 5px;
+          width: 100%;
+          display: flex;
+          gap: 5px;
           .SearchUser {
             flex-grow: 1;
             height: 100%;

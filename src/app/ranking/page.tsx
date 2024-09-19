@@ -17,6 +17,7 @@ import {
   FaRegWindowClose,
   FaGooglePlay,
   FaFileUpload,
+  FaWhatsappSquare,
 } from "react-icons/fa";
 // Types
 import { Promo, Cursuse } from "@/types/FortyTwo/types";
@@ -47,6 +48,9 @@ import {
 import _Tom from "../../../public/tom.png";
 import useMobileDetection from "@/hooks/useMobile";
 import Stats from "./compoents/stats/Stats";
+import Banner from "./compoents/Banner/Banner";
+import CustomModal from "@/components/modal/modal";
+import Footer from "@/components/TmpFooter/Footer";
 
 const Ranking: React.FC = () => {
   const { data: session } = useSession();
@@ -188,6 +192,7 @@ const Ranking: React.FC = () => {
 
       <div className="Container">
         <div className="LeaderBoardContainer">
+          <Banner />
           <div className="Ranking">
             <div className="Options">
               <div className="Filters">
@@ -328,12 +333,15 @@ const Ranking: React.FC = () => {
           />
           <Stats />
           {SelectedPromo == 0 ? (
-            <Top3 />
+            <>
+              <Top3 />
+            </>
           ) : (
             <>
               <LevelCalculator StudentData={SelectedUser} />
             </>
           )}
+          {!session ? "" : session?.user.main_cursus != 21 ? <Footer /> : ""}
         </div>
       </div>
     </StyledRanking>
