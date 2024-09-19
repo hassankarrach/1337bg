@@ -341,7 +341,6 @@ const Ranking: React.FC = () => {
               <LevelCalculator StudentData={SelectedUser} />
             </>
           )}
-          {!session ? "" : session?.user.main_cursus != 21 ? <Footer /> : ""}
         </div>
       </div>
     </StyledRanking>
