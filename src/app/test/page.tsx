@@ -23,32 +23,32 @@ const page = () => {
   const { data: session } = useSession();
 
   // hit post request to create user /api/students/create
-  const fetchData = async () => {
-    if (session) {
-      try {
-        //
-        const res = await fetch(
-          "https://api.intra.42.fr/v2/users/ostouayr",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${session?.accessToken}`,
-            },
-          }
-        );
-        const data = await res.json();
-        console.log(data);
-      } catch (error) {
-        toast.error("Error creating user");
-      }
-    } else {
-      toast.error("Please login first");
-    }
-  };
+  // const fetchData = async () => {
+  //   if (session) {
+  //     try {
+  //       //
+  //       const res = await fetch(
+  //         "https://api.intra.42.fr/v2/users/ostouayr",
+  //         {
+  //           method: "GET",
+  //           headers: {
+  //             Authorization: `Bearer ${session?.accessToken}`,
+  //           },
+  //         }
+  //       );
+  //       const data = await res.json();
+  //       console.log(data);
+  //     } catch (error) {
+  //       toast.error("Error creating user");
+  //     }
+  //   } else {
+  //     toast.error("Please login first");
+  //   }
+  // };
 
   return (
     <StyledTest>
-      <button onClick={fetchData}>Create Me</button> 
+      {/* <button onClick={fetchData}>Create Me</button>  */}
     </StyledTest>
   );
 };
