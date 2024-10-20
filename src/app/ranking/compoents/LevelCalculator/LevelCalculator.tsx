@@ -66,7 +66,7 @@ const LevelCalculator: React.FC<LevelCalculatorProps> = ({ StudentData }) => {
       setCurrLevel(Number(calculatedLevel.toFixed(2)));
     } else {
       // Handle case where no project is selected
-      console.error("No project selected");
+      // console.error("No project selected");
     }
   };
   

@@ -192,7 +192,6 @@ const Ranking: React.FC = () => {
 
       <div className="Container">
         <div className="LeaderBoardContainer">
-          <Banner />
           <div className="Ranking">
             <div className="Options">
               <div className="Filters">
@@ -285,10 +284,6 @@ const Ranking: React.FC = () => {
                     if (!User || !User.user) return null;
                     if (User.Gender === "unknown") console.log(User);
 
-                    if (User.user.login === "hkarrach") {
-                      console.log(User);
-                    }
-
                     return (
                       <Card
                         id={User.user.id}
@@ -332,15 +327,7 @@ const Ranking: React.FC = () => {
             StudentData={SelectedUser}
           />
           <Stats />
-          {SelectedPromo == 0 ? (
-            <>
-              <Top3 />
-            </>
-          ) : (
-            <>
-              <LevelCalculator StudentData={SelectedUser} />
-            </>
-          )}
+          <LevelCalculator StudentData={SelectedUser} />
         </div>
       </div>
     </StyledRanking>

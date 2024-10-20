@@ -1,27 +1,13 @@
 import { Promo } from "@/types/FortyTwo/types";
 
 export const Promos: Promo[] = [
-    { //Third hh
+    {
         id: 0,
         Name: "White Promo",
         Prm_color: "#8891a1",
         sec_color: "#b2bbca",
-        start_date: "2024-08-26T09:37:00.000Z"
+        start_date: "2024-10-21T09:13:00.000Z"
     },
-    // { //Sec
-    //     id: 0,
-    //     Name: "White Promo",
-    //     Prm_color: "#8891a1",
-    //     sec_color: "#b2bbca",
-    //     start_date: "2024-07-22T08:37:00.000Z"
-    // },
-    // { // FIRST_POOL
-    //     id: 0,
-    //     Name: "White Promo",
-    //     Prm_color: "#DBDBD5",
-    //     sec_color: "#E8E9E2",
-    //     start_date: "2024-06-24T08:37:00.000Z"
-    // },
     {
         id: 1,
         Name: "Black Promo",

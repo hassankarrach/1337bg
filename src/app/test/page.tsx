@@ -20,35 +20,35 @@ const StyledTest = styled.div`
 
 const page = () => {
   // create user
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
 
-  //hit post request to create user /api/students/create
-  // const fetchData = async () => {
-  //   if (session) {
-  //     try {
-  //       //
-  //       const res = await fetch(
-  //         "https://api.intra.42.fr/v2/cursus_users?&filter[campus_id]=75&filter[begin_at]=2024-08-26T09:37:00.000Z&page[size]=100&page[number]=1&sort=-level",
-  //         {
-  //           method: "GET",
-  //           headers: {
-  //             Authorization: `Bearer ${session?.accessToken}`,
-  //           },
-  //         }
-  //       );
-  //       const data = await res.json();
-  //       console.log(data);
-  //     } catch (error) {
-  //       toast.error("Error creating user");
-  //     }
-  //   } else {
-  //     toast.error("Please login first");
-  //   }
-  // };
+  // hit post request to create user /api/students/create
+  const fetchData = async () => {
+    if (session) {
+      try {
+        //
+        const res = await fetch(
+          "https://api.intra.42.fr/v2/users/ostouayr",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${session?.accessToken}`,
+            },
+          }
+        );
+        const data = await res.json();
+        console.log(data);
+      } catch (error) {
+        toast.error("Error creating user");
+      }
+    } else {
+      toast.error("Please login first");
+    }
+  };
 
   return (
     <StyledTest>
-      {/* <button onClick={fetchData}>Create Me</button> */}
+      <button onClick={fetchData}>Create Me</button> 
     </StyledTest>
   );
 };

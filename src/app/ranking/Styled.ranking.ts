@@ -102,7 +102,7 @@ export const StyledRanking = styled.div`
       }
       .Ranking {
         width: 100%;
-        height: 90%;
+        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -255,7 +255,6 @@ export const StyledRanking = styled.div`
               background-color: transparent;
               border: 1px solid rgba(44, 44, 48, 1);
               font-size: 0.9;
-              text-transform: uppercase;
               color: rgba(255, 255, 255, 0.7);
               &::placeholder {
                 color: rgba(255, 255, 255, 0.5);

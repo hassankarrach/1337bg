@@ -715,6 +715,9 @@ const NamesGender: Map<string, string> = new Map([
     ['halyna', 'female'],
     ['hamid', 'male'],
     ['hamza', 'male'],
+    ['Hamza', 'male'],
+    ['Aadel', 'male'],
+
     ['hana', 'female'],
     ['hanane', 'female'],
     ['hanna', 'female'],
@@ -4431,6 +4434,8 @@ const NamesGender: Map<string, string> = new Map([
     ['Kaouthar', 'female'],
     ['Mouhssine', 'male'],
     ['M\'hammed', 'male'],
+    ['Alaeeddine', 'male'],
+    ['Fatima Ezzahrae', 'female'],
     ['Anir', 'male'],
     ['Nouh', 'male'],
     ['Aziddine', 'male'],
