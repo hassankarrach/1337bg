@@ -161,10 +161,16 @@ const Ranking: React.FC = () => {
       const filteredUsers = newUsers.filter((user) => {
         const matchesGender =
           SelectedGender === "All" || user.Gender === SelectedGender;
-        const matchesSearchTerm =
+          const matchesSearchTerm =
           SearchTerm === "" ||
-          user.user.usual_full_name
-            .toLowerCase()
+          user.user?.usual_full_name
+            ?.toLowerCase()
+            .includes(SearchTerm.toLowerCase()) ||
+          user.user?.login
+            ?.toLowerCase()
+            .includes(SearchTerm.toLowerCase()) ||
+          user.nickname
+            ?.toLowerCase()
             .includes(SearchTerm.toLowerCase());
         return matchesGender && matchesSearchTerm;
       });

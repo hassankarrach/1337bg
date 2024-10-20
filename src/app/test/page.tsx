@@ -20,7 +20,7 @@ const StyledTest = styled.div`
 
 const page = () => {
   // create user
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
 
   // hit post request to create user /api/students/create
   // const fetchData = async () => {
