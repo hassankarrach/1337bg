@@ -36,7 +36,7 @@ export const StyledLevelCalculator = styled.div`
       display: flex;
       flex-direction: column;
       gap: 3px;
-      max-height : 300px;
+      max-height : 100px;
       overflow-y : scroll;
       //hide scrollbar
       scrollbar-width: none; /* Firefox */

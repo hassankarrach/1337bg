@@ -51,6 +51,8 @@ import Stats from "./compoents/stats/Stats";
 import Banner from "./compoents/Banner/Banner";
 import CustomModal from "@/components/modal/modal";
 import Footer from "@/components/TmpFooter/Footer";
+import Logtime from "./compoents/LogTime/Logtime";
+import { Session } from "inspector";
 
 const Ranking: React.FC = () => {
   const { data: session } = useSession();
@@ -92,7 +94,7 @@ const Ranking: React.FC = () => {
   const fetchUsers = async ({ pageParam = 1 }) => {
     try {
       const response = await fetch(
-        `/api/students?started_date=${Promos[SelectedPromo].start_date}&page=${pageParam}`,
+        `/api/students?started_date=${Promos[SelectedPromo].start_date}&page=${pageParam}&alumni=true`,
         {
           headers: {
             Authorization: `Bearer ${session?.accessToken}`,
@@ -332,12 +334,13 @@ const Ranking: React.FC = () => {
             list_is_loading={!Users[0]}
             StudentData={SelectedUser}
           />
-          <Stats />
-          <LevelCalculator StudentData={SelectedUser} />
+          {/* <Stats /> */}
+          <LevelCalculator user_level={Number(session?.user.user_level) || 0}/>
+          <Logtime/>
         </div>
       </div>
     </StyledRanking>
   );
 };
 
-export default Ranking;
+  export default Ranking;

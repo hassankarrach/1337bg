@@ -2,13 +2,13 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-"scripts": {
-  "dev": "next dev",
-  "build": "prisma generate && next build",
-  "start": "next start",
-  "lint": "next lint",
-  "prisma:generate": "prisma generate"
-},
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prisma:generate": "prisma generate"
+  },
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
@@ -40,7 +40,7 @@
     "babel-plugin-styled-components": "^2.1.4",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
-    "typescript": "^5.4.5",
-    "prisma": "^5.18.0"
+    "prisma": "^5.18.0",
+    "typescript": "^5.4.5"
   }
 }

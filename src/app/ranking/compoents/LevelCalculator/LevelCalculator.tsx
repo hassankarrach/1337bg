@@ -24,12 +24,10 @@ interface ProjectItem {
 }
 
 interface LevelCalculatorProps {
-  StudentData: {
-    level: number;
-  };
+  user_level : number;
 }
 
-const LevelCalculator: React.FC<LevelCalculatorProps> = ({ StudentData }) => {
+const LevelCalculator: React.FC<LevelCalculatorProps> = ({ user_level }) => {
   // Data
   const [projects, setProjects] = useState<Project[]>([]);
   // NewProject properties
@@ -47,8 +45,8 @@ const LevelCalculator: React.FC<LevelCalculatorProps> = ({ StudentData }) => {
 
   useEffect(() => {
     setProjects(ProjectsData);
-    if (StudentData) setCurrLevel(StudentData.level);
-  }, [StudentData]);
+    if (user_level) setCurrLevel(user_level);
+  }, [user_level]);
 
   const handleCalculate = () => {
     if (selectedProject) { // Ensure selectedProject is not null
@@ -99,7 +97,7 @@ const LevelCalculator: React.FC<LevelCalculatorProps> = ({ StudentData }) => {
     setProjectList([]);
     setIncludeCoalition(false);
     setScore(0);
-    setCurrLevel(StudentData.level);
+    setCurrLevel(user_level);
     setSelectedProject(null);
   };
 

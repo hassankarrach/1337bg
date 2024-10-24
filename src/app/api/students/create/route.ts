@@ -30,6 +30,7 @@ export async function POST(req: NextRequest) {
     !bannerUrl.endsWith(".gif") &&
     !bannerUrl.endsWith(".jpeg") &&
     !bannerUrl.endsWith(".png") &&
+    !bannerUrl.endsWith(".jpg") &&
     bannerUrl !== ""
   ) {
     return NextResponse.json(
