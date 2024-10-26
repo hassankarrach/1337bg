@@ -52,6 +52,7 @@ const Page = () => {
 	  isLoading: false,
 	  autoClose: 3000,
 	});
+	setIsUserRegistered(true);
   };
 
   const get_last_joined_users = async () => {
@@ -73,21 +74,18 @@ const Page = () => {
 	}
   };
 
-  useEffect(()=>{
-	const urlParams = new URLSearchParams(window.location.search);
-	const redirected_to_join = urlParams.get("redirected_to_join");
-	if (redirected_to_join)
-	{
-		toast.info("You signed in successfully.");
-		// handle_register();
-	}
-  },[]);
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirected_to_join = urlParams.get("redirected_to_join");
+    if (redirected_to_join && session) {
+      toast.info("You signed in successfully. Joining...");
+      handle_register();
+    }
+  }, [session]);
 
   useEffect(() => {
 	// extract the query params
-	
-	if (session)
-		get_last_joined_users();
+	if (session) get_last_joined_users();
   }, [session]);
 
   return (
