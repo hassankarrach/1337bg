@@ -167,7 +167,7 @@ const Logtime = () => {
           </div>
           <div className="req_el">
             <FaCalendar />
-            <span>08/27 - 09/27</span>
+            <span>09/27 - 10/27</span>
           </div>
         </div>
         {CalculationModeActivated ? (

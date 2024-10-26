@@ -14,19 +14,37 @@ datasource db {
 }
 
 model User {
-  id                 String     @id @default(cuid()) @map("_id")
-  user_name          String     @unique
-  nickname           String     @unique
+  id                 String              @id @default(cuid()) @map("_id")
+  user_name          String              @unique
+  nickname           String?             @unique
+  image_url          String? // due to 42's copyright, this will be used only for the integration week event.
   banner_url         String?
   curr_level         Float
   last_level         Float
-  is_verified        Boolean    @default(false)
-  likes_given        Reaction[] @relation("likes_given")
-  likes_received     Reaction[] @relation("likes_received")
-  feedbacks_given    Feedback[] @relation("feedbacks_given")
-  feedbacks_received Feedback[] @relation("feedbacks_received")
-  created_at         DateTime   @default(now())
-  updated_at         DateTime   @updatedAt
+  is_verified        Boolean             @default(false)
+  likes_given        Reaction[]          @relation("likes_given")
+  likes_received     Reaction[]          @relation("likes_received")
+  feedbacks_given    Feedback[]          @relation("feedbacks_given")
+  feedbacks_received Feedback[]          @relation("feedbacks_received")
+  points_given       PointsTransaction[] @relation("points_given") // Transactions where user gave points
+  points_received    PointsTransaction[] @relation("points_received") // Transactions where user received points
+  created_at         DateTime            @default(now())
+  updated_at         DateTime            @updatedAt
+  is_registered_IW   Boolean             @default(false)
+  is_admin_IW        Boolean             @default(false)
+  total_points_IW    Int                 @default(0)
+}
+
+model PointsTransaction {
+  id         String   @id @default(cuid()) @map("_id")
+  admin_id   String // References the admin user giving points
+  admin      User     @relation("points_given", fields: [admin_id], references: [id])
+  user_id    String // References the user receiving points
+  user       User     @relation("points_received", fields: [user_id], references: [id])
+  points     Int // Amount of points given
+  created_at DateTime @default(now()) // Timestamp of the transaction
+
+  @@index([admin_id, user_id]) // Optional: index for faster lookup
 }
 
 model Reaction {
