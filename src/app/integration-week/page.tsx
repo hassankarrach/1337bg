@@ -17,7 +17,7 @@ interface User {
   image_url: string;
 }
 
-const page = () => {
+const Page = () => {
   const { data: session } = useSession();
   const [Users, setUsers] = useState<User[]>([]);
   const [UsersCount, setUsersCount] = useState(0);
@@ -129,4 +129,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
