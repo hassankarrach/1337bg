@@ -68,6 +68,7 @@ const Page = () => {
 		const data = await res.json();
 		setUsers(data.users);
 		setUsersCount(data.users.length);
+
 		//check if the user in the list
 		setIsUserRegistered(data.users.find((user: User) => user.user_name === session?.user?.login));
 	} catch (error) {
@@ -76,22 +77,24 @@ const Page = () => {
   };
 
   useEffect(() => {
-	if (hasFetchedData.current) return; 
+	// if (hasFetchedData.current) return; 
 
     const urlParams = new URLSearchParams(window.location.search);
     const redirected_to_join = urlParams.get("redirected_to_join");
     if (redirected_to_join && session) {
       toast.info("You signed in successfully. Joining...");
       handle_register();
+	  // remove the query param
+	  window.history.replaceState({}, document.title, window.location.pathname);
     }
 
-	hasFetchedData.current = true;
+	// hasFetchedData.current = true;
   }, [session]);
 
   useEffect(() => {
 	// extract the query params
 	get_last_joined_users();
-  }, []);
+  }, [session]);
 
   return (
     <StyledPage>
@@ -99,6 +102,7 @@ const Page = () => {
       <div className="Left"></div>
       <div className="Right">
         <h1>Integration Week</h1>
+		<h1>{isUserRegistered ? 'true' : 'false'}</h1>
         <p>
           Integration Week is a week-long event. It is a great opportunity for
           you to meet your fellow peers and get to know the school and the
