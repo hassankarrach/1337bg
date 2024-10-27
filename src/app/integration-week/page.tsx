@@ -53,6 +53,7 @@ const Page = () => {
 	  autoClose: 3000,
 	});
 	setIsUserRegistered(true);
+	get_last_joined_users();
   };
 
   const get_last_joined_users = async () => {

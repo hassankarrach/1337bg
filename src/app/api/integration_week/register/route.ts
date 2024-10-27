@@ -43,6 +43,7 @@ export async function POST(req: NextRequest){
 				curr_level: Number(session.user.user_level),
 				last_level: Number(session.user.user_level),
 				user_name: session.user.login as string,
+				nickname : session.user.login as string,
 				banner_url: "",
 				image_url: session.user.image as string,
 				is_verified: false,

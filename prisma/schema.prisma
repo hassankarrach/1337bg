@@ -16,7 +16,7 @@ datasource db {
 model User {
   id                 String              @id @default(cuid()) @map("_id")
   user_name          String              @unique
-  nickname           String?             @unique
+  nickname           String              @unique
   image_url          String? // due to 42's copyright, this will be used only for the integration week event.
   banner_url         String?
   curr_level         Float
