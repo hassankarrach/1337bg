@@ -10,7 +10,7 @@ export async function POST(req: NextRequest){
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 	}
 
-	if (session.user.pool_year !== 2024)
+	if (session.user.pool_year !== 2023)
 		return NextResponse.json({ error: "Only New students can Join." }, { status: 401 });
 
 	//check if the user is already registered

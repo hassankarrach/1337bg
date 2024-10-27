@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { StyledPage } from "./page.styled";
 import { FaSignInAlt } from "react-icons/fa";
@@ -22,6 +22,9 @@ const Page = () => {
   const [Users, setUsers] = useState<User[]>([]);
   const [UsersCount, setUsersCount] = useState(0);
   const [isUserRegistered, setIsUserRegistered] = useState(false);
+
+    // Ref to ensure URL parsing and fetching only happen once
+	const hasFetchedData = useRef(false);
 
   const handle_register = async () => {
     const callbackUrl = "/integration-week?redirected_to_join=true";
@@ -60,9 +63,6 @@ const Page = () => {
 	try {
 		const res = await fetch("/api/integration_week/players", {
 			method: "GET",
-			headers: {
-				Authorization: `Bearer ${session?.accessToken}`,
-			},
 		});
 
 		const data = await res.json();
@@ -76,18 +76,22 @@ const Page = () => {
   };
 
   useEffect(() => {
+	if (hasFetchedData.current) return; 
+
     const urlParams = new URLSearchParams(window.location.search);
     const redirected_to_join = urlParams.get("redirected_to_join");
     if (redirected_to_join && session) {
       toast.info("You signed in successfully. Joining...");
       handle_register();
     }
+
+	hasFetchedData.current = true;
   }, [session]);
 
   useEffect(() => {
 	// extract the query params
-	if (session) get_last_joined_users();
-  }, [session]);
+	get_last_joined_users();
+  }, [Users]);
 
   return (
     <StyledPage>

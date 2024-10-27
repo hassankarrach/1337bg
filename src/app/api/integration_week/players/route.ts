@@ -7,11 +7,11 @@ import { db } from "../../../../../lib/db";
 // Get Users
 
 export async function GET(req: NextRequest){
-	const session = await getServerSession({ req, ...authOptions });
+	// const session = await getServerSession({ req, ...authOptions });
 
-	if (!session) {
-		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-	}
+	// if (!session) {
+	// 	return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+	// }
 
 	const users = await db.user.findMany({
 		where: {
