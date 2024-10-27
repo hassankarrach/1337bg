@@ -91,7 +91,7 @@ const Page = () => {
   useEffect(() => {
 	// extract the query params
 	get_last_joined_users();
-  }, [Users]);
+  }, []);
 
   return (
     <StyledPage>
