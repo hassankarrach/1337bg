@@ -10,99 +10,102 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { get_last_joined } from "./utils/user_utils";
 import { db } from "../../../lib/db";
-
-// User type
-interface User {
-  user_name: string;
-  image_url: string;
-}
+import { Player } from "./leaderboard/types/user";
 
 const Page = () => {
   const { data: session } = useSession();
-  const [Users, setUsers] = useState<User[]>([]);
+  const [Users, setUsers] = useState<Player[]>([]);
   const [UsersCount, setUsersCount] = useState(0);
   const [isUserRegistered, setIsUserRegistered] = useState(false);
 
-    // Ref to ensure URL parsing and fetching only happen once
-	const hasFetchedData = useRef(false);
+  // Ref to ensure URL parsing and fetching only happen once
+  const hasFetchedData = useRef(false);
 
   const handle_register = async () => {
     const callbackUrl = "/integration-week?redirected_to_join=true";
     if (!session) {
-    	await signIn("42-school", { callbackUrl });
-    	return;
+      await signIn("42-school", { callbackUrl });
+      return;
     }
-	const loadingToastId = toast.loading("Joining...");
+    const loadingToastId = toast.loading("Joining...");
 
-    const res = await fetch("/api/integration_week/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({}),
-    });
+    const res = await fetch(
+      `/api/integration_week/register?user_name=${session.user.name}&profile_pic=${session.user.image}&login=${session.user.login}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    
     const data = await res.json();
 
-    if (data.error) toast.update(loadingToastId, {
-		render: data.error,
-		type: "error",
-		isLoading: false,
-		autoClose: 3000,
-	});
-    else toast.update(loadingToastId, {
-	  render: "You have joined successfully.",
-	  type: "success",
-	  isLoading: false,
-	  autoClose: 3000,
-	});
-	setIsUserRegistered(true);
-	get_last_joined_users();
+    if (data.error)
+      toast.update(loadingToastId, {
+        render: data.error,
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
+    else
+      toast.update(loadingToastId, {
+        render: "You have joined successfully.",
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
+
+    setIsUserRegistered(true);
+    get_last_joined_users();
   };
 
   const get_last_joined_users = async () => {
-	try {
-		const res = await fetch("/api/integration_week/players", {
-			method: "GET",
-		});
+    try {
+      const res = await fetch("/api/integration_week/players", {
+        method: "GET",
+      });
 
-		const data = await res.json();
-		setUsers(data.users);
-		setUsersCount(data.users.length);
+      const data = await res.json();
+      setUsers(data.users);
+      setUsersCount(data.users.length);
 
-		//check if the user in the list
-		setIsUserRegistered(data.users.find((user: User) => user.user_name === session?.user?.login));
-	} catch (error) {
-		console.log(error);
-	}
+      //check if the user in the list
+      setIsUserRegistered(
+        data.users.find(
+          (user: Player) => user.user_name === session?.user?.login
+        )
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
-
   useEffect(() => {
-	// if (hasFetchedData.current) return; 
+    // if (hasFetchedData.current) return;
 
     const urlParams = new URLSearchParams(window.location.search);
     const redirected_to_join = urlParams.get("redirected_to_join");
     if (redirected_to_join && session) {
       toast.info("You signed in successfully. Joining...");
       handle_register();
-	  // remove the query param
-	  window.history.replaceState({}, document.title, window.location.pathname);
+      // remove the query param
+      window.history.replaceState({}, document.title, window.location.pathname);
     }
 
-	// hasFetchedData.current = true;
+    // hasFetchedData.current = true;
   }, [session]);
-
   useEffect(() => {
-	// extract the query params
-	get_last_joined_users();
+    // extract the query params
+    get_last_joined_users();
   }, [session]);
 
   return (
     <StyledPage>
       <ToastContainer />
+
       <div className="Left"></div>
       <div className="Right">
         <h1>Integration Week</h1>
-		<h1>{isUserRegistered ? 'true' : 'false'}</h1>
         <p>
           Integration Week is a week-long event. It is a great opportunity for
           you to meet your fellow peers and get to know the school and the
@@ -113,19 +116,38 @@ const Page = () => {
         </p>
 
         <div className="Bottom">
-          <button className="JoinButton" onClick={handle_register} disabled={isUserRegistered}>
+          <button
+            className="JoinButton"
+            onClick={handle_register}
+            disabled={isUserRegistered}
+          >
             {isUserRegistered ? "Joined" : "Join"}
             <FaSignInAlt style={{ marginLeft: "10px" }} />
           </button>
           <div className="LastJoined">
             <div className="AvatarsGrp">
-              {Users[0] && <div className="Avatar" style={{backgroundImage : `url(${Users[0].image_url})`}}></div>}
-			  {Users[1] && <div className="Avatar" style={{backgroundImage : `url(${Users[1].image_url})`}}></div>}
-			  {Users[2] && <div className="Avatar" style={{backgroundImage : `url(${Users[2].image_url})`}}></div>}
+              {Users[0] && (
+                <div
+                  className="Avatar"
+                  style={{ backgroundImage: `url(${Users[0].profilePic})` }}
+                ></div>
+              )}
+              {Users[1] && (
+                <div
+                  className="Avatar"
+                  style={{ backgroundImage: `url(${Users[1].profilePic})` }}
+                ></div>
+              )}
+              {Users[2] && (
+                <div
+                  className="Avatar"
+                  style={{ backgroundImage: `url(${Users[2].profilePic})` }}
+                ></div>
+              )}
 
-			  {
-				UsersCount > 3 && <div className="Avatar Last">+{UsersCount}</div>
-			  }
+              {UsersCount > 3 && (
+                <div className="Avatar Last">+{UsersCount}</div>
+              )}
             </div>
 
             {UsersCount > 0 && <p>{UsersCount} students have joined.</p>}

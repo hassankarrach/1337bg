@@ -18,8 +18,8 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ profile, user }: any) {
       if (!profile || !user) return false;
-      if (profile.campus[0].id !== 21 && profile.campus[0].id !== 75)
-        return false; // limit access to only BG campus (RB tmp)
+      if (profile.campus[0].id !== 21)
+        return false; // limit access to only BG campus.
       return true;
     },
     async jwt({ token, account, profile }: any) {
