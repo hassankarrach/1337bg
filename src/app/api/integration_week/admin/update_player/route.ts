@@ -1,26 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../../../../lib/db";
-
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../../../../../lib/authOptions";
 
 // update player by action (ADD | SUB | BAN)
 export async function POST(req: NextRequest) {
     // should protect here 
-
-    // const session = await getServerSession({ req, ...authOptions });
-
+    const session = await getServerSession({ req, ...authOptions });
     // // Check if user is authorized
-    // if (!session) {
-    //     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    // }
-
+    if (!session) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     // // Only allow admins to proceed
-    // const Admins_usernames = ["hkarrach", "admin2", "admin3"];
-    // if (!Admins_usernames.includes(session.user.login as string)) {
-    //     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    // }
-
-
-
+    const Admins_usernames = process.env.NEXT_PUBLIC_ADMINS?.split(",") || [];
+    if (!Admins_usernames.includes(session.user.login as string)) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     const data = await req.json();
     const { action, user_id, points , winners} = data;
 

@@ -73,13 +73,18 @@ const StyledTop3 = styled.div`
   justify-content: center;
 `;
 
-const Top3 = (users : Player[]) => {
-  return <StyledTop3>
+interface Top3Props {
+  users: Player[];
+}
 
-    <Profile user={users[0]}/>
-    <Profile user={users[1]}/>
-    <Profile user={users[2]}/>
-  </StyledTop3>;
+const Top3: React.FC<Top3Props> = ({ users }) => {
+  return (
+    <StyledTop3>
+      {users.slice(0, 3).map((user, index) => (
+        <Profile key={index} user={user} />
+      ))}
+    </StyledTop3>
+  );
 };
 
 

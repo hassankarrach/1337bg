@@ -8,12 +8,21 @@ export const StyledLeaderboard = styled.div`
 	min-height : 100vh;
 	padding-left : 5%;
 
+	@media (max-width: 768px) {
+		padding-left : 0px;
+		display : flex;
+		flex-direction : column;
+		.Banner{
+			height : 100%;
+		}
+	}
+
 	.Banner{
 		width : 100%;
 		height : 250px;
 		background-color : #212125;
-		background-image: linear-gradient(0deg, rgba(255, 215, 0, 0.8) 0%, rgba(255, 215, 0, 0.8) 100%), url('/integration-week.jpg');
-		background-position : center 60%;
+		background-image: linear-gradient(0deg, rgba(255,217,0,1) 0%, rgba(255,217,0,0) 100%), url('/integration-week2.png');
+		background-position : center 40%;
 		background-size : cover;
 		overflow : hidden;
 		position : relative;
@@ -26,10 +35,13 @@ export const StyledLeaderboard = styled.div`
 			color : transparent;
 			text-transform : uppercase;
 			position : absolute;
+			font-size : 5rem;
 			left : 15px;
 			//text outline
 			-webkit-text-stroke-width: 1px;
-			-webkit-text-stroke-color: rgba(153, 129, 0, 1);
+			-webkit-text-stroke-color: rgba(255,255, 255, 1);
+
+		font-size : 1.9rem;
 		}
 		display : flex;
 		justify-content : center;
@@ -102,6 +114,7 @@ export const StyledLeaderboard = styled.div`
 			gap : 5px;
 			align-items : center;
 		}
+
 		.Leaderboard{
 			padding-top : 10px;
 			min-height : 100vh;

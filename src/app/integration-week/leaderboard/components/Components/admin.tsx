@@ -12,17 +12,36 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import zIndex from "@mui/material/styles/zIndex";
 import UserCard from "./UserCard";
-import { Games, Game } from "../../types/user";
+import { Games, Game, Player } from "../../types/user";
 import { toast } from "react-toastify";
+import { Autocomplete, TextField } from "@mui/material";
+import { FaHammer } from 'react-icons/fa';
+
 
 interface AdminDrawerProps {
   isAdmin: boolean;
 }
 
+const SearchInput = styled.input`
+  width: 100%; // Full width
+  padding: 10px; // Padding for better touch targets
+  margin-bottom: 20px; // Space below the input
+  border: 1px solid #ccc; // Light border
+  border-radius: 4px; // Rounded corners
+  font-size: 16px; // Larger font for better readability
+
+  &:focus {
+    outline: none; // Remove outline
+    border-color: #007bff; // Change border color on focus
+  }
+`;
+
 const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [GameType, setGameType] = React.useState("Solo");
   const [Users, setUsers] = React.useState([]);
+
+  const [searchQuery, setSearchQuery] = React.useState("");
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -94,33 +113,31 @@ const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
       cursor: pointer;
     }
 
-
     .GamesPanel {
       height: 100%;
       width: 500px;
       display: flex;
       flex-direction: column;
 
-      .Infos{
-      display : flex;
-      flex-direction : row-reverse;
-      .Pts{
-        display : flex;
-        padding : 5px;
-        justify-content : center;
-        align-items : center;
-        color: var(--Par_grey);
-        span{
-          font-size: 1.2rem;
-        font-weight: 400;
+      .Infos {
+        display: flex;
+        flex-direction: row-reverse;
+        .Pts {
+          display: flex;
+          padding: 5px;
+          justify-content: center;
+          align-items: center;
+          color: var(--Par_grey);
+          span {
+            font-size: 1.2rem;
+            font-weight: 400;
+          }
         }
-       
-}
-    }
+      }
 
       .placeHolder {
         width: auto;
-        padding : 5px;
+        padding: 5px;
         height: 40px;
         border-radius: 5px;
         background-color: var(--light_grey);
@@ -135,6 +152,21 @@ const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
           filter: brightness(0.95);
         }
       }
+      .AddWinner {
+          position  :absolute;
+          display  : flex;
+          justify-content : center;
+          align-items : center;
+          border-radius : 5px;
+          right  : 10px;
+          bottom : 10px;
+          width: 100px;
+          height: 40px;
+          background-color: var(--light_grey);
+          border: 1px solid var(--Par_grey);
+          cursor: pointer;
+          font-size: 1.1rem;
+        }
       .SoloGames {
         display: flex;
         flex-direction: column;
@@ -143,21 +175,36 @@ const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
           display: flex;
           justify-content: flex-start;
           flex-wrap: wrap;
-          gap : 3px;
+          gap: 3px;
         }
 
-        .AddWinner{
-          width : 100%;
-          height : 40px;
-          background-color : var(--light_grey);
-          border : 1px solid var(--Par_grey);
-          border-radius : 2px;
-          cursor: pointer;
-          font-size : 1.1rem;
-        }
+
       }
     }
   `;
+
+  const HandleGivePoints = () => {
+    try {
+      fetch("/api/integration_week/admin/update_player", {
+        method: "POST",
+        body: JSON.stringify({
+          action: "ADD",
+          user_id: SelectedUser,
+          points: SelectedGame.pts,
+          winners: SelectedWinners,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          toast.success("Points added successfully");
+        });
+    } catch (err) {
+      toast.error("An error occured while updating the player");
+    } finally {
+      setSelectedWinners([]);
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedGame = Games.find((game) => game.name === e.target.value);
@@ -187,23 +234,40 @@ const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
         <div className="SoloGames">
           <span>Select Winners:</span>
           <div className="Players">
-            {
-              SelectedWinners.map((winner) => (
-                <div key={winner} className="placeHolder" onClick={()=>{
-                  setSelectedWinners(SelectedWinners.filter((w) => w !== winner))
-                }}>
-                  {winner}
-                </div>
-              ))
-            }
+            {SelectedWinners.map((winner) => (
+              <div
+                key={winner}
+                className="placeHolder"
+                onClick={() => {
+                  setSelectedWinners(
+                    SelectedWinners.filter((w) => w !== winner)
+                  );
+                }}
+              >
+                {winner}
+              </div>
+            ))}
           </div>
-
-          <button className="AddWinner" onClick={handleOpen}>Add winner</button>
+          <Autocomplete
+            disablePortal
+            options={Users.map((user: Player) => user.user_name)}
+            onChange={(event, newValue) => {
+              if (newValue) HanleSelectUser(newValue);
+            }}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="User" />}
+          />
         </div>
 
-        <button  className="SubButton">
+        <button className="SubButton" onClick={HandleGivePoints}>
           give points
         </button>
+
+        <button className="AddWinner" onClick={()=>{
+          window.location.href = "http://localhost:3000/admin";
+        }}>
+            <FaHammer size={24}/>
+          </button>
       </div>
     </StyledAdminPanel>
   );
@@ -216,6 +280,8 @@ const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
     display: flex;
     justify-content: flex-end;
     padding: 5px 10px;
+    z-index :9;
+
     Button {
       background-color: rgba(255, 215, 0, 0);
       backdrop-filter: blur(4px);
@@ -236,42 +302,57 @@ const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
     height: 80%;
     background-color: white;
     display: flex;
+    flex-direction: column;
+    gap: 5px;
     justify-content: center;
     align-items: center;
     position: absolute;
     top: 50%;
     left: 50%;
+    padding: 10px 5px;
     transform: translate(-50%, -50%);
     border-radius: 5px;
     padding: 10px;
-    z-index: 99999;
+    overflow-y: scroll;
   `;
 
   const HanleSelectUser = (user: string) => {
     setSelectedUser(user);
     // check max is 7 ....
 
-
     // ADD USER TO THE WINNERS
     // check if user is already in the list
-    if (SelectedWinners.includes(user) || SelectedWinners.length >= MaxPerTeam) {
+    if (
+      SelectedWinners.includes(user) ||
+      SelectedWinners.length >= MaxPerTeam
+    ) {
       toast.error("User is already in the list or max is reached");
     } else {
       setSelectedWinners([...SelectedWinners, user]);
     }
     handleClose();
-  }
+  };
+
+  const filteredUsers = Users.filter((user: Player) =>
+    user.user_name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const PlayerModal = (
     <Modal open={open} onClose={handleClose}>
       <StyledModal>
-        {Users.map((user: { user_name: string }) => (
+        <input
+          name="body"
+          // onChange={handleChange}
+          placeholder="placeholder"
+        />
+
+        {filteredUsers.map((user: Player, key) => (
           <UserCard
-            key={user.user_name}
-            full_name="test"
+            key={key}
+            full_name={user.full_name}
             login={user.user_name}
-            totalPts="10"
-            img="dasf"
+            totalPts={user.total_points_IW}
+            img={user.image_url}
             onSelectUser={HanleSelectUser}
           />
         ))}
@@ -286,7 +367,6 @@ const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
         <FaUserShield size={25} className="Icon" />
         Admin Panel
       </Button>
-
 
       <Drawer
         anchor="bottom"

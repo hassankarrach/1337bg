@@ -96,6 +96,8 @@ const Page = () => {
 
     // hasFetchedData.current = true;
   }, [session]);
+
+
   useEffect(() => {
     // extract the query params
     get_last_joined_users();

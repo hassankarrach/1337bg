@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledUserCard = styled.div`
+const StyledUserCard = styled.div<{img : string}>`
   width: 100%;
-  height: 50px;
+  min-height: 50px;
   border: 1px solid var(--Par_grey);
   border-radius: 3px;
   display: flex;
@@ -15,7 +15,7 @@ const StyledUserCard = styled.div`
     width: 50px;
     height: 100%;
     border-left: 1px solid var(--Par_grey);
-    background-image: url("https://www.w3schools.com/howto/img_avatar.png");
+  background-image: url(${props => props.img});
     background-size: cover;
     background-position: center;
   }
@@ -62,19 +62,19 @@ const UserCard = ({
   full_name: string;
   login: string;
   img: string;
-  totalPts: string;
+  totalPts: number;
   onSelectUser: (user: string) => void;
 }) => {
   return (
-    <StyledUserCard onClick={()=>{onSelectUser(login)}}>
+    <StyledUserCard onClick={()=>{onSelectUser(login)}} img={img}>
       <div className="UserAvatar"></div>
       <div className="UserData">
-        <span className="full_name">Hassan Karrach</span>
+        <span className="full_name">{full_name}</span>
         <span className="user_name">{login}</span>
       </div>
 
       <div className="TotalPts">
-        <span>10</span>
+        <span>{totalPts}</span>
       </div>
     </StyledUserCard>
   );

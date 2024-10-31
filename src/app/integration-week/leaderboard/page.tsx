@@ -2,21 +2,18 @@
 
 import React, { use, useEffect, useState } from "react";
 import { StyledLeaderboard } from "./Styled.leaderboard";
-import { toast } from "react-toastify";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Top3 from "./components/Components/Top3";
 import ForwardedRankCard from "./components/Components/RankCard";
 import VsCard from "./components/Components/VsCard";
 import AdminDrawer from "./components/Components/admin";
 import { Player } from "./types/user";
+import { useSession } from "next-auth/react";
 
 const ge_users = async () => {
   try {
-    const res = await fetch("/api/integration_week/players", {
-      method: "GET",
-    });
-
+    const res = await fetch("/api/integration_week/players", { method: "GET" });
     const data = await res.json();
     return data || [];
   } catch (error) {
@@ -26,37 +23,44 @@ const ge_users = async () => {
 };
 
 const Page = () => {
+  const { data: session } = useSession();
+  
   const [users, setUsers] = useState<Player[]>([]);
   const [activeSection, setActiveSection] = useState("LeaderBoard");
+  const [isAdmin, setIsAdmin] = useState(false);
 
-    useEffect(() => {
-    	ge_users().then((data) => {
-    		if (data) {
-    			setUsers(data.users);
-    		}
-    	});
-    }, []);
+  useEffect(() => {
+    ge_users().then((data) => {
+      if (data) setUsers(data.users);
+    });
+  }, []);
 
-  const handleSectionChange = (section: string) => {
-    setActiveSection(section);
-  };
+  const handleSectionChange = (section: string) => setActiveSection(section);
+  const Top3Players = users.slice(0, 3);
+
+  useEffect(() => {
+    if (session) {
+      const admins = process.env.NEXT_PUBLIC_ADMINS?.split(",") || [];
+      setIsAdmin(admins.includes(session.user.login));
+    }
+  }, [session]);
 
   return (
     <StyledLeaderboard>
       <ToastContainer />
-      <AdminDrawer isAdmin={true}/>
+      <AdminDrawer isAdmin={isAdmin} />
 
       <div className="Banner">
-        {/* <Top3 /> */}
-        <h1>Leaderboard</h1>
+      <Top3 users={Top3Players} />
+        {/* <h1>Leaderboard</h1> */}
       </div>
       <div className="Container">
-        <div className="Options">
+        {/* <div className="Options">
           <div className="Switch">
             <div
               onClick={() => handleSectionChange("LeaderBoard")}
               className={`SwitchEl LeaderBoard ${
-                activeSection == "LeaderBoard" && "active"
+                activeSection === "LeaderBoard" && "active"
               }`}
             >
               LeaderBoard
@@ -64,36 +68,53 @@ const Page = () => {
             <div
               onClick={() => handleSectionChange("Games")}
               className={`SwitchEl Games ${
-                activeSection == "Games" && "active"
+                activeSection === "Games" && "active"
               }`}
             >
               Games
             </div>
           </div>
-        </div>
-        {activeSection == "LeaderBoard" && (
+        </div> */}
+        {activeSection === "LeaderBoard" && (
           <div className="Leaderboard">
-            {users &&
-              users.map((user: Player, index) => {
-                return (
-                  <ForwardedRankCard
-                    id={1}
-                    FullName={user.full_name}
-                    Level={user.total_points_IW}
-                    UserName={user.user_name}
-                    nickname=""
-                    Rank={user.rank}
-                    img={user.image_url}
-                    is_even
-                    is_verified={false}
-                    IsUser
-                    setSelectedId={() => {}}
-                  />
-                );
-              })}
+            {users.map((user: Player, index) => (
+              <ForwardedRankCard
+                key={index}
+                id={1}
+                FullName={user.full_name}
+                Level={user.total_points_IW}
+                UserName={user.user_name}
+                nickname=""
+                Rank={user.rank}
+                img={user.image_url}
+                is_even={index % 2 === 0}
+                is_verified={false}
+                IsUser
+                setSelectedId={() => {}}
+              />
+            ))}
+
+            {
+              Array.from({ length: 40 - users.length }).map((_, index) => (
+                <ForwardedRankCard
+                  key={index}
+                  id={1}
+                  FullName=""
+                  Level={0}
+                  UserName=""
+                  nickname=""
+                  Rank={0}
+                  img=""
+                  is_even={index % 2 === 0}
+                  is_verified={false}
+                  IsUser
+                  setSelectedId={() => {}}
+                />
+              ))
+            }
           </div>
         )}
-        {activeSection == "Games" && (
+        {activeSection === "Games" && (
           <div className="GamesSection">
             <VsCard />
           </div>
