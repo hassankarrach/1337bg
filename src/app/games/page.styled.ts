@@ -12,6 +12,11 @@ export const StyledPage = styled.div`
 	/* align-items : center; */
 	/* background-color: var(--main_background); */
 
+	@media (max-width: 768px) {
+		flex-direction : column;
+		padding : 0px
+	}
+
 	.Left{
 		width : 40%;
 		height: 100%;
@@ -20,6 +25,10 @@ export const StyledPage = styled.div`
 		background-size: cover;
 		background-position: center;
 		border-radius : 5px;
+		@media (max-width: 768px){
+			width :100%;
+			height : 200px;
+		}
 	}
 	.Right{
 		flex : 1;
@@ -31,6 +40,16 @@ export const StyledPage = styled.div`
 		display : flex;
 		flex-direction : column;
 		justify-content : center;
+		.title{
+			color : var(--sec_background);
+			text-transform : uppercase;
+		}
+		@media (max-width: 768px){
+			justify-content : flex-start;
+			h1{
+				font-size : 1.5rem;
+			}
+		}
 		/* align-items  : center; */
 		h1{
 			color : var(--sec_background);

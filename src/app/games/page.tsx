@@ -109,14 +109,9 @@ const Page = () => {
 
       <div className="Left"></div>
       <div className="Right">
-        <h1>Integration Week</h1>
+        <h1 className="title">Terrain games</h1>
         <p>
-          Integration Week is a week-long event. It is a great opportunity for
-          you to meet your fellow peers and get to know the school and the
-          university. During Integration Week, you will take part in a variety
-          of activities, such as in-campus games, sports events, and parties.
-          You will also have the chance to win prizes. Integration Week is a fun
-          and exciting way to start your time at 1337.
+        Terrain Games is an exciting event during Integration Week where peers compete in various games on a stadium pitch. Participants earn points by playing different challenges, fostering teamwork and friendly competition. The top scorers on the leaderboard will win fantastic prizes, making it a thrilling experience for everyone involved!
         </p>
 
         <div className="Bottom">
