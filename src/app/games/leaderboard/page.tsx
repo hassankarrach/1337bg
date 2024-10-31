@@ -99,25 +99,6 @@ const Page = () => {
                 setSelectedId={() => {}}
               />
             ))}
-
-            {
-              Array.from({ length: 40 - users.length }).map((_, index) => (
-                <ForwardedRankCard
-                  key={index}
-                  id={1}
-                  FullName=""
-                  Level={0}
-                  UserName=""
-                  nickname=""
-                  Rank={0}
-                  img=""
-                  is_even={index % 2 === 0}
-                  is_verified={false}
-                  IsUser
-                  setSelectedId={() => {}}
-                />
-              ))
-            }
           </div>
         )}
         {activeSection === "Games" && (
