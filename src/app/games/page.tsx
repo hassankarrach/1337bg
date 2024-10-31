@@ -12,6 +12,9 @@ import { get_last_joined } from "./utils/user_utils";
 import { db } from "../../../lib/db";
 import { Player } from "./leaderboard/types/user";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 const Page = () => {
   const { data: session } = useSession();
   const [Users, setUsers] = useState<Player[]>([]);
