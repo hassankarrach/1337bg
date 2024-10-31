@@ -5,6 +5,10 @@
 /* Dot Matrix Font */
 @import url('https://fonts.cdnfonts.com/css/dot-matrix');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* * Define Local Fonts */
 
 /* @font-face {
@@ -88,4 +92,9 @@ span {
 }
 .foo .Toastify__close-button > svg {
   color: white;
+}
+@layer base {
+  :root {
+    --radius : 0.5rem;
+  }
 }
