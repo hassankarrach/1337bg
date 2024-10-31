@@ -10,11 +10,6 @@ export async function GET(req: NextRequest){
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 	}
 
-	console.log("got here");
-
-	if (session.user.pool_year !== 2023)
-		return NextResponse.json({ error: "Only New students can Join." }, { status: 401 });
-
 	//check if the user is already registered
 	const user = await db.user.findFirst({
 		where: {
