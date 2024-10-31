@@ -64,13 +64,14 @@ const Page = () => {
   const get_last_joined_users = async () => {
     try {
       //avoid caching, by adding a random query param
-      const res = await fetch(`/api/integration_week/players?${Math.random()}`, {
+      const res = await fetch(`/api/integration_week/players?timestamp=${Date.now()}}`, {
         method: "GET",
         headers: {
           'Cache-Control': 'no-cache',
           'Pragma': 'no-cache',
           'Expires': '0',
         },
+        cache: "no-store",
       });
 
       const data = await res.json();

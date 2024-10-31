@@ -19,7 +19,15 @@ export async function GET(req: NextRequest) {
       rank: index + 1,
     }));
 
-    return NextResponse.json({ status: 200, users: rankedUsers });
+    // Create a response with no-cache headers
+    const response = NextResponse.json({ status: 200, users: rankedUsers });
+
+    // Set caching headers
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    response.headers.set('Pragma', 'no-cache');
+    response.headers.set('Expires', '0');
+
+    return response;
   } catch (err) {
     console.error(err);
     return NextResponse.json(
