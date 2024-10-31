@@ -3,6 +3,9 @@ import { db } from "../../../../../../lib/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../../../../../lib/authOptions";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 // update player by action (ADD | SUB | BAN)
 export async function POST(req: NextRequest) {
     // should protect here 
