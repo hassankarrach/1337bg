@@ -71,7 +71,6 @@ const Page = () => {
           'Pragma': 'no-cache',
           'Expires': '0',
         },
-        cache: "no-store",
       });
 
       const data = await res.json();

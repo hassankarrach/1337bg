@@ -63,7 +63,6 @@ const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
         'Pragma': 'no-cache',
         'Expires': '0',
       },
-      cache: "no-store",
     })
       .then((res) => res.json())
       .then((data) => {

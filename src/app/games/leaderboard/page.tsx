@@ -19,7 +19,6 @@ const ge_users = async () => {
       'Pragma': 'no-cache',
       'Expires': '0',
     },
-    cache: "no-store",
     });
     const data = await res.json();
     return data || [];
