@@ -11,9 +11,6 @@ import AdminDrawer from "./components/Components/admin";
 import { Player } from "./types/user";
 import { useSession } from "next-auth/react";
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-
 const ge_users = async () => {
   try {
     const res = await fetch(`/api/integration_week/players?timestamp=${Date.now()}`, { method: "GET" ,
