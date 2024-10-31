@@ -66,6 +66,11 @@ const Page = () => {
       //avoid caching, by adding a random query param
       const res = await fetch(`/api/integration_week/players?${Math.random()}`, {
         method: "GET",
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+        },
       });
 
       const data = await res.json();

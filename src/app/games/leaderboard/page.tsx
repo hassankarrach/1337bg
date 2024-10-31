@@ -13,7 +13,13 @@ import { useSession } from "next-auth/react";
 
 const ge_users = async () => {
   try {
-    const res = await fetch(`/api/integration_week/players?${Math.random()}`, { method: "GET" });
+    const res = await fetch(`/api/integration_week/players?${Math.random()}`, { method: "GET" ,
+    headers: {
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+    },
+    });
     const data = await res.json();
     return data || [];
   } catch (error) {

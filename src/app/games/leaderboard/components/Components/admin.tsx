@@ -58,6 +58,11 @@ const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
   React.useEffect(() => {
     fetch(`/api/integration_week/players?${Math.random()}`, {
       method: "GET",
+      headers: {
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+      },
     })
       .then((res) => res.json())
       .then((data) => {
