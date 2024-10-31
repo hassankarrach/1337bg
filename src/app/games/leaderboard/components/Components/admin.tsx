@@ -56,7 +56,7 @@ const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
   const MaxPerTeam = 7;
 
   React.useEffect(() => {
-    fetch("/api/integration_week/players", {
+    fetch(`/api/integration_week/players?${Math.random()}`, {
       method: "GET",
     })
       .then((res) => res.json())
