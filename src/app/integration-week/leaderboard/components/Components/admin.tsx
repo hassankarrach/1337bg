@@ -12,40 +12,30 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import zIndex from "@mui/material/styles/zIndex";
 import UserCard from "./UserCard";
+import { Games, Game } from "../../types/user";
+import { toast } from "react-toastify";
 
 interface AdminDrawerProps {
   isAdmin: boolean;
 }
 
 const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
-  // Admin Panel
   const [isOpen, setIsOpen] = React.useState(false);
   const [GameType, setGameType] = React.useState("Solo");
   const [Users, setUsers] = React.useState([]);
-  // ========================================
 
-  // Modal Stats
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [SelectedUser, setSelectedUser] = React.useState<{user_name : string}>({user_name : ""});
-  // ========================================
+  const [SelectedUser, setSelectedUser] = React.useState("");
 
-  //Teams
-  // case 1, TeamVsTeam
-  const [Team1, setTeam1] = React.useState([]);
-  const [Team2, setTeam2] = React.useState([]);
-  // case 2, Solo
-  const [SoloPlayers, setSoloPlayers] = React.useState([]);
-  // case 3, 1vs1
-  const [Player1, setPlayer1] = React.useState();
-  const [Player2, setPlayer2] = React.useState();
-  // ========================================
-  const MaxPerTeam = 8;
-  // ========================================
+  const [SelectedGame, setSelectedGame] = React.useState<Game>(Games[0]);
 
-  // fetch users
+  const [SelectedWinners, setSelectedWinners] = React.useState<string[]>([]);
+
+  const MaxPerTeam = 7;
+
   React.useEffect(() => {
     fetch("/api/integration_week/players", {
       method: "GET",
@@ -92,7 +82,6 @@ const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
       &:hover {
         filter: brightness(0.9);
       }
-      // in flex container, align this button to bottom
       margin-top: auto;
     }
 
@@ -105,14 +94,34 @@ const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
       cursor: pointer;
     }
 
+
     .GamesPanel {
       height: 100%;
       width: 500px;
       display: flex;
       flex-direction: column;
+
+      .Infos{
+      display : flex;
+      flex-direction : row-reverse;
+      .Pts{
+        display : flex;
+        padding : 5px;
+        justify-content : center;
+        align-items : center;
+        color: var(--Par_grey);
+        span{
+          font-size: 1.2rem;
+        font-weight: 400;
+        }
+       
+}
+    }
+
       .placeHolder {
-        width: 50px;
-        height: 50px;
+        width: auto;
+        padding : 5px;
+        height: 40px;
         border-radius: 5px;
         background-color: var(--light_grey);
         border: 1px solid var(--Par_grey);
@@ -126,94 +135,79 @@ const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
           filter: brightness(0.95);
         }
       }
-      .TeamGames {
-        .TeamContainer {
-          display: flex;
-          flex-wrap: nowrap;
-          justify-content: space-between;
-          gap: 5px;
-        }
-      }
-      .OneVsOne {
-      }
       .SoloGames {
         display: flex;
         flex-direction: column;
         gap: 5px;
         .Players {
           display: flex;
-          justify-content: space-between;
+          justify-content: flex-start;
+          flex-wrap: wrap;
+          gap : 3px;
+        }
+
+        .AddWinner{
+          width : 100%;
+          height : 40px;
+          background-color : var(--light_grey);
+          border : 1px solid var(--Par_grey);
+          border-radius : 2px;
+          cursor: pointer;
+          font-size : 1.1rem;
         }
       }
     }
   `;
 
-  const handleGameTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setGameType(e.target.value);
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedGame = Games.find((game) => game.name === e.target.value);
+    if (selectedGame) {
+      setSelectedGame(selectedGame);
+    }
   };
 
   const AdminPanel = (
     <StyledAdminPanel>
       <div className="GamesPanel">
-        <span>Select Game Name :</span>
-        <select>
-          <option>Game 1</option>
-          <option>Game 2</option>
-          <option>Game 3</option>
-        </select>
+        <span>Select Game Name: </span>
 
-        <span>Select Game type :</span>
-
-        <select value={GameType} onChange={handleGameTypeChange}>
-          <option value="Solo">Solo</option>
-          <option value="1vs1">1vs1</option>
-          <option value="Team">Team</option>
-        </select>
-
-        {GameType == "1vs1" ? (
-          <div className="OneVsOne">
-            <span>Player 1 :</span>
-            <div className="placeHolder">+</div>
-            <span>Player 2 :</span>
-            <div className="placeHolder">+</div>
+        <div className="Infos">
+          <div className="Pts">
+            <span>{SelectedGame.pts}Pts</span>
           </div>
-        ) : GameType == "Solo" ? (
-          <div className="SoloGames">
-            <span>Select Players :</span>
+          <select value={SelectedGame.name} onChange={handleChange}>
+            {Games.map((game) => (
+              <option key={game.name} value={game.name}>
+                {game.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
-            <div className="Players">
-              {[...Array(MaxPerTeam)].map(() => {
-                return <div className="placeHolder">+</div>;
-              })}
-            </div>
+        <div className="SoloGames">
+          <span>Select Winners:</span>
+          <div className="Players">
+            {
+              SelectedWinners.map((winner) => (
+                <div key={winner} className="placeHolder" onClick={()=>{
+                  setSelectedWinners(SelectedWinners.filter((w) => w !== winner))
+                }}>
+                  {winner}
+                </div>
+              ))
+            }
           </div>
-        ) : GameType == "Team" ? (
-          <div className="TeamGames">
-            <span>Team 1 : </span>
-            <div className="TeamContainer">
-              {[...Array(MaxPerTeam)].map(() => {
-                return <div className="placeHolder">+</div>;
-              })}
-            </div>
 
-            <span>Team 2 : </span>
-            <div className="TeamContainer">
-              {[...Array(MaxPerTeam)].map(() => {
-                return <div className="placeHolder">+</div>;
-              })}
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
+          <button className="AddWinner" onClick={handleOpen}>Add winner</button>
+        </div>
 
-        <span></span>
-        <button onClick={() => setOpen(true)} className="SubButton">
-          New Game
+        <button  className="SubButton">
+          give points
         </button>
       </div>
     </StyledAdminPanel>
   );
+
   const StyledOpener = styled.div`
     width: 100%;
     position: fixed;
@@ -252,39 +246,38 @@ const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
     padding: 10px;
     z-index: 99999;
   `;
+
+  const HanleSelectUser = (user: string) => {
+    setSelectedUser(user);
+    // check max is 7 ....
+
+
+    // ADD USER TO THE WINNERS
+    // check if user is already in the list
+    if (SelectedWinners.includes(user) || SelectedWinners.length >= MaxPerTeam) {
+      toast.error("User is already in the list or max is reached");
+    } else {
+      setSelectedWinners([...SelectedWinners, user]);
+    }
+    handleClose();
+  }
+
   const PlayerModal = (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
+    <Modal open={open} onClose={handleClose}>
       <StyledModal>
-        {Users.map((user: { user_name: string }) => {
-          return (
-            <UserCard
-              full_name={"test"}
-              login={user.user_name}
-              totalPts="10"
-              img="dasf"
-              onClick={() => {
-                setSelectedUser;
-              }}
-            />
-          );
-        })}
+        {Users.map((user: { user_name: string }) => (
+          <UserCard
+            key={user.user_name}
+            full_name="test"
+            login={user.user_name}
+            totalPts="10"
+            img="dasf"
+            onSelectUser={HanleSelectUser}
+          />
+        ))}
       </StyledModal>
     </Modal>
   );
-
-  // adding player logic
-  const addPlayerHanlder = () => {
-    if (GameType == "Solo") {
-      // setSoloPlayers([...SoloPlayers, SelectedPlayer]);
-    } else if (GameType == "1vs1") {
-    } else if (GameType == "Team") {
-    }
-  };
 
   return isAdmin ? (
     <StyledOpener>
@@ -294,7 +287,6 @@ const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
         Admin Panel
       </Button>
 
-	  <h1>{SelectedUser.user_name}</h1>
 
       <Drawer
         anchor="bottom"

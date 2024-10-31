@@ -30,12 +30,13 @@ const Page = () => {
     const loadingToastId = toast.loading("Joining...");
 
     const res = await fetch(
-      `/api/integration_week/register?user_name=${session.user.name}&profile_pic=${session.user.image}&login=${session.user.login}`,
+      `/api/integration_week/register`,
       {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
+        cache: "no-cache",
       }
     );
     
@@ -62,7 +63,8 @@ const Page = () => {
 
   const get_last_joined_users = async () => {
     try {
-      const res = await fetch("/api/integration_week/players", {
+      //avoid caching, by adding a random query param
+      const res = await fetch(`/api/integration_week/players?${Math.random()}`, {
         method: "GET",
       });
 
@@ -126,22 +128,22 @@ const Page = () => {
           </button>
           <div className="LastJoined">
             <div className="AvatarsGrp">
-              {Users[0] && (
+              {Users && Users[0] && (
                 <div
                   className="Avatar"
-                  style={{ backgroundImage: `url(${Users[0].profilePic})` }}
+                  style={{ backgroundImage: `url(${Users[0].image_url})` }}
                 ></div>
               )}
-              {Users[1] && (
+              {Users && Users[1] && (
                 <div
                   className="Avatar"
-                  style={{ backgroundImage: `url(${Users[1].profilePic})` }}
+                  style={{ backgroundImage: `url(${Users[1].image_url})` }}
                 ></div>
               )}
-              {Users[2] && (
+              {Users && Users[2] && (
                 <div
                   className="Avatar"
-                  style={{ backgroundImage: `url(${Users[2].profilePic})` }}
+                  style={{ backgroundImage: `url(${Users[2].image_url})` }}
                 ></div>
               )}
 

@@ -1,6 +1,6 @@
-import { User } from "@/app/integration-week/page";
 import React from "react";
 import styled from "styled-components";
+import { Player } from "../../types/user";
 
 const StyledProfile = styled.div<{ rank: number }>`
   width: 190px; /* Slightly larger than inner border */
@@ -51,16 +51,16 @@ const StyledProfile = styled.div<{ rank: number }>`
   }
 `;
 
-const Profile = () => {
+interface ProfileProps {
+  user: Player;
+}
+
+const Profile: React.FC<ProfileProps> = ({ user }) => {
   return (
-    <StyledProfile rank={0}>
-      <img src={`/assets/icons/1.png`} className="Badge" />
+    <StyledProfile rank={user.rank}>
+      <img src={`/assets/icons/${user.rank}.png`} className="Badge" />
       <div className="inner-border">
-        <img
-          src={`https://www.w3schools.com/howto/img_avatar.png`}
-          alt="Avatar"
-          className="Profile"
-        />
+        <img src={user.image_url} alt="Avatar" className="Profile" />
       </div>
     </StyledProfile>
   );
@@ -73,16 +73,12 @@ const StyledTop3 = styled.div`
   justify-content: center;
 `;
 
-const Top3 = () => {
+const Top3 = (users : Player[]) => {
   return <StyledTop3>
 
-    <Profile />
-    <Profile />
-    <Profile />
-
-
-    {/* <Profile rank={1} img_url="https://www.w3schools.com/howto/img_avatar.png"/> */}
-    {/* <Profile rank={3} img_url="https://www.w3schools.com/howto/img_avatar.png"/> */}
+    <Profile user={users[0]}/>
+    <Profile user={users[1]}/>
+    <Profile user={users[2]}/>
   </StyledTop3>;
 };
 

@@ -57,16 +57,16 @@ const UserCard = ({
   login,
   img,
   totalPts,
-  onClick,
+  onSelectUser,
 }: {
   full_name: string;
   login: string;
   img: string;
   totalPts: string;
-  onClick : () => void;
+  onSelectUser: (user: string) => void;
 }) => {
   return (
-    <StyledUserCard>
+    <StyledUserCard onClick={()=>{onSelectUser(login)}}>
       <div className="UserAvatar"></div>
       <div className="UserData">
         <span className="full_name">Hassan Karrach</span>

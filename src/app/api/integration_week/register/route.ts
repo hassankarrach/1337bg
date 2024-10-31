@@ -3,12 +3,14 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../../../lib/authOptions";
 import { db } from "../../../../../lib/db";
 
-export async function POST(req: NextRequest){
+export async function GET(req: NextRequest){
 	const session = await getServerSession({ req, ...authOptions });
 
 	if (!session) {
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 	}
+
+	console.log("got here");
 
 	if (session.user.pool_year !== 2023)
 		return NextResponse.json({ error: "Only New students can Join." }, { status: 401 });
@@ -32,6 +34,7 @@ export async function POST(req: NextRequest){
 			data: {
 				is_registered_IW: true,
 				image_url: session.user.image as string,
+				full_name: session.user.name as string
 			}
 		});
 		return NextResponse.json({ status: 200, user: res });
@@ -42,6 +45,7 @@ export async function POST(req: NextRequest){
 			data: {
 				curr_level: Number(session.user.user_level),
 				last_level: Number(session.user.user_level),
+				full_name : session.user.name as string,
 				user_name: session.user.login as string,
 				nickname : session.user.login as string,
 				banner_url: "",

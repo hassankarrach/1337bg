@@ -47,7 +47,7 @@ const Page = () => {
       <AdminDrawer isAdmin={true}/>
 
       <div className="Banner">
-        <Top3 />
+        {/* <Top3 /> */}
         <h1>Leaderboard</h1>
       </div>
       <div className="Container">
@@ -75,16 +75,15 @@ const Page = () => {
           <div className="Leaderboard">
             {users &&
               users.map((user: Player, index) => {
-                console.log(user);
                 return (
                   <ForwardedRankCard
                     id={1}
-                    FullName={user.name}
-                    Level={10}
-                    UserName={user.login}
+                    FullName={user.full_name}
+                    Level={user.total_points_IW}
+                    UserName={user.user_name}
                     nickname=""
                     Rank={user.rank}
-                    img={user.profilePic}
+                    img={user.image_url}
                     is_even
                     is_verified={false}
                     IsUser
@@ -96,8 +95,6 @@ const Page = () => {
         )}
         {activeSection == "Games" && (
           <div className="GamesSection">
-            <VsCard />
-            <VsCard />
             <VsCard />
           </div>
         )}

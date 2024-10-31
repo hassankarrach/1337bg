@@ -9,7 +9,8 @@ async function addDefaultValuesToUsers() {
         is_registered_IW: false,
         is_admin_IW: false,
         total_points_IW: 0,
-        image_url : ""
+        image_url : "",
+        full_name : ""
       },
     });
     console.log("Updated all users with default values for new fields.");

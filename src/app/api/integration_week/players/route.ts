@@ -21,6 +21,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ status: 200, users: rankedUsers });
   } catch (err) {
+    console.error(err);
     return NextResponse.json(
       { error: "An error occurred while fetching players." },
       { status: 500 }
