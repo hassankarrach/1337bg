@@ -264,7 +264,7 @@ const AdminDrawer: React.FC<AdminDrawerProps> = ({ isAdmin }) => {
         </button>
 
         <button className="AddWinner" onClick={()=>{
-          window.location.href = "http://localhost:3000/admin";
+          window.location.href = "https://1337bg.live/admin";
         }}>
             <FaHammer size={24}/>
           </button>

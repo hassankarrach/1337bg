@@ -22,7 +22,7 @@ const Page = () => {
   const hasFetchedData = useRef(false);
 
   const handle_register = async () => {
-    const callbackUrl = "/integration-week?redirected_to_join=true";
+    const callbackUrl = "/games?redirected_to_join=true";
     if (!session) {
       await signIn("42-school", { callbackUrl });
       return;
