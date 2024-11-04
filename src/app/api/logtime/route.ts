@@ -75,8 +75,8 @@ export async function GET(req: Request) {
     // Parse and return the data
     const Data = await response.json();
     // LogTime
-    const StartDate = new Date("2024-09-27");
-    const EndDate = new Date("2024-10-27");
+    const StartDate = new Date("2024-10-27");
+    const EndDate = new Date("2024-11-27");
   
     const {TotalHours, TotalMinutes} = calculateLogTime(Data, StartDate, EndDate  );
 

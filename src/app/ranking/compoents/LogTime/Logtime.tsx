@@ -128,7 +128,7 @@ const Logtime = () => {
 
   // hit post request to create user /api/students/create
   const fetchData = async () => {
-    if (session?.user.name && getGender(session.user.name) == 'male')
+    if (session?.user.name && getGender(session.user.name) == 'female')
     {
       toast.error("💀");
       return;
@@ -173,7 +173,7 @@ const Logtime = () => {
           </div>
           <div className="req_el">
             <FaCalendar />
-            <span>09/27 - 10/27</span>
+            <span>10/27 - 11/27</span>
           </div>
         </div>
         {CalculationModeActivated ? (
