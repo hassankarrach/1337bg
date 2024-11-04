@@ -1,59 +1,25 @@
 "use client";
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { StyledRanking } from "./Styled.ranking";
-import { StaticImageData } from "next/image";
 // Components
 import Card from "./compoents/RankCard";
 import CustomDropDown from "@/components/drop_down/dropdown";
 import Profile from "./compoents/profile";
 import { useSession } from "next-auth/react";
-import { Select, Skeleton } from "@mui/material";
+import { Skeleton } from "@mui/material";
 import Confetti from "react-confetti";
 
-// Icons
-import {
-  FaSearch,
-  FaFemale as FemaleIcon,
-  FaMale as MaleIcon,
-  FaOdnoklassniki,
-  FaRegWindowClose,
-  FaGooglePlay,
-  FaFileUpload,
-  FaWhatsappSquare,
-} from "react-icons/fa";
-// Types
-import { Promo, Cursuse } from "@/types/FortyTwo/types";
 // Data
 import { Campuses, Filters } from "@/data/Campuses";
-import { Cursuses } from "@/data/Cursuses";
 import { Promos } from "@/data/Promos";
-// Utils
-// import { fetchUsers } from '@/utils/fetch_users';
-import { getGender } from "@/utils/get_gender";
-// RQ
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-// Toast
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { InitialUsers } from "@/data/Fake";
-import Top3 from "./compoents/Top3";
-import { pool_months } from "@/data/Pool_months";
 import useSessionEnd from "@/hooks/useSessionEnd";
 import LevelCalculator from "./compoents/LevelCalculator/LevelCalculator";
 
-import {
-  FaCcMastercard as MasterCard,
-  FaCcPaypal as Paypal,
-  FaCcVisa as Visa,
-  FaBitcoin as BitCoin,
-} from "react-icons/fa";
 import _Tom from "../../../public/tom.png";
-import useMobileDetection from "@/hooks/useMobile";
-import Stats from "./compoents/stats/Stats";
-import Banner from "./compoents/Banner/Banner";
-import CustomModal from "@/components/modal/modal";
 import Logtime from "./compoents/LogTime/Logtime";
-import { Session } from "inspector";
 
 const Ranking: React.FC = () => {
   const { data: session } = useSession();
@@ -62,6 +28,8 @@ const Ranking: React.FC = () => {
   const [SelectedUser, SetSelectedUser] = useState<any>();
   const [SelectedPromo, setSelectedPromo] = useState<number>(0);
   const [SelectedGender, setSelectedGender] = useState<string>("All");
+
+  const [isClient, setIsClient] = useState(false);
 
   //Auto-signout after session ends.
   useSessionEnd();
@@ -158,6 +126,7 @@ const Ranking: React.FC = () => {
   };
 
   useEffect(() => {
+    setIsClient(true);
     if (data && session?.accessToken) {
       const newUsers = data.pages.flatMap((page) => page.data);
 
@@ -181,7 +150,9 @@ const Ranking: React.FC = () => {
 
   return (
     <StyledRanking>
-      <Confetti width={window.innerWidth} height={window.innerHeight} />
+      {isClient && (
+        <Confetti width={window.innerWidth} height={window.innerHeight} />
+      )}
       <ToastContainer
         position="top-right"
         autoClose={5000}
