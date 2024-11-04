@@ -8,6 +8,8 @@ import CustomDropDown from "@/components/drop_down/dropdown";
 import Profile from "./compoents/profile";
 import { useSession } from "next-auth/react";
 import { Select, Skeleton } from "@mui/material";
+import Confetti from "react-confetti";
+
 // Icons
 import {
   FaSearch,
@@ -163,17 +165,13 @@ const Ranking: React.FC = () => {
       const filteredUsers = newUsers.filter((user) => {
         const matchesGender =
           SelectedGender === "All" || user.Gender === SelectedGender;
-          const matchesSearchTerm =
+        const matchesSearchTerm =
           SearchTerm === "" ||
           user.user?.usual_full_name
             ?.toLowerCase()
             .includes(SearchTerm.toLowerCase()) ||
-          user.user?.login
-            ?.toLowerCase()
-            .includes(SearchTerm.toLowerCase()) ||
-          user.nickname
-            ?.toLowerCase()
-            .includes(SearchTerm.toLowerCase());
+          user.user?.login?.toLowerCase().includes(SearchTerm.toLowerCase()) ||
+          user.nickname?.toLowerCase().includes(SearchTerm.toLowerCase());
         return matchesGender && matchesSearchTerm;
       });
 
@@ -184,6 +182,7 @@ const Ranking: React.FC = () => {
 
   return (
     <StyledRanking>
+      <Confetti width={window.innerWidth} height={window.innerHeight} />
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -335,12 +334,12 @@ const Ranking: React.FC = () => {
             StudentData={SelectedUser}
           />
           {/* <Stats /> */}
-          <LevelCalculator user_level={Number(session?.user.user_level) || 0}/>
-          <Logtime/>
+          <LevelCalculator user_level={Number(session?.user.user_level) || 0} />
+          <Logtime />
         </div>
       </div>
     </StyledRanking>
   );
 };
 
-  export default Ranking;
+export default Ranking;

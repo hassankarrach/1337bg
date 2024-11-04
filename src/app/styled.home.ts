@@ -13,72 +13,11 @@ export const StyledMain = styled.div`
   flex-direction: column;
   /* justify-content : space-between; */
   align-items: flex-start;
+
   @media only screen and (max-width: 767px){
     padding : 3px;
   }
 
-  .Details {
-    flex: 1;
-    width: 100%;
-    display: flex;
-    display : none;
-    @media only screen and (max-width: 767px){
-      display : none;
-    }
-    .Right_side {
-      width: 50%;
-      position: relative;
-      .BackgroundTexts {
-        height: 100%;
-        width: 100%;
-        top: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items : center;
-
-        h1 {
-          /* font-family: var(--playable_font); */
-          font-size: 6rem;
-          -webkit-text-stroke: 1px white;
-          -webkit-text-fill-color: transparent;
-          opacity : 0.2;
-          &:nth-of-type(1){
-            margin-left : -40%;
-          }
-        }
-
-      }
-      .PromosPresentation {
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .Items_container{
-            gap: 5px;
-            display : flex;
-        }
-      }
-    }
-
-    .Left_side {
-      width: 50%;
-      height: 100%;
-      display : flex;
-      justify-content : center;
-      align-items : center;
-      padding : 0px 15px;
-      span{
-        font-size :1.4rem;
-        color : white;
-        font-weight : 200;
-      }
-    }
-  }
   .Banner {
     width: 100%;
     height: 100vh;
@@ -106,7 +45,6 @@ export const StyledMain = styled.div`
       @media only screen and (max-width: 767px){
         height : 100%;
         top : 0;
-        left : -30%;
       }
       /* position : relative; */
     }

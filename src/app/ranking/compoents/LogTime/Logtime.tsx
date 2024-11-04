@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import { FaBullseye, FaChartLine, FaCalendar } from "react-icons/fa";
+import { getGender } from "@/utils/get_gender";
 
 interface StyledLogTimeProps {
   percentage: number;
@@ -127,6 +128,11 @@ const Logtime = () => {
 
   // hit post request to create user /api/students/create
   const fetchData = async () => {
+    if (session?.user.name && getGender(session.user.name) == 'male')
+    {
+      toast.error("💀");
+      return;
+    }
     setCalculationModeActivated(true);
     if (session) {
       try {
@@ -184,7 +190,7 @@ const Logtime = () => {
           </>
         ) : (
           <button onClick={fetchData} className="CaculateLogTimeButton">
-            Calculate My Logtime.
+            Calculate My Logtime. (Only for men)
           </button>
         )}
       </StyledLogTime>

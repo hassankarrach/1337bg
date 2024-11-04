@@ -83,15 +83,6 @@ const Main = () => {
           </button>
         </div>
       </div>
-
-      <div className="Details">
-        <div className="Left_side">
-            {/* <h1>Unscripted Brilliance</h1> */}
-            <span>
-            Ever wondered what happens when curiosity meets code? Dive in and find out. No rules! no limits—just pure exploration.
-            </span>
-        </div>
-      </div>
     </StyledMain>
   );
 };

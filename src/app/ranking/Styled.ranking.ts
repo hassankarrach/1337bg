@@ -98,6 +98,7 @@ export const StyledRanking = styled.div`
       padding: 55px 10px;
       padding-bottom: 5px;
       @media only screen and (max-width: 767px) {
+        margin-top : 7%;
         padding: 0px;
       }
       .Ranking {
