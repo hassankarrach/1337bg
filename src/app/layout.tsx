@@ -12,7 +12,7 @@ import Providers from "./Providers";
 
 export const metadata = {
   title: "1337bg",
-  description: "Web app providing essential utilities for 1337 campus peers.",
+  description: "Web app providing essential utilities for 1337 coding school benguerir campus peers.",
   icons: {
     icon: _fav.src,
   },
