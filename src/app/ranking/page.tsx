@@ -52,7 +52,6 @@ import useMobileDetection from "@/hooks/useMobile";
 import Stats from "./compoents/stats/Stats";
 import Banner from "./compoents/Banner/Banner";
 import CustomModal from "@/components/modal/modal";
-import Footer from "@/components/TmpFooter/Footer";
 import Logtime from "./compoents/LogTime/Logtime";
 import { Session } from "inspector";
 
