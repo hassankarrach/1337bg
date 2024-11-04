@@ -60,7 +60,7 @@ const UpdateUser = (
     wallet: data.user.wallet,
     intra_link: data.user.url,
     corrections_points: data.user.correction_point,
-    is_pooler: data.user.pool_year === "2024",
+    is_pooler: false,
     nickname: data.nickname || null,
   };
   setUserData(ExtractedUserData);
@@ -337,9 +337,6 @@ const Profile: React.FC<ComponentProps> = ({
       <CustomModal open={IsModalOpen} onClose={handleCloseModal} />
 
       <div className="User_Banner">
-        {userData?.is_pooler && !list_is_loading && (
-          <h1 className="Userkind">POOLER</h1>
-        )}
         {!list_is_loading ? (
           <a
             href={`https://profile.intra.42.fr/users/${userData?.login}`}
