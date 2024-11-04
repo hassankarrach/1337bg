@@ -1,7 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
-import Confetti from "react-confetti";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 
@@ -21,8 +20,6 @@ const Page = () => {
 
   return (
     <StyledTest>
-      <Confetti width={window.innerWidth} height={window.innerHeight} />
-      <h1>dasfasfasfaffasf</h1>
     </StyledTest>
   );
 };
