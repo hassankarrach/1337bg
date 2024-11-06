@@ -7,7 +7,6 @@ import CustomDropDown from "@/components/drop_down/dropdown";
 import Profile from "./compoents/profile";
 import { useSession } from "next-auth/react";
 import { Skeleton } from "@mui/material";
-import Confetti from "react-confetti";
 
 // Data
 import { Campuses, Filters } from "@/data/Campuses";
@@ -29,9 +28,6 @@ const Ranking: React.FC = () => {
   const [SelectedPromo, setSelectedPromo] = useState<number>(0);
   const [SelectedGender, setSelectedGender] = useState<string>("All");
 
-  const [isClient, setIsClient] = useState(false);
-
-  //Auto-signout after session ends.
   useSessionEnd();
 
   const loggedInUserCardRef = useRef<HTMLDivElement>(null);
@@ -126,7 +122,6 @@ const Ranking: React.FC = () => {
   };
 
   useEffect(() => {
-    setIsClient(true);
     if (data && session?.accessToken) {
       const newUsers = data.pages.flatMap((page) => page.data);
 
@@ -150,9 +145,6 @@ const Ranking: React.FC = () => {
 
   return (
     <StyledRanking>
-      {isClient && (
-        <Confetti width={window.innerWidth} height={window.innerHeight} />
-      )}
       <ToastContainer
         position="top-right"
         autoClose={5000}

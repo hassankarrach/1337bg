@@ -167,7 +167,6 @@ const Logtime = () => {
           <div className="req_el">
             <FaChartLine />
             <span>
-              {" "}
               {TotalLogTime}h, {RemainingMinutes}minutes
             </span>
           </div>

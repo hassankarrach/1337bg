@@ -26,7 +26,6 @@ const calculateLogTime = (
     const hours = Math.floor(TimeDiff_ms / 3600000); // Full hours
     const minutes = Math.floor((TimeDiff_ms % 3600000) / 60000); // Remaining minutes
 
-
     // Make sure BeginDate and EndDate fall within the required range
     if (BeginDate >= StartDate && EndDate <= EndDat) {
       TotalLogTime += hours;
