@@ -47,6 +47,18 @@ export async function GET(req: Request) {
       }
     );
 
+    const user = await fetch("https://api.intra.42.fr/v2/users/232764", {
+      headers: {
+        Authorization: `${AccessToken}`,
+      },
+    });
+
+    if (user)
+    {
+      const data = await user.json();
+      console.log(data);
+    }
+
     // Handle response errors
     if (!response.ok) {
       const errorData = await response.json();

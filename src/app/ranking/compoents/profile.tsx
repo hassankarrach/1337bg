@@ -44,7 +44,6 @@ interface StyleProps {
   $promo_id: number;
   $banner_url: string | null;
 }
-
 const UpdateUser = (
   data: any,
   setUserData: Dispatch<SetStateAction<User | null>>
@@ -323,7 +322,7 @@ const Profile: React.FC<ComponentProps> = ({
 
   useEffect(() => {
     if (StudentData != undefined) UpdateUser(StudentData, setUserData);
-    console.log(StudentData);
+    // console.log(StudentData);
   }, [StudentData]);
 
   return (

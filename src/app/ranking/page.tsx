@@ -53,11 +53,13 @@ const Ranking: React.FC = () => {
     setSelectedGender("All");
     const promoId = parseInt(value, 10);
     setSelectedPromo(promoId);
+    console.log(SelectedPromo);
     window.scrollTo(0, 0);
   };
 
   const fetchUsers = async ({ pageParam = 1 }) => {
     try {
+      console.log(Promos[SelectedPromo]);
       const response = await fetch(
         `/api/students?started_date=${Promos[SelectedPromo].start_date}&page=${pageParam}&alumni=true`,
         {
@@ -66,6 +68,7 @@ const Ranking: React.FC = () => {
           },
         }
       );
+
 
       if (!response.ok) {
         throw new Error("Failed to fetch Students.");
@@ -251,7 +254,7 @@ const Ranking: React.FC = () => {
                 <>
                   {Users.map((User: any, key: number) => {
                     if (!User || !User.user) return null;
-                    if (User.Gender === "unknown") console.log(User);
+                    // if (User.Gender === "unknown") console.log(User);
 
                     return (
                       <Card
