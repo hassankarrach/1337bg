@@ -6,12 +6,16 @@ import { useSession, signIn} from "next-auth/react";
 import React, { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaDiscord } from "react-icons/fa";
 
 import _header from "../../public/Header.jpg"
 
 const Main = () => {
   const { data: session, status } = useSession();
 
+  const handleInvite = () => {
+          window.open("https://discord.gg/5cZfS8djyg");
+        };
   const handleSignIn = async () => {
     const callbackUrl = "/ranking";
     signIn("42-school", { callbackUrl });
@@ -81,8 +85,20 @@ const Main = () => {
               />
             </svg>
           </button>
+          
         </div>
-      </div>
+        
+        
+
+        <div className="login_card">
+         <button className="login_button" onClick={handleInvite}>
+            <span>Join 13HuB</span>
+            <div className="_devider" />
+            <FaDiscord className="_42logo" size={32} />
+          </button> 
+        </div>
+
+       </div>
     </StyledMain>
   );
 };
