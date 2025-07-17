@@ -91,7 +91,7 @@ export const StyledMain = styled.div`
 
       .login_button {
         outline: none;
-        background: linear-gradient(122deg, rgba(183,251,43,1) 0%, rgba(136,199,8,1) 30%);
+        background: linear-gradient(122deg, rgba(145, 203, 108,1) 0%, rgba(130, 184, 97, 1) 30%);
         /* border: 1px solid rgba(214,207,255,0.7); */
         border: none;
         outline: none;
@@ -108,7 +108,7 @@ export const StyledMain = styled.div`
         -webkit-backdrop-filter: blur(4px);
         transition: 0.5s ease-in-out;
         &:hover {
-          background: linear-gradient(122deg, rgba(183,251,43,1) 0%, rgba(134,196,5,1) 30%);
+          background: linear-gradient(122deg, rgba(145, 203, 108,1) 0%, rgba(137, 223, 87, 1) 30%);
           ._42logo {
             fill: var(--main_color_dark);
           }
@@ -116,6 +116,7 @@ export const StyledMain = styled.div`
             color: var(--main_color_dark);
           }
         }
+          
 
         span {
           /* font-family : var(--main_font); */

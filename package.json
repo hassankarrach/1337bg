@@ -14,7 +14,6 @@
     "@emotion/styled": "^11.11.5",
     "@mui/base": "^5.0.0-beta.61",
     "@mui/material": "^5.15.19",
-    "@mui/styles": "^5.15.19",
     "@prisma/client": "^5.18.0",
     "@react-spring/web": "^9.7.3",
     "@tanstack/query-sync-storage-persister": "^5.48.0",

@@ -27,12 +27,14 @@ const Ranking: React.FC = () => {
   const [SelectedUser, SetSelectedUser] = useState<any>();
   const [SelectedPromo, setSelectedPromo] = useState<number>(0);
   const [SelectedGender, setSelectedGender] = useState<string>("All");
-
+  
   useSessionEnd();
-
+  
   const loggedInUserCardRef = useRef<HTMLDivElement>(null);
   const observer = useRef<IntersectionObserver | null>(null);
 
+  const [SelectedCampus, setSelectedCampus] = useState<number>(21); // defafult bg
+  
   const lastUserRef = useCallback(
     (node: HTMLSpanElement) => {
       if (observer.current) observer.current.disconnect();
@@ -57,17 +59,18 @@ const Ranking: React.FC = () => {
     window.scrollTo(0, 0);
   };
 
+
+
   const fetchUsers = async ({ pageParam = 1 }) => {
-    try {
-      console.log(Promos[SelectedPromo]);
-      const response = await fetch(
-        `/api/students?started_date=${Promos[SelectedPromo].start_date}&page=${pageParam}&alumni=true`,
-        {
-          headers: {
-            Authorization: `Bearer ${session?.accessToken}`,
-          },
-        }
-      );
+  try {
+    const response = await fetch(
+      `/api/students?started_date=${Promos[SelectedPromo].start_date}&campus_id=${SelectedCampus}&page=${pageParam}&alumni=true`,
+      {
+        headers: {
+          Authorization: `Bearer ${session?.accessToken}`,
+        },
+      }
+    );
 
 
       if (!response.ok) {
@@ -86,18 +89,18 @@ const Ranking: React.FC = () => {
   };
 
   const { data, status, fetchNextPage, hasNextPage, isLoading } =
-    useInfiniteQuery({
-      queryKey: ["users", SelectedPromo, session?.accessToken],
-      queryFn: fetchUsers,
-      getNextPageParam: (lastPage, allPages) => lastPage.nextPage,
-      initialPageParam: 1,
-      retry: 1,
-      refetchOnWindowFocus: false,
-      enabled:
-        session !== undefined &&
-        SelectedPromo !== undefined &&
-        SelectedPromo !== null,
-    });
+  useInfiniteQuery({
+    queryKey: ["users", SelectedPromo, SelectedCampus, session?.accessToken],
+    queryFn: fetchUsers,
+    getNextPageParam: (lastPage, allPages) => lastPage.nextPage,
+    initialPageParam: 1,
+    retry: 1,
+    refetchOnWindowFocus: false,
+    enabled:
+      session !== undefined &&
+      SelectedPromo !== undefined &&
+      SelectedPromo !== null,
+  });
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -124,6 +127,37 @@ const Ranking: React.FC = () => {
     }
   };
 
+
+const Captain = {
+  user: {
+    id: 999101090123119,
+    usual_full_name: "Captain",
+    login: "Captain",
+    email: "Captain@1337.ma",
+    image: { versions: { small: "/captain.jpg" } },
+  },
+  nickname: "Captain",
+  level: 99,
+  originalRank: 0,
+  verified: true,
+  Gender: "unknown",
+};
+const Zero = {
+  user: {
+    id: 99910109012119,
+    usual_full_name: "Zero",
+    login: "Zero",
+    email: "Zero@1337.ma",
+    image: { versions: { small: "/Zero.jpeg" } },
+  },
+  nickname: "Zero",
+  level: 99,
+  originalRank: 0,
+  verified: true,
+  Gender: "unknown",
+};
+
+
   useEffect(() => {
     if (data && session?.accessToken) {
       const newUsers = data.pages.flatMap((page) => page.data);
@@ -145,6 +179,15 @@ const Ranking: React.FC = () => {
       SetUsers(filteredUsers);
     }
   }, [data, session, SelectedGender, SearchTerm]);
+  
+  // const capZero = [Captain, ...Users];
+let capZero = Users;
+if (SelectedCampus === 16 || SelectedCampus === 55) {
+  capZero = [Captain, ...Users];
+} else if (SelectedCampus === 21 || SelectedCampus === 75) {
+  capZero = [Zero, ...Users];
+}
+
 
   return (
     <StyledRanking>
@@ -174,24 +217,26 @@ const Ranking: React.FC = () => {
                     renderItem={(item) => item.Name}
                     onChange={handlePromoChange}
                   />
-                  <div className="HideIt">
-                    <CustomDropDown
-                      data={Campuses}
-                      getValue={(item) => item.id.toString()}
-                      renderItem={(item) => item.name}
-                      onChange={() => {}}
-                      disabled
-                    />
-                  </div>
-                  <div className="HideIt">
+                  <CustomDropDown
+                    data={Campuses}
+                    getValue={(item) => item.id.toString()}
+                    renderItem={(item) => item.name}
+                    onChange={(value) => {
+                      setSelectedCampus(Number(value));
+                      SetUsers([]);
+                        window.scrollTo(0, 0);
+                    }}
+                  />
+                  {/* </div> */}
+                  {/* <div className="HideIt"> */}
                     <CustomDropDown
                       data={Filters}
                       getValue={(item) => item.id.toString()}
                       renderItem={(item) => `${item.name}`}
                       onChange={() => {}}
-                      disabled
+                      // disabled
                     />
-                  </div>
+                  {/* </div> */}
                 </div>
                 <div className="Other_filters">
                   <div className="SearchUser">
@@ -252,7 +297,7 @@ const Ranking: React.FC = () => {
                 </div>
               ) : Users ? (
                 <>
-                  {Users.map((User: any, key: number) => {
+                  {capZero.map((User: any, key: number) => {
                     if (!User || !User.user) return null;
                     // if (User.Gender === "unknown") console.log(User);
 
