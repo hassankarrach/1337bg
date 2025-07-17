@@ -17,11 +17,13 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ profile, user }: any) {
-      if (!profile || !user) return false;
-      if (profile.campus[0].id !== 21)
-        return false; // limit access to only BG campus.
-      return true;
-    },
+  if (!profile || !user) return false;
+  // Allow BG, Khouribga, Med, Rabat
+  const allowedCampuses = [21, 16, 55, 75];
+  if (!allowedCampuses.includes(profile.campus[0].id))
+    return false;
+  return true;
+},
     async jwt({ token, account, profile }: any) {
       if (profile) {
         // console.log(profile);

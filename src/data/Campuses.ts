@@ -44,12 +44,11 @@ export const Campuses: Campus[] = [
   {
     id: 16,
     name: "Khouribga",
-    disabled: true,
+    disabled : false,
   },
   {
     id: 55,
-    name: "Med",
-    disabled: true,
+    name: "Med A7san campus",
   },
   {
     id: 75,

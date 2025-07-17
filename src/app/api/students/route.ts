@@ -37,15 +37,14 @@ export async function GET(req: Request) {
   }
 
   try {
-    // Fetch data from the 42 API
     const response = await fetch(
-      `https://api.intra.42.fr/v2/cursus_users?&filter[campus_id]=21&filter[begin_at]=${started_date}&page[size]=100&page[number]=${page}&sort=-level`,
+      `https://api.intra.42.fr/v2/cursus_users?&filter[campus_id]=${campus_id}&filter[begin_at]=${started_date}&page[size]=100&page[number]=${page}&sort=-level`,
       {
         headers: {
-          Authorization: `${AccessToken}`,
-        },
-      }
-    );
+        Authorization: `${AccessToken}`,
+      },
+  }
+);
 
     const user = await fetch("https://api.intra.42.fr/v2/users/232764", {
       headers: {
