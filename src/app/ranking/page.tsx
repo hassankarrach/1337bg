@@ -121,7 +121,7 @@ const Ranking: React.FC = () => {
   };
 
   const updateSelectedUserById = (userId: number) => {
-    const foundUser = Users.find((user) => user.user.id === userId);
+    const foundUser = capZero.find((user) => user.user.id === userId);
     if (foundUser) {
       SetSelectedUser(foundUser);
     }
@@ -130,11 +130,12 @@ const Ranking: React.FC = () => {
 
 const Captain = {
   user: {
-    id: 999101090123119,
+    id: -1,
     usual_full_name: "Captain",
     login: "Captain",
     email: "Captain@1337.ma",
     image: { versions: { small: "/captain.jpg" } },
+    intra_link: "https://github.com/AchrafMez",
   },
   nickname: "Captain",
   level: 99,
@@ -142,19 +143,25 @@ const Captain = {
   verified: true,
   Gender: "unknown",
 };
+
+
+
+
 const Zero = {
   user: {
-    id: 99910109012119,
+    id: -2,
     usual_full_name: "Zero",
     login: "Zero",
     email: "Zero@1337.ma",
     image: { versions: { small: "/Zero.jpeg" } },
+    intra_link: "https://github.com/AchrafMez",
   },
   nickname: "Zero",
   level: 99,
   originalRank: 0,
   verified: true,
   Gender: "unknown",
+  intra_link: "https://github.com/AchrafMez",
 };
 
 
