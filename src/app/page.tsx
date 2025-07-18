@@ -87,17 +87,6 @@ const Main = () => {
           </button>
           
         </div>
-        
-        
-
-        <div className="login_card">
-         <button className="login_button" onClick={handleInvite}>
-            <span>Join 13HuB</span>
-            <div className="_devider" />
-            <FaDiscord className="_42logo" size={32} />
-          </button> 
-        </div>
-
        </div>
     </StyledMain>
   );

@@ -157,8 +157,8 @@ const Zero = {
     intra_link: "https://github.com/AchrafMez",
   },
   nickname: "Zero",
-  level: 99,
-  originalRank: 0,
+  level: -1337,
+  originalRank: 100,
   verified: true,
   Gender: "unknown",
   intra_link: "https://github.com/AchrafMez",
@@ -187,12 +187,11 @@ const Zero = {
     }
   }, [data, session, SelectedGender, SearchTerm]);
   
-  // const capZero = [Captain, ...Users];
 let capZero = Users;
 if (SelectedCampus === 16 || SelectedCampus === 55) {
   capZero = [Captain, ...Users];
-} else if (SelectedCampus === 21 || SelectedCampus === 75) {
-  capZero = [Zero, ...Users];
+} else if (SelectedCampus === 21) {
+  capZero = [...Users, Zero];
 }
 
 
