@@ -354,7 +354,10 @@ const Ranking: React.FC = () => {
               join <img src="/13HUB.png" className="_13HubLogo" />
             </h1>
             <span>Meet others. Share the journey. Go further, together.</span>
-            <button onClick={handleInvite}>
+            <button onClick={handleInvite}
+             style={{
+              cursor: 'pointer',
+              zIndex: 2}}>
               <FaDiscord />
               Join
             </button>
