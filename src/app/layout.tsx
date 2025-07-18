@@ -11,10 +11,10 @@ const inter = Inter({ subsets: ["latin"] });
 import Providers from "./Providers";
 
 export const metadata = {
-  title: "1337bg",
-  description: "Web app providing essential utilities for 1337 coding school benguerir campus peers.",
+  title: "1337Hub",
+  description: "1337Hub Web app that provid essential utilities for 1337 coding school peers.",
   icons: {
-    icon: _fav.src,
+    icon: "/hub.jpg",
   },
 };
 

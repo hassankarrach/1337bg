@@ -317,7 +317,7 @@ const SideBar = () => {
           style={{ backgroundColor: path == "/" ? "var(--main_color)" : "" }}
         >
           {!isMobile ? (
-            <img src={_13bg.src} className="MainLogo"/>
+            <img src={"/13HUB.png"} className="MainLogo"/>
           ) : IsOpen ? (
             <FaWindowClose size={20} />
           ) : (

@@ -57,7 +57,7 @@ const UpdateUser = (
     img: data.user.image?.versions.small,
     location: data.user.location,
     wallet: data.user.wallet,
-    intra_link: data.user.url,
+    intra_link: "data.user.url",
     corrections_points: data.user.correction_point,
     is_pooler: false,
     nickname: data.nickname || null,
