@@ -87,6 +87,75 @@ export const StyledRanking = styled.div`
         }
       }
 
+      ._13Hub {
+        width: 100%;
+        height: 300px;
+        background-color: #212125;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 5px;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        border: none;
+        background: linear-gradient(
+          20deg,
+          rgba(64, 228, 64, 0.4) 0%,
+          transparent 100%
+        );
+        position: relative;
+        &:after {
+          position: absolute;
+          content: "";
+          width: 100%;
+          height: 100%;
+          background-image: linear-gradient(
+            90deg,
+            rgba(142, 45, 226, 0) 0%,
+            rgba(64, 228, 64, 1) 50%,
+            rgba(142, 45, 226, 0) 100%
+          );
+          background-position: top;
+          background-size: 100% 2px;
+          background-repeat: no-repeat;
+          top: 0;
+          left: 0;
+        }
+
+        .Header {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+        }
+        ._13HubLogo {
+          height: 80px;
+        }
+        h1 {
+          color: rgba(255, 255, 255, 0.8);
+        }
+        span {
+          font-weight: 300;
+          color: rgba(255, 255, 255, 0.7);
+          text-align: center;
+        }
+        button {
+          height: 45px;
+          border-radius: 5px;
+          border: none;
+          outline: none;
+          background-color: var(--main_color);
+          margin-top: auto;
+          color: white;
+          font-size: 1.2rem;
+          font-weight: 500;
+          color : rgb(11, 73, 11);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap : 5px;
+        }
+      }
+
       @media only screen and (max-width: 767px) {
         display: none;
       }
@@ -98,7 +167,7 @@ export const StyledRanking = styled.div`
       padding: 55px 10px;
       padding-bottom: 5px;
       @media only screen and (max-width: 767px) {
-        margin-top : 7%;
+        margin-top: 7%;
         padding: 0px;
       }
       .Ranking {

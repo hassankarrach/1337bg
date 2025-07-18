@@ -66,8 +66,8 @@ const UpdateUser = (
 };
 
 const StyledProfile = styled.div<StyleProps>`
-  width: 100%;
-  /* flex : 1; */
+  /* width: 100%; */
+  flex : 1;
   height: auto;
   background-color: #212125;
   border: 1px solid rgba(255, 255, 255, 0.06);

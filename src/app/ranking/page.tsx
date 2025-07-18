@@ -19,6 +19,8 @@ import LevelCalculator from "./compoents/LevelCalculator/LevelCalculator";
 
 import _Tom from "../../../public/tom.png";
 import Logtime from "./compoents/LogTime/Logtime";
+import Stats from "./compoents/stats/Stats";
+import { FaDiscord } from "react-icons/fa";
 
 const Ranking: React.FC = () => {
   const { data: session } = useSession();
@@ -27,14 +29,14 @@ const Ranking: React.FC = () => {
   const [SelectedUser, SetSelectedUser] = useState<any>();
   const [SelectedPromo, setSelectedPromo] = useState<number>(0);
   const [SelectedGender, setSelectedGender] = useState<string>("All");
-  
+
   useSessionEnd();
-  
+
   const loggedInUserCardRef = useRef<HTMLDivElement>(null);
   const observer = useRef<IntersectionObserver | null>(null);
 
   const [SelectedCampus, setSelectedCampus] = useState<number>(21); // defafult bg
-  
+
   const lastUserRef = useCallback(
     (node: HTMLSpanElement) => {
       if (observer.current) observer.current.disconnect();
@@ -59,19 +61,16 @@ const Ranking: React.FC = () => {
     window.scrollTo(0, 0);
   };
 
-
-
   const fetchUsers = async ({ pageParam = 1 }) => {
-  try {
-    const response = await fetch(
-      `/api/students?started_date=${Promos[SelectedPromo].start_date}&campus_id=${SelectedCampus}&page=${pageParam}&alumni=true`,
-      {
-        headers: {
-          Authorization: `Bearer ${session?.accessToken}`,
-        },
-      }
-    );
-
+    try {
+      const response = await fetch(
+        `/api/students?started_date=${Promos[SelectedPromo].start_date}&campus_id=${SelectedCampus}&page=${pageParam}&alumni=true`,
+        {
+          headers: {
+            Authorization: `Bearer ${session?.accessToken}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to fetch Students.");
@@ -88,19 +87,23 @@ const Ranking: React.FC = () => {
     }
   };
 
+  const handleInvite = () => {
+    window.open("https://discord.gg/5cZfS8djyg");
+  };
+
   const { data, status, fetchNextPage, hasNextPage, isLoading } =
-  useInfiniteQuery({
-    queryKey: ["users", SelectedPromo, SelectedCampus, session?.accessToken],
-    queryFn: fetchUsers,
-    getNextPageParam: (lastPage, allPages) => lastPage.nextPage,
-    initialPageParam: 1,
-    retry: 1,
-    refetchOnWindowFocus: false,
-    enabled:
-      session !== undefined &&
-      SelectedPromo !== undefined &&
-      SelectedPromo !== null,
-  });
+    useInfiniteQuery({
+      queryKey: ["users", SelectedPromo, SelectedCampus, session?.accessToken],
+      queryFn: fetchUsers,
+      getNextPageParam: (lastPage, allPages) => lastPage.nextPage,
+      initialPageParam: 1,
+      retry: 1,
+      refetchOnWindowFocus: false,
+      enabled:
+        session !== undefined &&
+        SelectedPromo !== undefined &&
+        SelectedPromo !== null,
+    });
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -127,43 +130,38 @@ const Ranking: React.FC = () => {
     }
   };
 
+  const Captain = {
+    user: {
+      id: -1,
+      usual_full_name: "Captain",
+      login: "Captain",
+      email: "Captain@1337.ma",
+      image: { versions: { small: "/captain.jpg" } },
+      intra_link: "https://github.com/AchrafMez",
+    },
+    nickname: "Captain",
+    level: 99,
+    originalRank: 0,
+    verified: true,
+    Gender: "unknown",
+  };
 
-const Captain = {
-  user: {
-    id: -1,
-    usual_full_name: "Captain",
-    login: "Captain",
-    email: "Captain@1337.ma",
-    image: { versions: { small: "/captain.jpg" } },
+  const Zero = {
+    user: {
+      id: -2,
+      usual_full_name: "Zero",
+      login: "Zero",
+      email: "Zero@1337.ma",
+      image: { versions: { small: "/Zero.jpeg" } },
+      intra_link: "https://github.com/AchrafMez",
+    },
+    nickname: "Zero",
+    level: -1337.42,
+    originalRank: 42,
+    verified: true,
+    Gender: "unknown",
     intra_link: "https://github.com/AchrafMez",
-  },
-  nickname: "Captain",
-  level: 99,
-  originalRank: 0,
-  verified: true,
-  Gender: "unknown",
-};
-
-
-
-
-const Zero = {
-  user: {
-    id: -2,
-    usual_full_name: "Zero",
-    login: "Zero",
-    email: "Zero@1337.ma",
-    image: { versions: { small: "/Zero.jpeg" } },
-    intra_link: "https://github.com/AchrafMez",
-  },
-  nickname: "Zero",
-  level: -1337,
-  originalRank: 100,
-  verified: true,
-  Gender: "unknown",
-  intra_link: "https://github.com/AchrafMez",
-};
-
+  };
 
   useEffect(() => {
     if (data && session?.accessToken) {
@@ -186,14 +184,13 @@ const Zero = {
       SetUsers(filteredUsers);
     }
   }, [data, session, SelectedGender, SearchTerm]);
-  
-let capZero = Users;
-if (SelectedCampus === 16 || SelectedCampus === 55) {
-  capZero = [Captain, ...Users];
-} else if (SelectedCampus === 21) {
-  capZero = [...Users, Zero];
-}
 
+  let capZero = Users;
+  if (SelectedCampus === 16 || SelectedCampus === 55) {
+    capZero = [Captain, ...Users];
+  } else if (SelectedCampus === 21) {
+    capZero = [...Users, Zero];
+  }
 
   return (
     <StyledRanking>
@@ -230,18 +227,18 @@ if (SelectedCampus === 16 || SelectedCampus === 55) {
                     onChange={(value) => {
                       setSelectedCampus(Number(value));
                       SetUsers([]);
-                        window.scrollTo(0, 0);
+                      window.scrollTo(0, 0);
                     }}
                   />
                   {/* </div> */}
                   {/* <div className="HideIt"> */}
-                    <CustomDropDown
-                      data={Filters}
-                      getValue={(item) => item.id.toString()}
-                      renderItem={(item) => `${item.name}`}
-                      onChange={() => {}}
-                      // disabled
-                    />
+                  <CustomDropDown
+                    data={Filters}
+                    getValue={(item) => item.id.toString()}
+                    renderItem={(item) => `${item.name}`}
+                    onChange={() => {}}
+                    // disabled
+                  />
                   {/* </div> */}
                 </div>
                 <div className="Other_filters">
@@ -350,8 +347,18 @@ if (SelectedCampus === 16 || SelectedCampus === 55) {
             StudentData={SelectedUser}
           />
           {/* <Stats /> */}
-          <LevelCalculator user_level={Number(session?.user.user_level) || 0} />
-          <Logtime />
+          {/* <LevelCalculator user_level={Number(session?.user.user_level) || 0} /> */}
+          {/* <Logtime /> */}
+          <div className="_13Hub">
+            <h1 className="Header">
+              join <img src="/13HUB.png" className="_13HubLogo" />
+            </h1>
+            <span>Meet others. Share the journey. Go further, together.</span>
+            <button onClick={handleInvite}>
+              <FaDiscord />
+              Join
+            </button>
+          </div>
         </div>
       </div>
     </StyledRanking>
