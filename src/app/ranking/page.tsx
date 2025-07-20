@@ -146,6 +146,21 @@ const Ranking: React.FC = () => {
     Gender: "unknown",
   };
 
+  const boxee = {
+    user: {
+      id: -1,
+      usual_full_name: "! 𝐵 𝒪 𝒳𝐸𝐸",
+      login: "Boxee",
+      email: "boxee@1337.ma",
+      image : {versions :{small : "https://i.pinimg.com/736x/b7/45/c0/b745c0016e41ef445fcde153c334b7a0.jpg"}},
+      nickname: "Boxee",
+      level: 42,
+      originalRank: 0,
+      verified: true,
+      Gender: "unknown",
+    }
+  }
+
   const Zero = {
     user: {
       id: -2,
