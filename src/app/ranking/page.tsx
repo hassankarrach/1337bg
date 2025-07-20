@@ -35,7 +35,7 @@ const Ranking: React.FC = () => {
   const loggedInUserCardRef = useRef<HTMLDivElement>(null);
   const observer = useRef<IntersectionObserver | null>(null);
 
-  const [SelectedCampus, setSelectedCampus] = useState<number>(21); // defafult bg
+  const [SelectedCampus, setSelectedCampus] = useState<number>(75); // default bg
 
   const lastUserRef = useCallback(
     (node: HTMLSpanElement) => {
@@ -139,6 +139,7 @@ const Ranking: React.FC = () => {
       image: { versions: { small: "/captain.jpg" } },
       intra_link: "https://github.com/AchrafMez",
     },
+    banner_url : "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjMydjc4cnloZGZzdWw5MHRpbTNmMjRsMHI0ZmpjcGMzOXRnbXJsbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/XVnd9bARlKj3W/giphy.gif",
     nickname: "Captain",
     level: 99,
     originalRank: 0,

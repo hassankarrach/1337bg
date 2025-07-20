@@ -1,3 +1,5 @@
+
+
 interface Filter {
   id: number;
   name: string;
@@ -11,22 +13,22 @@ export const Filters: Filter[] = [
   {
     id: 1338,
     name: "Alumni",
-    disabled: true,
+    disabled: false,
   },
   {
     id: 6,
     name: "Jun Pool",
-    disabled: true,
+    disabled: false,
   },
   {
     id: 7,
     name: "Jul Pool",
-    disabled: true,
+    disabled: false,
   },
   {
     id: 8,
     name: "Aug Pool",
-    disabled: true,
+    disabled: false,
   },
 ];
 
@@ -38,22 +40,26 @@ interface Campus {
 }
 export const Campuses: Campus[] = [
   {
+    id: 75,
+    name: "Rabat",
+  },
+
+  {
     id: 21,
     name: "Ben Guerir",
   },
+
+  {
+    id: 55,
+    name: "Med A7san campus",
+  },
+
   {
     id: 16,
     name: "Khouribga",
     disabled : false,
   },
-  {
-    id: 55,
-    name: "Med A7san campus",
-  },
-  {
-    id: 75,
-    name: "Rabat",
-  },
+  
 ];
 
 // Promos data
