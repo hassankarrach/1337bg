@@ -113,6 +113,7 @@ const GetVerified: React.FC<Props> = ({ open, onClose, setIsOpen }) => {
         const data = await res.json();
         if (data.status === 200) {
           // Successfully created user
+          console.log("reachs!!");
           session.user.verified = true;
           invalidateUserCache(); // so, the data will be refetched with the new user props.
           await signIn("42-school", { redirect: false });

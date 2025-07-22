@@ -9,7 +9,13 @@ import { useSession, signOut } from "next-auth/react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 // Icons
-import { FaRegEdit, FaSignOutAlt, FaBell, FaCommentAlt } from "react-icons/fa";
+import {
+  FaRegEdit,
+  FaSignOutAlt,
+  FaBell,
+  FaCommentAlt,
+  FaDiscord,
+} from "react-icons/fa";
 import GetVerified from "./GetVerified";
 import Profile from "@/app/ranking/compoents/profile";
 import ProfileModal from "./ProfileModal";
@@ -26,6 +32,8 @@ const Navbar: React.FC = () => {
   const [openGetVerified, setOpenGetVerified] = React.useState(false);
   const [openProfileModal, setOpenProfileModal] = React.useState(false);
   const open = Boolean(anchorEl);
+
+  console.log("Session Data:", session);
 
   // Dialog Handlers
   const handleGetVerified = () => {
@@ -61,6 +69,10 @@ const Navbar: React.FC = () => {
   };
   const handleCloseGetVerified = () => {
     setOpenGetVerified(false);
+  };
+
+  const handleInvite = () => {
+    window.open("https://discord.gg/5cZfS8djyg");
   };
 
   return (
@@ -99,16 +111,10 @@ const Navbar: React.FC = () => {
           </div>
         </>
       )}
-      {session && (
-        <>
-          <div className="Nav_item Messages">
-            <FaCommentAlt size={20} className="Nav_item_icon" />
-          </div>
-          <div className="Nav_item Notifications">
-            <FaBell size={20} className="Nav_item_icon" />
-          </div>
-        </>
-      )}
+      <div className="Nav_item discordInvite" onClick={handleInvite}>
+        <FaDiscord fill="white" size={25} />
+        <h1>Join 1337Hub</h1>
+      </div>
 
       <ProfileModal
         open={openProfileModal}

@@ -43,7 +43,7 @@ export const StyledNavbar = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow : hidden;
+    overflow: hidden;
     position: relative;
     cursor: pointer;
 
@@ -51,9 +51,9 @@ export const StyledNavbar = styled.div`
       color: rgba(255, 255, 255, 0.8);
       font-weight: 400;
       font-size: 1.2rem;
-      transition : 0.1s ease-in-out;
+      transition: 0.1s ease-in-out;
       &:hover {
-        color : rgba(255, 255, 255, 1);
+        color: rgba(255, 255, 255, 1);
       }
     }
 
@@ -174,6 +174,22 @@ export const StyledNavbar = styled.div`
       color: var(--main_color);
       opacity: 0.7;
       transition: 0.2s ease-in-out;
+    }
+  }
+  .Nav_item.discordInvite {
+    background-color: var(--main_color);
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    h1 {
+      color: white;
+      font-weight: 500;
+      font-size: 1.3rem;
+    }
+    @media only screen and (max-width: 767px) {
+      display: none;
     }
   }
 `;

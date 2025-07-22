@@ -17,13 +17,12 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ profile, user }: any) {
-  if (!profile || !user) return false;
-  // Allow BG, Khouribga, Med, Rabat
-  const allowedCampuses = [21, 16, 55, 75];
-  if (!allowedCampuses.includes(profile.campus[0].id))
-    return false;
-  return true;
-},
+      if (!profile || !user) return false;
+      // Allow BG, Khouribga, Med, Rabat
+      const allowedCampuses = [21, 16, 55, 75];
+      if (!allowedCampuses.includes(profile.campus[0].id)) return false;
+      return true;
+    },
     async jwt({ token, account, profile }: any) {
       if (profile) {
         // console.log(profile);
@@ -47,10 +46,19 @@ export const authOptions: NextAuthOptions = {
           where: { user_name: profile.login },
         });
         if (dbUser) {
-          token.verified = true;
+          token.verified = dbUser.is_verified;
           token.banner_url = dbUser.banner_url;
           token.nickname = dbUser.nickname;
         } else {
+          const newUser = await db.user.create({
+            data: {
+              user_name: profile.login,
+              full_name: `${profile.first_name} ${profile.last_name}`,
+              curr_level: profile.cursus_users.at(-1).level,
+              last_level: profile.cursus_users.at(-1).level,
+              image_url: profile.image.versions.small,
+            },
+          });
           token.verified = false;
         }
       }

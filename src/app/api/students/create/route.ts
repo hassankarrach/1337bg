@@ -4,58 +4,72 @@ import { authOptions } from "../../../../../lib/authOptions";
 import { db } from "../../../../../lib/db";
 
 export async function POST(req: NextRequest) {
-  // Get the NextAuth session
   const session = await getServerSession({ req, ...authOptions });
 
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // Extract and parse the body
   const { nickname, bannerUrl } = await req.json();
-  // checkers
-  if (nickname.length > 15 || (nickname.length < 3 && nickname != "")) {
+
+  // Validate nickname
+  if (nickname.length > 15 || (nickname.length < 3 && nickname !== "")) {
     return NextResponse.json(
       { error: "Nickname must be between 3 and 15 characters." },
       { status: 400 }
     );
   }
+
+  // Validate bannerUrl
   if (!bannerUrl.startsWith("https://") && bannerUrl !== "") {
     return NextResponse.json(
       { error: "Banner URL must start with 'https://'." },
       { status: 400 }
     );
   }
-  if (
-    !bannerUrl.endsWith(".gif") &&
-    !bannerUrl.endsWith(".jpeg") &&
-    !bannerUrl.endsWith(".png") &&
-    !bannerUrl.endsWith(".jpg") &&
-    bannerUrl !== ""
-  ) {
+
+  const validExtensions = [".gif", ".jpeg", ".jpg", ".png"];
+  const isValidExtension = validExtensions.some((ext) =>
+    bannerUrl.endsWith(ext)
+  );
+
+  if (!isValidExtension && bannerUrl !== "") {
     return NextResponse.json(
-      { error: "Banner URL must end with '.gif', '.jpeg', or '.png'." },
+      {
+        error:
+          "Banner URL must end with one of: .gif, .jpeg, .jpg, .png.",
+      },
       { status: 400 }
     );
   }
 
   try {
-    // Create and save the user in the database
-    const user = await db.user.create({
-      data: {
-        curr_level: Number(session.user.user_level), // Use user_level instead of level
-        last_level: Number(session.user.user_level), // Use user_level instead of level
-        user_name: session.user.login as string,
-        nickname: nickname as string,
-        banner_url: bannerUrl as string,
+    const user = await db.user.upsert({
+      where: {
+        user_name: session.user.login,
+      },
+      update: {
+        nickname,
+        banner_url: bannerUrl,
+        is_verified: true,
+      },
+      create: {
+        user_name: session.user.login,
+        full_name: session.user.name || "",
+        curr_level: Number(session.user.user_level),
+        last_level: Number(session.user.user_level),
+        image_url: session.user.image || "",
+        nickname,
+        banner_url: bannerUrl,
         is_verified: true,
       },
     });
 
-    return NextResponse.json({ status: 200, user }); // Respond with the created user
+    return NextResponse.json( { status: 200 });
   } catch (error) {
+    console.error("Upsert error:", error);
     return NextResponse.json(
-      { error: "An error occurred while creating the user." },
+      { error: "Failed to save user." },
       { status: 500 }
     );
   }

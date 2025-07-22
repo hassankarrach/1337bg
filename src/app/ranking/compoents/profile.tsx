@@ -215,7 +215,7 @@ const StyledProfile = styled.div<StyleProps>`
       font-size: 1rem;
       outline: none;
     }
-    textarea {
+    input {
       width: 100%;
       height: 45px;
       border-radius: 5px;
@@ -347,7 +347,6 @@ const Profile: React.FC<ComponentProps> = ({
       if (!res.ok) throw new Error(data.error || "Failed to fetch feedbacks");
 
       setReceivedFeedbacks(data.feedbacks);
-      console.log("Received feedbacks:", data.feedbacks);
     } catch (err) {
       console.error("Error fetching feedbacks:", err);
     }
@@ -363,7 +362,6 @@ const Profile: React.FC<ComponentProps> = ({
   }, [userData?.id]);
 
   function formatTimeAgo(isoDate: string): string {
-    console.log("ISO Date:", isoDate);
     const now = new Date();
     const then = new Date(isoDate);
     const diffMs = now.getTime() - then.getTime();
@@ -512,9 +510,11 @@ const Profile: React.FC<ComponentProps> = ({
 
       <StyledUserFeedbacks>
         <h2>Feedbacks :</h2>
-        {receivedFeedbacks.map((feedback) => {
+        {receivedFeedbacks.map((feedback, key) => {
+          // console.log("Feedback:", feedback);
           return (
             <div
+              key={key}
               className="Feedback_el"
               onClick={() => {
                 window.open(
@@ -543,7 +543,7 @@ const Profile: React.FC<ComponentProps> = ({
       </StyledUserFeedbacks>
 
       <div className="Feedback_feature">
-        <textarea
+        <input
           placeholder="Leave a feedback..."
           value={feedbackText}
           onChange={(e) => setFeedbackText(e.target.value)}
