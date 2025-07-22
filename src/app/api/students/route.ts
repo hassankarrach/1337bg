@@ -3,20 +3,17 @@ import { Campuses } from "@/data/Campuses";
 import { getGender } from "@/utils/get_gender";
 import { db } from "../../../../lib/db";
 
-// Define a type for the student fetched from MongoDB
 interface DbStudent {
   user_name: string;
   nickname: string | null;
   banner_url: string | null;
 }
 
-// Define a type for the API response student
 interface ApiStudent {
   user: {
     login: string;
     first_name: string;
   };
-  // Add other properties from the API response as needed
 }
 
 export async function GET(req: Request) {

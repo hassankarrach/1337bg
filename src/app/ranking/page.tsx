@@ -364,7 +364,7 @@ const Ranking: React.FC = () => {
           {/* <Stats /> */}
           {/* <LevelCalculator user_level={Number(session?.user.user_level) || 0} /> */}
           {/* <Logtime /> */}
-          <div className="_13Hub">
+          {/* <div className="_13Hub">
             <h1 className="Header">
               join <img src="/13HUB.png" className="_13HubLogo" />
             </h1>
@@ -376,7 +376,7 @@ const Ranking: React.FC = () => {
               <FaDiscord />
               Join
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </StyledRanking>
