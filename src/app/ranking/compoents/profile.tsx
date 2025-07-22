@@ -510,8 +510,10 @@ const Profile: React.FC<ComponentProps> = ({
 
       <StyledUserFeedbacks>
         <h2>Feedbacks :</h2>
+        {(!receivedFeedbacks || receivedFeedbacks.length === 0) && (
+          <span>No feedbacks received yet.</span>
+        )}
         {receivedFeedbacks.map((feedback, key) => {
-          // console.log("Feedback:", feedback);
           return (
             <div
               key={key}
