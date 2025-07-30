@@ -64,10 +64,9 @@ const UpdateUser = (
   };
   setUserData(ExtractedUserData);
 };
-
 const StyledProfile = styled.div<StyleProps>`
   /* width: 100%; */
-  flex : 1;
+  flex: 1;
   height: auto;
   background-color: #212125;
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -195,82 +194,43 @@ const StyledProfile = styled.div<StyleProps>`
 
   .Feedback_feature {
     margin-top: 10px;
-    height: 45px;
+    height: 55px;
     width: 100%;
     display: flex;
     justify-content: space-between;
+    gap: 4px;
     align-items: center;
+    padding: 4px;
 
-    .reaction_buttons {
-      height: 100%;
+    button {
+      width: 200px;
+      height: 45px;
+      background-color: var(--main_color);
+      color: var(--main_color_dark);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+      font-weight: 500;
+      font-size: 1rem;
+      outline: none;
+    }
+    input {
       width: 100%;
-      border-radius: 2px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      /* padding : 0px 5px; */
-      /* padding : 0px 10px; */
-      overflow: hidden;
-      border: 1px solid rgba(44, 44, 48, 1);
-      .Feedback {
-        flex-grow: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(44, 44, 48, 1);
-        transition: 0.2s ease-in-out;
-        height: 100%;
-        cursor: pointer;
-        padding: 8px 0px;
-        &:hover {
-          background-color: rgba(255, 255, 255, 0.1);
-        }
-        span {
-          color: rgba(255, 255, 255, 0.3);
-          font-size: 1.1rem;
-          font-weight: 300;
-        }
-      }
-      .reaction_devider {
-        width: 1px;
-        height: 100%;
-        background: linear-gradient(
-          0deg,
-          rgba(255, 255, 255, 0.1) 0%,
-          rgba(255, 255, 255, 0.2) 50%,
-          rgba(255, 255, 255, 0.1) 100%
-        );
-      }
-      .Thumb {
-        padding: 0px 15px;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        color: rgba(44, 44, 48, 1);
-        transition: 0.2s ease-in-out;
-        background-color: rgba(255, 255, 255, 0.16);
-      }
-      .Thum_up {
-        /* flex: 1 1 auto; */
-        &:hover {
-          background-color: #a8e6cf;
-          color: #56ab2f;
-        }
-      }
-      .Thum_down {
-        /* flex: 1 1 auto; */
-        &:hover {
-          background-color: #ff8a80;
-          color: #e53935;
-        }
-      }
+      height: 45px;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.05);
+      color: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 1rem;
+      font-family: var(--main_font);
+      outline: none;
+      padding: 10px 5px;
+      resize: none;
     }
   }
 
   .ContainerProfile {
-    flex-grow: 1;
     .User_Stats {
       width: 100%;
       margin-top: 20px;
@@ -308,22 +268,118 @@ const StyledProfile = styled.div<StyleProps>`
   }
 `;
 
+interface Feedback {
+  id: number;
+  feedback_text: string;
+  giver: {
+    user_name: string;
+    image_url: string; // URL to the giver's avatar image
+    nickname?: string; // Optional, if available
+  };
+  created_at: string;
+}
 const Profile: React.FC<ComponentProps> = ({
   StudentData,
   Promo,
   list_is_loading,
 }) => {
   //Stats
+  const session = useSession();
   const [userData, setUserData] = useState<User | null>(null);
   const [IsModalOpen, setIsModalOpen] = useState<boolean>(false);
   //Modal
   const handleOpenModal = () => toast.info("This feature is not available yet");
   const handleCloseModal = () => setIsModalOpen(false);
+  //Feedbacks
+  const [receivedFeedbacks, setReceivedFeedbacks] = useState<Feedback[]>([]);
+  const [feedbackText, setFeedbackText] = useState<string>("");
+
+  async function leaveFeedback(recieverLogin: string, text: string) {
+    // user should be verified before being able to provide feedbacks
+    if (!session.data?.user?.verified) {
+      toast.error("You must be verified to leave feedback.");
+      return;
+    }
+    // Approximate 2-line limit: max 2 line breaks OR ~200 characters
+    const lineCount = text.split("\n").length;
+    if (lineCount > 2 || text.length > 200) {
+      toast.error("Feedback must not exceed 2 lines.");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/students/feedbacks/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _userName: recieverLogin,
+          feedbackText: text.trim(),
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || "Failed to send feedback");
+
+      toast.success("Feedback sent successfully!");
+      setFeedbackText(""); // Clear the feedback text
+      await fetchReceivedFeedbacks();
+    } catch (err) {
+      console.error("Error sending feedback:", err);
+      toast.error("Error sending feedback.");
+    }
+  }
+
+  const fetchReceivedFeedbacks = async () => {
+    if (!userData?.login) return;
+
+    try {
+      const res = await fetch(`/api/students/feedbacks`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ login: userData.login }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || "Failed to fetch feedbacks");
+
+      setReceivedFeedbacks(data.feedbacks);
+    } catch (err) {
+      console.error("Error fetching feedbacks:", err);
+    }
+  };
 
   useEffect(() => {
     if (StudentData != undefined) UpdateUser(StudentData, setUserData);
-    // console.log(StudentData);
+    setReceivedFeedbacks([]); // Reset feedbacks when StudentData changes
   }, [StudentData]);
+
+  useEffect(() => {
+    fetchReceivedFeedbacks();
+  }, [userData?.id]);
+
+  function formatTimeAgo(isoDate: string): string {
+    const now = new Date();
+    const then = new Date(isoDate);
+    const diffMs = now.getTime() - then.getTime();
+
+    const seconds = Math.floor(diffMs / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const weeks = Math.floor(days / 7);
+
+    if (weeks > 0) return `${weeks}w ago`;
+    if (days > 0) return `${days}d ago`;
+    if (hours > 0) return `${hours}h ago`;
+    if (minutes > 0) return `${minutes}m ago`;
+    if (seconds > 0) return `${seconds}s ago`;
+
+    return "just now";
+  }
 
   return (
     <StyledProfile
@@ -377,7 +433,7 @@ const Profile: React.FC<ComponentProps> = ({
                     ? userData.nickname
                     : userData?.full_name}
                   {StudentData?.verified && (
-                    <VerifiedIcon  size={18} style={{marginLeft : '5px'}}/>
+                    <VerifiedIcon size={18} style={{ marginLeft: "5px" }} />
                   )}
                 </h1>
                 <span className="Profile_UserName">{userData?.login}</span>
@@ -452,23 +508,130 @@ const Profile: React.FC<ComponentProps> = ({
         </div>
       </div>
 
+      <StyledUserFeedbacks>
+        <h2>Feedbacks :</h2>
+        {(!receivedFeedbacks || receivedFeedbacks.length === 0) && (
+          <span>No feedbacks received yet.</span>
+        )}
+        {receivedFeedbacks.map((feedback, key) => {
+          return (
+            <div
+              key={key}
+              className="Feedback_el"
+              onClick={() => {
+                window.open(
+                  `https://profile.intra.42.fr/users/${feedback.giver.user_name}`,
+                  "_blank"
+                );
+              }}
+            >
+              <div
+                className="avatar"
+                style={{ backgroundImage: `url(${feedback.giver.image_url})` }}
+              />
+              <div className="feedback_details">
+                <h1 className="user_name">
+                  {feedback.giver.nickname || feedback.giver.user_name}
+                </h1>
+                <span className="FeedbackText">{feedback.feedback_text}</span>
+
+                <span className="time">
+                  {formatTimeAgo(feedback.created_at)}
+                </span>
+              </div>
+            </div>
+          );
+        })}
+      </StyledUserFeedbacks>
+
       <div className="Feedback_feature">
-        <div className="reaction_buttons" onClick={handleOpenModal}>
-          <div className="Feedback">
-            <span>Leave Anonymous Feedback</span>
-          </div>
-          <div className="reaction_devider" />
-          <div className="Thumb Thum_down">
-            <FaThumbsDown />
-          </div>
-          <div className="reaction_devider" />
-          <div className="Thumb Thum_up">
-            <FaThumbsUp />
-          </div>
-        </div>
+        <input
+          placeholder="Leave a feedback..."
+          value={feedbackText}
+          onChange={(e) => setFeedbackText(e.target.value)}
+        />
+
+        <button
+          onClick={() => leaveFeedback(userData?.login || "", feedbackText)}
+        >
+          Send Feedback
+        </button>
       </div>
     </StyledProfile>
   );
 };
+
+const StyledUserFeedbacks = styled.div`
+  width: 100%;
+  flex: 1;
+  padding: 5px;
+  overflow-y: auto;
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  overflow-x: hidden;
+
+  h2 {
+    color: rgba(255, 255, 255, 0.6);
+    padding: 10px 0px;
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+  .Feedback_el {
+    width: 100%;
+    height: auto;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 4px;
+    gap: 4px;
+    border-radius: 5px;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.07);
+    }
+    .avatar {
+      min-width: 40px;
+      min-height: 40px;
+      width: 40px;
+      height: 40px;
+      border-radius: 5px;
+      background-position: center;
+      background-size: cover;
+    }
+    .feedback_details {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 5px;
+      .FeedbackText {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 5px;
+        word-wrap: break-word;
+        max-width: 350px;
+        font-weight: 300;
+      }
+      .time {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.3);
+        position: absolute;
+        right: 0px;
+        font-weight: 200;
+      }
+    }
+    .user_name {
+      text-transform: uppercase;
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+`;
 
 export default Profile;

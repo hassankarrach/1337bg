@@ -3,20 +3,18 @@ import { Campuses } from "@/data/Campuses";
 import { getGender } from "@/utils/get_gender";
 import { db } from "../../../../lib/db";
 
-// Define a type for the student fetched from MongoDB
 interface DbStudent {
   user_name: string;
   nickname: string | null;
   banner_url: string | null;
+  is_verified: boolean;
 }
 
-// Define a type for the API response student
 interface ApiStudent {
   user: {
     login: string;
     first_name: string;
   };
-  // Add other properties from the API response as needed
 }
 
 export async function GET(req: Request) {
@@ -41,10 +39,10 @@ export async function GET(req: Request) {
       `https://api.intra.42.fr/v2/cursus_users?&filter[campus_id]=${campus_id}&filter[begin_at]=${started_date}&page[size]=100&page[number]=${page}&sort=-level`,
       {
         headers: {
-        Authorization: `${AccessToken}`,
-      },
-  }
-);
+          Authorization: `${AccessToken}`,
+        },
+      }
+    );
 
     const user = await fetch("https://api.intra.42.fr/v2/users/232764", {
       headers: {
@@ -52,8 +50,7 @@ export async function GET(req: Request) {
       },
     });
 
-    if (user)
-    {
+    if (user) {
       const data = await user.json();
       console.log(data);
     }
@@ -80,7 +77,7 @@ export async function GET(req: Request) {
         ...user,
         originalRank: (parseInt(page || "1", 10) - 1) * 100 + index + 1,
         Gender: getGender(user.user.first_name.trim()),
-        verified: !!dbStudent, // Check if the student is found in MongoDB
+        verified: dbStudent?.is_verified || false,
         nickname: dbStudent?.nickname || null, // Add nickname from MongoDB or default to null
         banner_url: dbStudent?.banner_url || null, // Add banner_url from MongoDB or default to null
       };

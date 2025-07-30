@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
   }
 
   const currentLevel = Number(session.user.user_level);
+
   try {
     // Get User from the database
     const existingUser = await db.user.findUnique({
@@ -55,10 +56,10 @@ export async function POST(req: NextRequest) {
     // Check last update time
     if (
       existingUser.updated_at.getTime() >
-      new Date().getTime() - 1000 * 60 * 60 * 24 * 2
+      new Date().getTime() - 1 * 60 * 60 * 6 * 1000
     ) {
       return NextResponse.json(
-        { error: "You can only update your profile once every two days." },
+        { error: "You can only update your profile once every 6 hours." },
         { status: 400 }
       );
     }
