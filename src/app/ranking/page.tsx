@@ -28,7 +28,7 @@ const Ranking: React.FC = () => {
   const [Users, SetUsers] = useState<any[]>([]);
   const [SearchTerm, setSearchTerm] = useState<string>("");
   const [SelectedUser, SetSelectedUser] = useState<any>();
-  const [SelectedPromo, setSelectedPromo] = useState<number>(0);
+  // const [SelectedPromo, setSelectedPromo] = useState<number>(0);
   const [SelectedGender, setSelectedGender] = useState<string>("All");
 
   useSessionEnd();
@@ -36,7 +36,9 @@ const Ranking: React.FC = () => {
   const loggedInUserCardRef = useRef<HTMLDivElement>(null);
   const observer = useRef<IntersectionObserver | null>(null);
 
-  const [SelectedCampus, setSelectedCampus] = useState<number>(75); // default bg
+const [SelectedCampus, setSelectedCampus] = useState<number>(75);
+  const [SelectedPromo, setSelectedPromo] = useState<number>(Promos[0].id);
+
 
   const lastUserRef = useCallback(
     (node: HTMLSpanElement) => {
@@ -57,15 +59,21 @@ const Ranking: React.FC = () => {
     SetUsers([]);
     setSelectedGender("All");
     const promoId = parseInt(value, 10);
-    setSelectedPromo(promoId);
+    setSelectedPromo(parseInt(value, 10));
     console.log(SelectedPromo);
     window.scrollTo(0, 0);
   };
 
   const fetchUsers = async ({ pageParam = 1 }) => {
+    const promo = Promos.find((promo) => promo.id === SelectedPromo);
+  console.log("SelectedPromo:", SelectedPromo, "Promo:", promo, "Campus:", SelectedCampus);
+  const url = `/api/students?started_date=${promo?.start_date}&campus_id=${SelectedCampus}&page=${pageParam}&alumni=true`;
+  console.log("API URL:", url);
     try {
       const response = await fetch(
-        `/api/students?started_date=${Promos[SelectedPromo].start_date}&campus_id=${SelectedCampus}&page=${pageParam}&alumni=true`,
+        // `/api/students?started_date=${Promos[SelectedPromo].start_date}&campus_id=${SelectedCampus}&page=${pageParam}&alumni=true`,
+  `/api/students?started_date=${Promos.find((promo) => promo.id === SelectedPromo)?.start_date}&campus_id=${SelectedCampus}&page=${pageParam}&alumni=true`,
+        
         {
           headers: {
             Authorization: `Bearer ${session?.accessToken}`,
@@ -131,22 +139,22 @@ const Ranking: React.FC = () => {
     }
   };
 
-  const Captain = {
-    user: {
-      id: -1,
-      usual_full_name: "Captain",
-      login: "Captain",
-      email: "Captain@1337.ma",
-      image: { versions: { small: "/captain.jpg" } },
-      intra_link: "https://github.com/AchrafMez",
-    },
-    banner_url : "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjMydjc4cnloZGZzdWw5MHRpbTNmMjRsMHI0ZmpjcGMzOXRnbXJsbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/XVnd9bARlKj3W/giphy.gif",
-    nickname: "Captain",
-    level: 99,
-    originalRank: 0,
-    verified: true,
-    Gender: "unknown",
-  };
+const Captain = {
+  user: {
+    id: -1,
+    usual_full_name: "Captain",
+    login: "Captain",
+    email: "Captain@1337.ma",
+    image: { versions: { small: "/captain.jpg" } },
+    intra_link: "https://github.com/AchrafMez", // <-- Set to Captain's GitHub
+  },
+  banner_url: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjMydjc4cnloZGZzdWw5MHRpbTNmMjRsMHI0ZmpjcGMzOXRnbXJsbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/XVnd9bARlKj3W/giphy.gif",
+  nickname: "Captain",
+  level: 99,
+  originalRank: 0,
+  verified: true,
+  Gender: "unknown",
+};
 
   const boxee = {
     user: {
@@ -186,6 +194,7 @@ const Ranking: React.FC = () => {
   };
 
   useEffect(() => {
+    
     if (data && session?.accessToken) {
       const newUsers = data.pages.flatMap((page) => page.data);
 
@@ -345,6 +354,7 @@ const Ranking: React.FC = () => {
                         }
                         is_even={!(key % 2)}
                         is_verified={User.verified}
+                        // intra_link={User.user.intra_link} 
                       />
                     );
                   })}
@@ -369,6 +379,11 @@ const Ranking: React.FC = () => {
             list_is_loading={!Users[0]}
             StudentData={SelectedUser}
           />
+          {/* <Profile
+            Promo={Promos.find((promo) => promo.id === SelectedPromo)}
+            list_is_loading={!Users[0]}
+            StudentData={SelectedUser}
+          /> */}
           {/* <Stats /> */}
           {/* <LevelCalculator user_level={Number(session?.user.user_level) || 0} /> */}
           {/* <Logtime /> */}

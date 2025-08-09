@@ -393,11 +393,18 @@ const Profile: React.FC<ComponentProps> = ({
 
       <div className="User_Banner">
         {!list_is_loading ? (
-          <a
-            href={`https://profile.intra.42.fr/users/${userData?.login}`}
-            target="_blank"
-            style={{ textDecoration: "none" }}
-          >
+            <a
+              href={
+              userData?.login === "Captain"
+                ? "https://github.com/AchrafMez"
+                : userData?.login === "Zero"
+                ? "https://github.com/hassankarrach"
+                : `https://profile.intra.42.fr/users/${userData?.login}`
+            }
+              target="_blank"
+              style={{ textDecoration: "none" }}
+            >
+                
             <div
               className="Profile_avatar"
               style={{ backgroundImage: `url(${userData?.img})` }}

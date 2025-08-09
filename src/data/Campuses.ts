@@ -57,7 +57,7 @@ export const Campuses: Campus[] = [
   {
     id: 16,
     name: "Khouribga",
-    disabled : false,
+    // disabled : false,
   },
   
 ];
