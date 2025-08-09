@@ -179,7 +179,7 @@ const Page = () => {
   };
 
   const getUserByimpact = async () => {
-    const url = `/api/blackholed?start_date=${Promos[SelectedPromo].start_date}`;
+    const url = `/api/blackholed?start_date=${Promos.find((promo) => promo.id === SelectedPromo)?.start_date}`;
 
     try {
       const response = await fetch(url, {
