@@ -217,7 +217,7 @@ const Captain = {
   }, [data, session, SelectedGender, SearchTerm]);
 
   let capZero = Users;
-  if (SelectedCampus === 16 || SelectedCampus === 55) {
+  if (SelectedCampus === 75 || SelectedCampus === 55) {
     capZero = [Captain, ...Users];
   } else if (SelectedCampus === 21) {
     capZero = [...Users, Zero];
