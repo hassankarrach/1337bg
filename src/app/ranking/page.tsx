@@ -373,7 +373,7 @@ const Captain = {
         </div>
 
         <div className="ProfileContainer">
-          {/* <Banner />  */}
+          <Banner /> 
           <Profile
             Promo={Promos[SelectedPromo]}
             list_is_loading={!Users[0]}

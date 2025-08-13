@@ -69,7 +69,7 @@ export const StyledMain = styled.div`
 
     h1 {
       font-family: var(--playable_font);
-      font-size: 2.4rem;
+      font-size: 3.4rem;
       font-weight: 100;
       color: white;
       z-index : 9;

@@ -7,22 +7,17 @@ export const StyledBanner = styled.div`
   margin-bottom: 10px;
   background-color: black;
   border: 1px solid rgba(255, 255, 255, 0.06);
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 10px);
-  grid-auto-rows: 10px;
-  grid-gap: 5px;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   overflow: hidden;
-  top: 0;
+  display: flex;
+  align-items: center;
+
   @media only screen and (max-width: 767px) {
-    /* display : none; */
-    margin : 0;
-    margin-top : 45px;
+    margin: 0;
+    margin-top: 45px;
     height: 40px;
   }
+
   .MuteIcon {
     position: absolute;
     top: 2px;
@@ -35,33 +30,49 @@ export const StyledBanner = styled.div`
       opacity: 1;
     }
   }
+`;
 
-  .message {
-    font-family: var(--Dot_font);
-    color: red;
-    position: absolute;
-    right: 0;
-    white-space: nowrap;
-    animation-delay: 0s;
-    @media only screen and (max-width: 767px) {
-      font-size : 1.1rem;
+export const BannerTrack = styled.div`
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: scroll 30s linear infinite;
+
+  .banner-item {
+    display: flex;
+    align-items: center;
+    margin-right: 40px;
+
+    .splitter{
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: red;
+      margin-left: 30px;
+    }
+
+    span {
+      font-family: var(--Dot_font);
+      font-size: 2rem;
+      color: red;
+    }
+
+    img {
+      max-width: 200px;
+      min-height: 100%;
     }
   }
 
-  .message {
-    -moz-transform: translateX(100%);
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-
-    animation: my-animation 40s linear infinite;
+  .banner-item:first-child {
+    margin-left: 90px; /* Add left gap here */
   }
 
-  @keyframes my-animation {
-    from {
-      transform: translateX(100%);
+  @keyframes scroll {
+    0% {
+      transform: translateX(0%);
     }
-    to {
-      transform: translateX(-100%);
+    100% {
+      transform: translateX(-50%);
     }
   }
 `;

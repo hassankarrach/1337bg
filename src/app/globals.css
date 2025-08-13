@@ -5,6 +5,9 @@
 /* Dot Matrix Font */
 @import url('https://fonts.cdnfonts.com/css/dot-matrix');
 
+@import url('https://fonts.cdnfonts.com/css/seri-ea');
+
+
 /* * Define Local Fonts */
 
 /* @font-face {
@@ -16,9 +19,9 @@
 /* Global Styles */
 :root {
   /* MAIN COLORS */
-  --main_background : #0A0B14;
-  --sec_background : #13131a;
-  --main_color: #40E440;
+  --main_background : rgb(19, 18, 23);
+  --sec_background : rgb(27, 26, 31);
+  --main_color: rgb(93, 189, 75);
   --main_color_dark : #283a03;
   --main_color_light : #46ff46;
   
@@ -34,7 +37,7 @@
   --Sec_Font: "Poppins", sans-serif;
   --Dot_font : 'Dot Matrix', sans-serif;
 
-  --playable_font : 'Neuropolitical', sans-serif;
+  --playable_font : 'Seri EA', sans-serif;
 }
 
 h1, h2, h3, h4, button{

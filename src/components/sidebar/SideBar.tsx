@@ -134,7 +134,7 @@ const StyledSideBar = styled.div<StyledSideBarProps>`
   .LogoPlaceHolder {
     width: 100%;
     height: 70px;
-    background-color: #212125;
+    background-color: var(--sec_background);
     border-radius: 3px;
     clip-path: polygon(
       0% 0%,
@@ -164,7 +164,7 @@ const StyledSideBar = styled.div<StyledSideBarProps>`
   .ListBar {
     width: 100%;
     height: 100%;
-    background-color: #212125;
+    background-color: var(--sec_background);
     border-radius: 3px;
     clip-path: polygon(
       0% 0%,
@@ -211,7 +211,7 @@ const StyleSideElement = styled.div<StyleSideElement>`
   margin-top: ${(props) => props.$is_last && "auto"};
   color: ${(props) =>
     props.$is_active ? "var(--main_color_dark)" 
-    : props.$is_under_dev ? "#2f391c" 
+    : props.$is_under_dev ? "rgba(93, 189, 75, 0.3)" 
     : "var(--main_color)"};
   display: flex;
   justify-content: center;
