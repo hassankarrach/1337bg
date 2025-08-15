@@ -139,60 +139,6 @@ const [SelectedCampus, setSelectedCampus] = useState<number>(75);
     }
   };
 
-const Captain = {
-  user: {
-    id: -1,
-    usual_full_name: "Captain",
-    login: "Captain",
-    email: "Captain@1337.ma",
-    image: { versions: { small: "/captain.jpg" } },
-    intra_link: "https://github.com/AchrafMez", // <-- Set to Captain's GitHub
-  },
-  banner_url: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjMydjc4cnloZGZzdWw5MHRpbTNmMjRsMHI0ZmpjcGMzOXRnbXJsbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/XVnd9bARlKj3W/giphy.gif",
-  nickname: "Captain",
-  level: 99,
-  originalRank: 0,
-  verified: true,
-  Gender: "unknown",
-};
-
-  const boxee = {
-    user: {
-      id: -1,
-      usual_full_name: "! 𝐵 𝒪 𝒳𝐸𝐸",
-      login: "Boxee",
-      email: "boxee@1337.ma",
-      image: {
-        versions: {
-          small:
-            "https://i.pinimg.com/736x/b7/45/c0/b745c0016e41ef445fcde153c334b7a0.jpg",
-        },
-      },
-      nickname: "Boxee",
-      level: 42,
-      originalRank: 0,
-      verified: true,
-      Gender: "unknown",
-    },
-  };
-
-  const Zero = {
-    user: {
-      id: -2,
-      usual_full_name: "Zero",
-      login: "Zero",
-      email: "Zero@1337.ma",
-      image: { versions: { small: "/Zero.jpeg" } },
-      intra_link: "https://github.com/AchrafMez",
-    },
-    nickname: "Zero",
-    level: -1337.42,
-    originalRank: 42,
-    verified: true,
-    Gender: "unknown",
-    intra_link: "https://github.com/AchrafMez",
-  };
-
   useEffect(() => {
     
     if (data && session?.accessToken) {
@@ -216,12 +162,6 @@ const Captain = {
     }
   }, [data, session, SelectedGender, SearchTerm]);
 
-  let capZero = Users;
-  if (SelectedCampus === 75 || SelectedCampus === 55) {
-    capZero = [Captain, ...Users];
-  } else if (SelectedCampus === 21) {
-    capZero = [...Users, Zero];
-  }
 
   return (
     <StyledRanking>
@@ -331,7 +271,7 @@ const Captain = {
                 </div>
               ) : Users ? (
                 <>
-                  {capZero.map((User: any, key: number) => {
+                  {Users.map((User: any, key: number) => {
                     if (!User || !User.user) return null;
                     // if (User.Gender === "unknown") console.log(User);
 
