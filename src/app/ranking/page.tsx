@@ -132,7 +132,12 @@ const [SelectedCampus, setSelectedCampus] = useState<number>(75);
     }
   };
 
-
+const updateSelectedUserById = (userId: number) => {
+  const selectedUser = Users.find((user) => user.user.id === userId);
+  if (selectedUser) {
+    SetSelectedUser(selectedUser);
+  }
+};
 
   useEffect(() => {
     
