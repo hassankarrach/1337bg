@@ -132,12 +132,7 @@ const [SelectedCampus, setSelectedCampus] = useState<number>(75);
     }
   };
 
-  const updateSelectedUserById = (userId: number) => {
-    const foundUser = capZero.find((user) => user.user.id === userId);
-    if (foundUser) {
-      SetSelectedUser(foundUser);
-    }
-  };
+
 
   useEffect(() => {
     
