@@ -91,7 +91,7 @@ export const StyledMain = styled.div`
 
       .login_button {
         outline: none;
-        background: linear-gradient(122deg, #40E440 0%,rgb(44, 224, 44) 30%);
+        background: var(--main_color);
         /* border: 1px solid rgba(214,207,255,0.7); */
         border: none;
         outline: none;
@@ -108,7 +108,7 @@ export const StyledMain = styled.div`
         -webkit-backdrop-filter: blur(4px);
         transition: 0.5s ease-in-out;
         &:hover {
-          background: linear-gradient(122deg, #40E440 0%,rgb(88, 255, 88) 30%);
+          background: color-mix(in srgb, var(--main_color) 80%, white);
           ._42logo {
             fill: var(--main_color_dark);
           }

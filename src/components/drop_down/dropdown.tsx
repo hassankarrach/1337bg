@@ -162,7 +162,7 @@ const Option = styled(BaseOption)`
   }
 
   &[aria-selected="true"] {
-    background-color: var(--main_color_light);
+    background-color: var(--main_color);
     color: var(--main_color_dark);
   }
 
