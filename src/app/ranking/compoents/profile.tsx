@@ -275,6 +275,7 @@ interface Feedback {
     user_name: string;
     image_url: string; // URL to the giver's avatar image
     nickname?: string; // Optional, if available
+    is_verified: true;
   };
   created_at: string;
 }
@@ -538,8 +539,18 @@ const Profile: React.FC<ComponentProps> = ({
               />
               <div className="feedback_details">
                 <h1 className="user_name">
-                  {feedback.giver.nickname || feedback.giver.user_name}
+                    {feedback.giver.nickname || feedback.giver.user_name}
+                    {feedback.giver.is_verified && (
+                    <VerifiedIcon 
+                      size={16}  
+                      style={{ 
+                        marginLeft: "5px", 
+                        color: "var(--main_color)",
+                      }} 
+                    />
+                  )}
                 </h1>
+                
                 <span className="FeedbackText">{feedback.feedback_text}</span>
 
                 <span className="time">

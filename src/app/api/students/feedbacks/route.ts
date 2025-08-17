@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
             user_name: true,
             nickname: true,
             image_url: true,
+            is_verified: true,
           },
         },
       },
