@@ -5,6 +5,7 @@ import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
+import { usePathname } from "next/navigation";
 // MaterialUI Components
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -19,6 +20,8 @@ import {
 import GetVerified from "./GetVerified";
 import Profile from "@/app/ranking/compoents/profile";
 import ProfileModal from "./ProfileModal";
+import MyFeedbacksModal from "@/components/my_feedbacks_modal/MyFeedbacksModal";
+import NotificationCenter from "@/components/notification_center/NotificationCenter";
 import { toast } from "react-toastify";
 
 const get_username_from_email = (email: string) => {
@@ -28,10 +31,15 @@ const get_username_from_email = (email: string) => {
 
 const Navbar: React.FC = () => {
   const { data: session } = useSession();
+  const pathname = usePathname();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [openGetVerified, setOpenGetVerified] = React.useState(false);
   const [openProfileModal, setOpenProfileModal] = React.useState(false);
+  const [openFeedbacksModal, setOpenFeedbacksModal] = React.useState(false);
   const open = Boolean(anchorEl);
+
+  // Check if we're on the home page
+  const isHomePage = pathname === "/";
 
   console.log("Session Data:", session);
 
@@ -42,6 +50,11 @@ const Navbar: React.FC = () => {
 
   const handleOpenProfileModal = () => {
     setOpenProfileModal(true);
+    setAnchorEl(null);
+  };
+
+  const handleOpenFeedbacksModal = () => {
+    setOpenFeedbacksModal(true);
     setAnchorEl(null);
   };
 
@@ -66,6 +79,10 @@ const Navbar: React.FC = () => {
 
   const handleCloseProfileModal = () => {
     setOpenProfileModal(false);
+  };
+  
+  const handleCloseFeedbacksModal = () => {
+    setOpenFeedbacksModal(false);
   };
   const handleCloseGetVerified = () => {
     setOpenGetVerified(false);
@@ -95,7 +112,7 @@ const Navbar: React.FC = () => {
         }}
       >
         <MenuItem onClick={handleOpenProfileModal}>My Profile</MenuItem>
-        <MenuItem onClick={HandleFeatureClick}>My Feedbacks</MenuItem>
+        <MenuItem onClick={handleOpenFeedbacksModal}>My Feedbacks</MenuItem>
         <MenuItem onClick={HandleFeatureClick}>My Favorits</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
@@ -111,10 +128,6 @@ const Navbar: React.FC = () => {
           </div>
         </>
       )}
-      <div className="Nav_item discordInvite" onClick={handleInvite}>
-        <FaDiscord fill="white" size={25} />
-        <h1>Join 1337Hub</h1>
-      </div>
 
       <ProfileModal
         open={openProfileModal}
@@ -122,6 +135,20 @@ const Navbar: React.FC = () => {
         setIsOpen={setOpenProfileModal}
       />
 
+      <MyFeedbacksModal
+        open={openFeedbacksModal}
+        onClose={() => handleCloseFeedbacksModal()}
+      />
+
+      {session && <NotificationCenter />}
+
+      (
+        <div className="Nav_item discordInvite" onClick={handleInvite}>
+          <FaDiscord fill="white" size={25} />
+          <h1>Join Community</h1>
+        </div>
+      )
+      
       <div
         className="Profile"
         onClick={handleProfileClick}

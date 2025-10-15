@@ -7,6 +7,7 @@ import { FaCheckSquare as VerifiedIcon } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { to } from "@react-spring/web";
 import useInvalidateUserCache from "@/hooks/useInvalidateCache";
+import BioEditor from "@/components/bio_editor/BioEditor";
 
 interface Props {
   open: boolean;
@@ -143,21 +144,45 @@ const StyledProfileModal = styled.div<StyledProfileModalProps>`
     width: 400px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 20px;
     margin-top: 20px;
-    input {
-      height: 35px;
-      width: 100%;
-      border-radius: 5px;
-      border: 1px solid var(--Par_grey);
-      color: var(--Par_grey);
-      outline: none;
-      padding: 0 10px;
-      &::placeholder {
-        color: var(--Par_grey);
-        opacity: 0.7;
+    
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      
+      label {
+        color: black;
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0;
+      }
+      
+      input {
+        height: 45px;
+        width: 100%;
+        border-radius: 8px;
+        background: rgba(33, 33, 37, 0.8);
+        border: 1px solid rgba(183, 251, 43, 0.3);
+        color: white;
+        outline: none;
+        padding: 12px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        
+        &:focus {
+          border-color: var(--main_color);
+          box-shadow: 0 0 0 2px rgba(183, 251, 43, 0.1);
+        }
+        
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.4);
+        }
       }
     }
+    
     .ErrorSpan {
       color: red;
       font-size: 1rem;
@@ -169,6 +194,7 @@ const ProfileModal: React.FC<Props> = ({ open, onClose, setIsOpen }) => {
   const { data: session } = useSession();
   const [nickname, setNickname] = React.useState("");
   const [bannerUrl, setBannerUrl] = React.useState("");
+  const [userBio, setUserBio] = React.useState<string | null>(null);
   //Hooks
   const invalidateUserCache = useInvalidateUserCache();
 
@@ -182,6 +208,22 @@ const ProfileModal: React.FC<Props> = ({ open, onClose, setIsOpen }) => {
     setBannerUrl(event.target.value);
   };
 
+  const handleBioUpdate = (newBio: string) => {
+    setUserBio(newBio);
+  };
+
+  const fetchUserBio = async () => {
+    try {
+      const response = await fetch('/api/users/bio');
+      if (response.ok) {
+        const data = await response.json();
+        setUserBio(data.bio);
+      }
+    } catch (error) {
+      console.error('Error fetching bio:', error);
+    }
+  };
+
   const handleUpdateProfile = async () => {
     if (!session?.user.verified) {
       toast.error("You need to be verified to update your profile.");
@@ -189,12 +231,17 @@ const ProfileModal: React.FC<Props> = ({ open, onClose, setIsOpen }) => {
     }
     if (!session) return;
     try {
+      // Update all profile fields in a single API call
       const res = await fetch("/api/students/update", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ nickname, bannerUrl }),
+        body: JSON.stringify({ 
+          nickname, 
+          bannerUrl, 
+          bio: userBio?.trim() || ""
+        }),
       });
       const data = await res.json();
 
@@ -215,6 +262,7 @@ const ProfileModal: React.FC<Props> = ({ open, onClose, setIsOpen }) => {
     if (session) {
       setBannerUrl(session.user.banner_url);
       setNickname(session.user.nickname);
+      fetchUserBio();
     }
   }, [session]);
 
@@ -243,19 +291,34 @@ const ProfileModal: React.FC<Props> = ({ open, onClose, setIsOpen }) => {
 
         <div className="UpdateSection">
           <div className="Extras">
-            <label>nickname :</label>
-            <input
-              type="text"
-              placeholder="Nickname (optional)"
-              value={nickname}
-              onChange={handleNicknameChange}
-            />
-            <label>banner url :</label>
-            <input
-              type="text"
-              placeholder="Banner url (.gif, .jpeg, .png)"
-              value={bannerUrl}
-              onChange={handleBannerUrlChange}
+            <div className="field-group">
+              <label>Nickname</label>
+              <input
+                type="text"
+                placeholder="Enter your nickname (optional)"
+                value={nickname}
+                onChange={handleNicknameChange}
+                maxLength={50}
+              />
+            </div>
+            
+            <div className="field-group">
+              <label>Banner URL</label>
+              <input
+                type="url"
+                placeholder="Enter banner URL (.gif, .jpeg, .png)"
+                value={bannerUrl}
+                onChange={handleBannerUrlChange}
+                maxLength={200}
+              />
+            </div>
+            
+            <BioEditor 
+              initialBio={userBio} 
+              onBioUpdate={handleBioUpdate}
+              isEditable={true}
+              directEdit={true}
+              isOwnProfile={true}
             />
           </div>
 
