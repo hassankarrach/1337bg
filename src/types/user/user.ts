@@ -5,6 +5,7 @@ export interface User {
     corrections_points  : number;
     full_name           : string;
     nickname            : string | null;
+    bio                 : string | null;
     email               : string;  
     login               : string;
     level               : string;
@@ -13,4 +14,9 @@ export interface User {
     img                 : string | undefined;
     location            : string;
     wallet              : number;
+    // Admission status fields
+    accepted            : string | boolean;
+    reason              : string | null;
+    isvalidated         : string | boolean;
+    cheating            : boolean;
 }

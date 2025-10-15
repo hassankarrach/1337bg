@@ -12,7 +12,7 @@ interface BioEditorProps {
 }
 
 const BioContainer = styled.div`
-  margin: 1rem 0;
+  margin: 0rem 0;
 `;
 
 const BioHeader = styled.div`

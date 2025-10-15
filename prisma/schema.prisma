@@ -18,6 +18,7 @@ model User {
   full_name          String?
   user_name          String              @unique
   nickname           String?             
+  bio                String?             // User's bio/description
   image_url          String? // due to 42's copyright, this will be used only for the integration week event.
   banner_url         String?
   curr_level         Float
@@ -29,6 +30,7 @@ model User {
   feedbacks_received Feedback[]          @relation("feedbacks_received")
   points_given       PointsTransaction[] @relation("points_given") // Transactions where user gave points
   points_received    PointsTransaction[] @relation("points_received") // Transactions where user received points
+  notifications      Notification[]      @relation("user_notifications")
   created_at         DateTime            @default(now())
   updated_at         DateTime            @updatedAt
   is_registered_IW   Boolean             @default(false)
@@ -75,4 +77,18 @@ model Feedback {
   created_at    DateTime @default(now())
 
   @@unique([giver_id, receiver_id, created_at])
+}
+
+model Notification {
+  id         String      @id @default(cuid()) @map("_id")
+  user_id    String
+  user       User        @relation("user_notifications", fields: [user_id], references: [id])
+  type       String      // e.g., "feedback", "like", "points", etc.
+  title      String
+  message    String
+  data       String?     // JSON string for additional data
+  is_read    Boolean     @default(false)
+  created_at DateTime    @default(now())
+
+  @@index([user_id, is_read])
 }

@@ -16,16 +16,26 @@ import {
   FaThumbsUp,
   FaThumbsDown,
   FaCheckSquare as VerifiedIcon,
+  FaCoins,
+  FaGraduationCap,
+  FaEye,
 } from "react-icons/fa";
 //Utils
 import { HexToRgba } from "@/utils/HexToRgba";
 //Components
 import Skeleton from "@mui/material/Skeleton";
 import { useSession } from "next-auth/react";
+
+import AdmissionStatus from "@/components/admission_status/AdmissionStatus";
+import BioEditor from "@/components/bio_editor/BioEditor";
+import FeedbackAvatar from "@/components/feedback_avatar/FeedbackAvatar";
+import StatsCard from "@/components/stats_card/StatsCard";
+
 //types
 import { User } from "../../../types/user/user";
 import { StaticImageData } from "next/image";
 import CustomModal from "@/components/modal/modal";
+import ConfirmationDialog from "@/components/confirmation_dialog/ConfirmationDialog";
 import { useQuery } from "@tanstack/react-query";
 import { fetchUsers } from "@/utils/fetch_users";
 import Exams from "./Exams";
@@ -61,6 +71,12 @@ const UpdateUser = (
     corrections_points: data.user.correction_point,
     is_pooler: false,
     nickname: data.nickname || null,
+    bio: data.bio || null, // Add bio field
+    // Add admission fields from data
+    accepted: data.accepted || false,
+    reason: data.reason || null,
+    isvalidated: data.isvalidated || false,
+    cheating: data.cheating || false,
   };
   setUserData(ExtractedUserData);
 };
@@ -235,47 +251,26 @@ const StyledProfile = styled.div<StyleProps>`
       width: 100%;
       margin-top: 20px;
       display: flex;
-      gap: 3px;
-      padding: 0px 3px;
-      .State_item {
-        padding: 2px 10px;
-        background-color: rgba(44, 44, 48, 1);
-        border-radius: 5px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 5px;
-        flex: 1 1 auto;
-        font-size: 1rem;
-        font-weight: 800;
-        padding: 6px 0px;
-        span {
-          font-family: var(--main_font);
-          color: rgba(255, 255, 255, 0.4);
-        }
-        .State_item_icon {
-          color: rgba(255, 255, 255, 0.4);
-        }
-        .State_item_active {
-          color: #56ab2f;
-        }
-        .State_item_inactive {
-          color: #e53935;
-        }
-      }
+      gap: 8px;
+      padding: 0px 8px;
     }
   }
 `;
 
 interface Feedback {
-  id: number;
+  id: string;
   feedback_text: string;
   giver: {
     user_name: string;
     image_url: string; // URL to the giver's avatar image
     nickname?: string; // Optional, if available
-    is_verified: true;
+    is_verified: boolean;
+  };
+  receiver?: {
+    user_name: string;
+    image_url: string;
+    nickname?: string;
+    is_verified: boolean;
   };
   created_at: string;
 }
@@ -293,7 +288,10 @@ const Profile: React.FC<ComponentProps> = ({
   const handleCloseModal = () => setIsModalOpen(false);
   //Feedbacks
   const [receivedFeedbacks, setReceivedFeedbacks] = useState<Feedback[]>([]);
+  const [givenFeedbacks, setGivenFeedbacks] = useState<Feedback[]>([]);
   const [feedbackText, setFeedbackText] = useState<string>("");
+  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
+  const [feedbackToDelete, setFeedbackToDelete] = useState<string | null>(null);
 
   async function leaveFeedback(recieverLogin: string, text: string) {
     // user should be verified before being able to provide feedbacks
@@ -327,6 +325,7 @@ const Profile: React.FC<ComponentProps> = ({
       toast.success("Feedback sent successfully!");
       setFeedbackText(""); // Clear the feedback text
       await fetchReceivedFeedbacks();
+      await fetchGivenFeedbacks();
     } catch (err) {
       console.error("Error sending feedback:", err);
       toast.error("Error sending feedback.");
@@ -353,6 +352,62 @@ const Profile: React.FC<ComponentProps> = ({
     }
   };
 
+  const fetchGivenFeedbacks = async () => {
+    try {
+      const res = await fetch(`/api/students/feedbacks/given`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || "Failed to fetch given feedbacks");
+
+      setGivenFeedbacks(data.feedbacks);
+    } catch (err) {
+      console.error("Error fetching given feedbacks:", err);
+    }
+  };
+
+  const deleteFeedback = async (feedbackId: string) => {
+    try {
+      const res = await fetch(`/api/students/feedbacks/delete`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ feedbackId }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || "Failed to delete feedback");
+
+      toast.success("Feedback deleted successfully!");
+      await fetchGivenFeedbacks(); // Refresh given feedbacks
+      await fetchReceivedFeedbacks(); // Refresh received feedbacks in case user deleted feedback to current profile
+    } catch (err) {
+      console.error("Error deleting feedback:", err);
+      toast.error("Error deleting feedback.");
+    }
+  };
+
+  const showDeleteConfirmation = (feedbackId: string) => {
+    setFeedbackToDelete(feedbackId);
+    setShowDeleteDialog(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (feedbackToDelete) {
+      await deleteFeedback(feedbackToDelete);
+      setShowDeleteDialog(false);
+      setFeedbackToDelete(null);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteDialog(false);
+    setFeedbackToDelete(null);
+  };
+
   useEffect(() => {
     if (StudentData != undefined) UpdateUser(StudentData, setUserData);
     setReceivedFeedbacks([]); // Reset feedbacks when StudentData changes
@@ -360,6 +415,7 @@ const Profile: React.FC<ComponentProps> = ({
 
   useEffect(() => {
     fetchReceivedFeedbacks();
+    fetchGivenFeedbacks();
   }, [userData?.id]);
 
   function formatTimeAgo(isoDate: string): string {
@@ -391,6 +447,16 @@ const Profile: React.FC<ComponentProps> = ({
       $banner_url={StudentData?.banner_url}
     >
       <CustomModal open={IsModalOpen} onClose={handleCloseModal} />
+      
+      <ConfirmationDialog
+        isOpen={showDeleteDialog}
+        title="Delete Feedback"
+        message="Are you sure you want to delete this feedback? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelDelete}
+      />
 
       <div className="User_Banner">
         {!list_is_loading ? (
@@ -489,31 +555,75 @@ const Profile: React.FC<ComponentProps> = ({
 
       <div className="ContainerProfile">
         <div className="User_Stats">
-          <div className="State_item">
-            <FaWallet className="State_item_icon" />
-            <span>{userData ? userData.wallet : "-"} ₳</span>
-          </div>
-
-          <div className="State_item">
-            <FaFolder className="State_item_icon" />
-            <span>{userData?.corrections_points} Correction point</span>
-          </div>
-
-          <div className="State_item">
-            <FaTv
-              className={`State_item_icon ${
-                userData?.location ? "State_item_active" : "State_item_inactive"
-              }`}
-            />
-            <span
-              className={`State_item_icon ${
-                userData?.location ? "State_item_active" : "State_item_inactive"
-              }`}
-            >
-              {userData && userData.location ? userData.location : "Offline"}
-            </span>
-          </div>
+          <StatsCard
+            icon={FaCoins}
+            value={`${userData ? userData.wallet : "-"} ₳`}
+            label="Wallet"
+            color="#ffd700"
+          />
+          
+          <StatsCard
+            icon={FaGraduationCap}
+            value={userData?.corrections_points || 0}
+            label="Evaluation Points"
+            color="#4CAF50"
+          />
+          
+          <StatsCard
+            icon={FaEye}
+            value={userData && userData.location ? userData.location : "Offline"}
+            label="Status"
+            color={userData?.location ? "#56ab2f" : "#e53935"}
+          />
         </div>
+
+        {/* Admission Status Section */}
+        {StudentData && (StudentData.accepted !== undefined || StudentData.cheating !== undefined) && (
+          <div style={{
+            marginTop: '20px',
+            padding: '15px',
+            background: 'rgba(33, 33, 37, 0.4)',
+            borderRadius: '12px',
+            border: '1px solid rgba(255, 255, 255, 0.08)',
+            backdropFilter: 'blur(10px)',
+          }}>
+            <h3 style={{
+              fontSize: '0.9rem',
+              fontWeight: '600',
+              color: 'rgba(255, 255, 255, 0.8)',
+              marginBottom: '10px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px',
+            }}>
+              Admission Status
+            </h3>
+            <AdmissionStatus
+              accepted={StudentData.accepted || false}
+              reason={StudentData.reason || null}
+              isvalidated={StudentData.isvalidated || false}
+              cheating={StudentData.cheating || false}
+              level={parseFloat(userData?.level || '0')}
+            />
+          </div>
+        )}
+
+        {/* User Bio Section */}
+        {userData && (
+          <div style={{
+            marginTop: '20px',
+            padding: '15px',
+            background: 'rgba(33, 33, 37, 0.4)',
+            borderRadius: '12px',
+            border: '1px solid rgba(255, 255, 255, 0.08)',
+            backdropFilter: 'blur(10px)',
+          }}>
+            <BioEditor 
+              initialBio={userData.bio} 
+              isEditable={session?.data?.user?.login === userData.login}
+              isOwnProfile={session?.data?.user?.login === userData.login}
+            />
+          </div>
+        )}
       </div>
 
       <StyledUserFeedbacks>
@@ -522,20 +632,18 @@ const Profile: React.FC<ComponentProps> = ({
           <span>No feedbacks received yet.</span>
         )}
         {receivedFeedbacks.map((feedback, key) => {
+          const isMyFeedback = session.data?.user?.login === feedback.giver.user_name;
+          
           return (
             <div
               key={key}
               className="Feedback_el"
-              onClick={() => {
-                window.open(
-                  `https://profile.intra.42.fr/users/${feedback.giver.user_name}`,
-                  "_blank"
-                );
-              }}
             >
-              <div
+              <FeedbackAvatar
+                username={feedback.giver.user_name}
+                imageUrl={feedback.giver.image_url}
+                nickname={feedback.giver.nickname}
                 className="avatar"
-                style={{ backgroundImage: `url(${feedback.giver.image_url})` }}
               />
               <div className="feedback_details">
                 <h1 className="user_name">
@@ -557,6 +665,19 @@ const Profile: React.FC<ComponentProps> = ({
                   {formatTimeAgo(feedback.created_at)}
                 </span>
               </div>
+              
+              {isMyFeedback && (
+                <button
+                  className="delete-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    showDeleteConfirmation(feedback.id);
+                  }}
+                  title="Delete your feedback"
+                >
+                  🗑️
+                </button>
+              )}
             </div>
           );
         })}
@@ -589,12 +710,49 @@ const StyledUserFeedbacks = styled.div`
   flex-direction: column;
   overflow-x: hidden;
 
+  .feedback-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .feedback-tabs {
+    display: flex;
+    gap: 5px;
+  }
+
+  .tab {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    &.active {
+      background: var(--main_color);
+      color: white;
+      border-color: var(--main_color);
+    }
+  }
+
   h2 {
     color: rgba(255, 255, 255, 0.6);
     padding: 10px 0px;
     font-size: 1.2rem;
     font-weight: 400;
+    margin: 0;
   }
+
   .Feedback_el {
     width: 100%;
     height: auto;
@@ -608,9 +766,55 @@ const StyledUserFeedbacks = styled.div`
     border-radius: 5px;
     transition: 0.2s ease-in-out;
     cursor: pointer;
+    position: relative;
+
     &:hover {
       background-color: rgba(255, 255, 255, 0.07);
     }
+
+    &.given-feedback {
+      cursor: default;
+      
+      .avatar {
+        cursor: pointer;
+      }
+    }
+
+    .delete-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+      opacity: 0;
+      transform: scale(0.8);
+
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.5);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+    
+    &:hover .delete-btn {
+      opacity: 1;
+      transform: scale(1);
+    }
+
     .avatar {
       min-width: 40px;
       min-height: 40px;
@@ -620,6 +824,7 @@ const StyledUserFeedbacks = styled.div`
       background-position: center;
       background-size: cover;
     }
+
     .feedback_details {
       width: 100%;
       display: flex;
@@ -628,6 +833,8 @@ const StyledUserFeedbacks = styled.div`
       justify-content: center;
       align-items: flex-start;
       padding: 5px;
+      padding-right: 35px; /* Space for delete button */
+      
       .FeedbackText {
         font-size: 1rem;
         color: rgba(255, 255, 255, 0.5);
@@ -636,6 +843,7 @@ const StyledUserFeedbacks = styled.div`
         max-width: 350px;
         font-weight: 300;
       }
+      
       .time {
         font-size: 1rem;
         color: rgba(255, 255, 255, 0.3);
@@ -644,6 +852,7 @@ const StyledUserFeedbacks = styled.div`
         font-weight: 200;
       }
     }
+    
     .user_name {
       text-transform: uppercase;
       font-size: 1.1rem;
