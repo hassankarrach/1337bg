@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import Modal from "@mui/material/Modal";
 import { Promo } from "../../../types/FortyTwo/types";
@@ -299,7 +299,7 @@ const Profile: React.FC<ComponentProps> = ({
       toast.error("You must be verified to leave feedback.");
       return;
     }
-    // Approximate 2-line limit: max 2 line breaks OR ~200 characters
+
     const lineCount = text.split("\n").length;
     if (lineCount > 2 || text.length > 200) {
       toast.error("Feedback must not exceed 2 lines.");
@@ -323,7 +323,7 @@ const Profile: React.FC<ComponentProps> = ({
       if (!res.ok) throw new Error(data.error || "Failed to send feedback");
 
       toast.success("Feedback sent successfully!");
-      setFeedbackText(""); // Clear the feedback text
+      setFeedbackText(""); 
       await fetchReceivedFeedbacks();
       await fetchGivenFeedbacks();
     } catch (err) {
@@ -332,7 +332,7 @@ const Profile: React.FC<ComponentProps> = ({
     }
   }
 
-  const fetchReceivedFeedbacks = async () => {
+  const fetchReceivedFeedbacks = useCallback(async () => {
     if (!userData?.login) return;
 
     try {
@@ -350,9 +350,9 @@ const Profile: React.FC<ComponentProps> = ({
     } catch (err) {
       console.error("Error fetching feedbacks:", err);
     }
-  };
+  }, [userData?.login]);
 
-  const fetchGivenFeedbacks = async () => {
+  const fetchGivenFeedbacks = useCallback(async () => {
     try {
       const res = await fetch(`/api/students/feedbacks/given`, {
         method: "GET",
@@ -367,7 +367,7 @@ const Profile: React.FC<ComponentProps> = ({
     } catch (err) {
       console.error("Error fetching given feedbacks:", err);
     }
-  };
+  }, []);
 
   const deleteFeedback = async (feedbackId: string) => {
     try {
@@ -382,8 +382,8 @@ const Profile: React.FC<ComponentProps> = ({
       if (!res.ok) throw new Error(data.error || "Failed to delete feedback");
 
       toast.success("Feedback deleted successfully!");
-      await fetchGivenFeedbacks(); // Refresh given feedbacks
-      await fetchReceivedFeedbacks(); // Refresh received feedbacks in case user deleted feedback to current profile
+      await fetchGivenFeedbacks();
+      await fetchReceivedFeedbacks(); 
     } catch (err) {
       console.error("Error deleting feedback:", err);
       toast.error("Error deleting feedback.");
@@ -410,13 +410,16 @@ const Profile: React.FC<ComponentProps> = ({
 
   useEffect(() => {
     if (StudentData != undefined) UpdateUser(StudentData, setUserData);
-    setReceivedFeedbacks([]); // Reset feedbacks when StudentData changes
+    setReceivedFeedbacks([]); 
   }, [StudentData]);
 
   useEffect(() => {
-    fetchReceivedFeedbacks();
-    fetchGivenFeedbacks();
-  }, [userData?.id]);
+    if (userData?.login) {
+      fetchReceivedFeedbacks();
+      fetchGivenFeedbacks();
+    }
+  }, [userData?.login, fetchReceivedFeedbacks, fetchGivenFeedbacks]);
+
 
   function formatTimeAgo(isoDate: string): string {
     const now = new Date();
