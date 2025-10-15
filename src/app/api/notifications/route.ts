@@ -5,13 +5,13 @@ import { db } from "../../../../lib/db";
 
 // GET - Fetch user's notifications
 export async function GET(req: NextRequest) {
-  const session = await getServerSession({ req, ...authOptions });
-  
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   try {
+    const session = await getServerSession(authOptions);
+    
+    if (!session || !session.user?.login) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     // Find user by login
     const user = await db.user.findUnique({
       where: { user_name: session.user.login },
@@ -23,14 +23,14 @@ export async function GET(req: NextRequest) {
     }
 
     // Fetch notifications for the user
-    const notifications = await (db as any).notification.findMany({
+    const notifications = await db.notification.findMany({
       where: { user_id: user.id },
       orderBy: { created_at: "desc" },
       take: 50, // Limit to 50 most recent notifications
     });
 
     // Count unread notifications
-    const unreadCount = await (db as any).notification.count({
+    const unreadCount = await db.notification.count({
       where: { 
         user_id: user.id,
         is_read: false 
@@ -53,15 +53,15 @@ export async function GET(req: NextRequest) {
 
 // PATCH - Mark notification(s) as read
 export async function PATCH(req: NextRequest) {
-  const session = await getServerSession({ req, ...authOptions });
-  
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const { notificationId, markAllAsRead } = await req.json();
-
   try {
+    const session = await getServerSession(authOptions);
+    
+    if (!session || !session.user?.login) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { notificationId, markAllAsRead } = await req.json();
+
     // Find user by login
     const user = await db.user.findUnique({
       where: { user_name: session.user.login },
@@ -74,7 +74,7 @@ export async function PATCH(req: NextRequest) {
 
     if (markAllAsRead) {
       // Mark all notifications as read for this user
-      await (db as any).notification.updateMany({
+      await db.notification.updateMany({
         where: { 
           user_id: user.id,
           is_read: false 
@@ -83,7 +83,7 @@ export async function PATCH(req: NextRequest) {
       });
     } else if (notificationId) {
       // Mark specific notification as read
-      await (db as any).notification.updateMany({
+      await db.notification.updateMany({
         where: { 
           id: notificationId,
           user_id: user.id // Ensure user can only mark their own notifications
